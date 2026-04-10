@@ -103,6 +103,11 @@
     </header>
 
     <div class="main-scroll">
+      <lc-page-loader
+        [visible]="pageLoader.visible()"
+        message="Loading…"
+        mode="contained"
+      />
       <router-outlet />
       <footer class="app-footer">Copyright © 2026 VaLogic LLC. All Rights Reserved.</footer>
     </div>

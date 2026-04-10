@@ -8,6 +8,7 @@ import { ContactsService } from '../../services/contacts.service';
 import { DepartmentsService } from '../../services/departments.service';
 import { GroupsService } from '../../services/groups.service';
 import { LocationsService } from '../../services/locations.service';
+import { PageLoaderService } from '../../services/page-loader.service';
 import { ContactsTabComponent } from './tabs/contacts-tab.component';
 import { DepartmentsTabComponent } from './tabs/departments-tab.component';
 import { GroupsTabComponent } from './tabs/groups-tab.component';
@@ -33,6 +34,7 @@ export class ClientSetupComponent {
   private readonly contactsService = inject(ContactsService);
   private readonly departmentsService = inject(DepartmentsService);
   private readonly groupsService = inject(GroupsService);
+  private readonly pageLoader = inject(PageLoaderService);
 
   /** 0 = Locations, 1 = Contacts, 2 = Departments, 3 = Groups */
   selectedTabIndex = 0;
@@ -45,7 +47,11 @@ export class ClientSetupComponent {
 
   readonly groupCount$ = this.groupsService.getGroups().pipe(map(rows => rows.length));
 
-  selectTab(index: number): void {
+  onTabSelected(index: number): void {
+    if (this.selectedTabIndex === index) {
+      return;
+    }
     this.selectedTabIndex = index;
+    this.pageLoader.flash(1100);
   }
 }

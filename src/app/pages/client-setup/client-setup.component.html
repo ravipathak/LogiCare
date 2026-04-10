@@ -10,7 +10,7 @@
         type="button"
         class="setup-stat-card"
         [class.setup-stat-card--active]="selectedTabIndex === 0"
-        (click)="selectTab(0)"
+        (click)="onTabSelected(0)"
       >
         <mat-icon aria-hidden="true">place</mat-icon>
         <div class="setup-stat-card__content">
@@ -22,7 +22,7 @@
         type="button"
         class="setup-stat-card"
         [class.setup-stat-card--active]="selectedTabIndex === 1"
-        (click)="selectTab(1)"
+        (click)="onTabSelected(1)"
       >
         <mat-icon aria-hidden="true">contacts</mat-icon>
         <div class="setup-stat-card__content">
@@ -34,7 +34,7 @@
         type="button"
         class="setup-stat-card"
         [class.setup-stat-card--active]="selectedTabIndex === 2"
-        (click)="selectTab(2)"
+        (click)="onTabSelected(2)"
       >
         <mat-icon aria-hidden="true">domain</mat-icon>
         <div class="setup-stat-card__content">
@@ -46,7 +46,7 @@
         type="button"
         class="setup-stat-card"
         [class.setup-stat-card--active]="selectedTabIndex === 3"
-        (click)="selectTab(3)"
+        (click)="onTabSelected(3)"
       >
         <mat-icon aria-hidden="true">groups</mat-icon>
         <div class="setup-stat-card__content">
@@ -61,7 +61,7 @@
       animationDuration="200ms"
       [mat-stretch-tabs]="false"
       [selectedIndex]="selectedTabIndex"
-      (selectedIndexChange)="selectedTabIndex = $event"
+      (selectedIndexChange)="onTabSelected($event)"
     >
       <mat-tab>
         <ng-template matTabLabel>

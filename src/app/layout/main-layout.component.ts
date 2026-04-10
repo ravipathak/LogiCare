@@ -9,6 +9,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { PageLoaderService } from '../services/page-loader.service';
+import { LcPageLoaderComponent } from '../shared/ui/lc-page-loader/lc-page-loader.component';
 
 @Component({
   selector: 'app-main-layout',
@@ -22,6 +24,7 @@ import { AuthService } from '../services/auth.service';
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
+    LcPageLoaderComponent,
   ],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss',
@@ -30,6 +33,7 @@ export class MainLayoutComponent {
   private readonly breakpoint = inject(BreakpointObserver);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  readonly pageLoader = inject(PageLoaderService);
 
   readonly isHandset = toSignal(
     this.breakpoint.observe('(max-width: 959px)').pipe(map(r => r.matches)),
