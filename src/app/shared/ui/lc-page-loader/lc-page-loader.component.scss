@@ -31,9 +31,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  padding: 1.75rem 2rem;
-  min-width: min(280px, 100%);
+  justify-content: center;
+  padding: 2rem 2.5rem;
+  min-width: min(320px, 100%);
   border-radius: 14px;
   background: var(--lc-surface-raised);
   border: 1px solid #e2e8f0;
@@ -43,33 +43,37 @@
   animation: lc-loader-panel-in 280ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.lc-page-loader__spinner-wrap {
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: rgba(37, 99, 235, 0.25);
-    animation: lc-loader-ring 1.2s linear infinite;
-    pointer-events: none;
-  }
+.lc-page-loader__brand {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  user-select: none;
+  animation: lc-brand-float 2.4s ease-in-out infinite;
 }
 
-.lc-page-loader__spinner-wrap mat-progress-spinner {
-  --mdc-circular-progress-active-indicator-color: var(--lc-primary-blue);
-  --mdc-circular-progress-size: 48px;
+.lc-page-loader__logi {
+  display: inline-block;
+  color: var(--lc-primary-blue);
+  background: linear-gradient(
+    105deg,
+    #1d4ed8 0%,
+    #3b82f6 40%,
+    #60a5fa 55%,
+    #3b82f6 70%,
+    #2563eb 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: lc-brand-shimmer 2.8s ease-in-out infinite;
 }
 
-.lc-page-loader__message {
-  margin: 0;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: #475569;
-  text-align: center;
-  letter-spacing: 0.01em;
+.lc-page-loader__care {
+  display: inline-block;
+  color: #0f172a;
+  animation: lc-care-pulse 2.4s ease-in-out infinite;
 }
 
 @keyframes lc-loader-fade-in {
@@ -92,8 +96,32 @@
   }
 }
 
-@keyframes lc-loader-ring {
-  to {
-    transform: rotate(360deg);
+@keyframes lc-brand-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes lc-brand-shimmer {
+  0%,
+  100% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes lc-care-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.72;
   }
 }

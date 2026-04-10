@@ -4,13 +4,12 @@
     [class.lc-page-loader__backdrop--fullscreen]="mode() === 'fullscreen'"
     role="status"
     aria-live="polite"
-    [attr.aria-label]="message()"
+    [attr.aria-label]="ariaLabel()"
   >
     <div class="lc-page-loader__panel">
-      <div class="lc-page-loader__spinner-wrap" aria-hidden="true">
-        <mat-progress-spinner mode="indeterminate" diameter="48" strokeWidth="4" />
+      <div class="lc-page-loader__brand" aria-hidden="true">
+        <span class="lc-page-loader__logi">Logi</span><span class="lc-page-loader__care">Care</span>
       </div>
-      <p class="lc-page-loader__message">{{ message() }}</p>
     </div>
   </div>
 }
