@@ -1,0 +1,82 @@
+<div class="lc-create-location">
+  <header class="lc-create-location__header">
+    <h2 class="lc-create-location__title" id="lc-create-location-title">Create Location</h2>
+    <button
+      type="button"
+      mat-icon-button
+      class="lc-create-location__close"
+      aria-label="Close dialog"
+      (click)="close()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+
+  <mat-dialog-content class="lc-create-location__body">
+    <form class="lc-create-location__form" [formGroup]="form" (ngSubmit)="save()">
+      <div class="lc-create-location__grid" aria-labelledby="lc-create-location-title">
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="lc-create-location__field">
+          <mat-label>Location Name</mat-label>
+          <input matInput formControlName="locationName" placeholder="Enter Location Name" autocomplete="organization" />
+          @if (form.controls.locationName.invalid && form.controls.locationName.touched) {
+            <mat-error>Required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="lc-create-location__field">
+          <mat-label>Location Description</mat-label>
+          <input matInput formControlName="locationDescription" placeholder="Enter Location Description" />
+          @if (form.controls.locationDescription.invalid && form.controls.locationDescription.touched) {
+            <mat-error>Required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="lc-create-location__field">
+          <mat-label>Address 1</mat-label>
+          <input matInput formControlName="address1" placeholder="Enter Address 1" autocomplete="address-line1" />
+          @if (form.controls.address1.invalid && form.controls.address1.touched) {
+            <mat-error>Required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="lc-create-location__field">
+          <mat-label>Address 2</mat-label>
+          <input matInput formControlName="address2" placeholder="Enter Address 2" autocomplete="address-line2" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="lc-create-location__field">
+          <mat-label>City</mat-label>
+          <input matInput formControlName="city" placeholder="Enter City" autocomplete="address-level2" />
+          @if (form.controls.city.invalid && form.controls.city.touched) {
+            <mat-error>Required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="lc-create-location__field">
+          <mat-label>State</mat-label>
+          <mat-select formControlName="state" placeholder="Select State">
+            @for (s of stateOptions; track s.code) {
+              <mat-option [value]="s.code">{{ s.name }} ({{ s.code }})</mat-option>
+            }
+          </mat-select>
+          @if (form.controls.state.invalid && form.controls.state.touched) {
+            <mat-error>Required</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" subscriptSizing="dynamic" class="lc-create-location__field lc-create-location__field--zip">
+          <mat-label>ZipCode</mat-label>
+          <input matInput formControlName="zipCode" placeholder="ZipCode" autocomplete="postal-code" />
+          @if (form.controls.zipCode.invalid && form.controls.zipCode.touched) {
+            <mat-error>Required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="lc-create-location__actions" align="end">
+    <button type="button" mat-stroked-button class="lc-create-location__btn-cancel" (click)="close()">Cancel</button>
+    <button type="button" mat-flat-button color="primary" class="lc-create-location__btn-save" (click)="save()">Save</button>
+  </mat-dialog-actions>
+</div>

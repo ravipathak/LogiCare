@@ -1,0 +1,27 @@
+<div class="home">
+  <section class="toolbar-card" aria-label="Scan options">
+    <mat-radio-group class="mode-group" [(ngModel)]="scanMode" name="scanMode">
+      <mat-radio-button value="asset">Asset</mat-radio-button>
+      <mat-radio-button value="standard">Standard</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field class="search-field" appearance="outline" subscriptSizing="dynamic">
+      <mat-icon matPrefix>qr_code_scanner</mat-icon>
+      <input matInput placeholder="To scan the barcode" autocomplete="off" />
+      <button mat-icon-button matSuffix type="button" aria-label="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </section>
+
+  <section class="dashboard" aria-label="Shortcuts">
+    @for (tile of tiles; track tile.label) {
+      <button type="button" class="tile" [attr.aria-label]="tile.label">
+        <span class="tile__icon">
+          <mat-icon>{{ tile.icon }}</mat-icon>
+        </span>
+        <span class="tile__label">{{ tile.label }}</span>
+      </button>
+    }
+  </section>
+</div>

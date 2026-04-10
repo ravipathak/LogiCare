@@ -1,0 +1,62 @@
+[
+  {
+    "locationName": "7495 Research Park",
+    "departmentName": "VaLogic",
+    "departmentDescription": "VaLogic",
+    "status": "Active"
+  },
+  {
+    "locationName": "7495 Research Park",
+    "departmentName": "Facilities Services",
+    "departmentDescription": "Facilities Department",
+    "status": "Active"
+  },
+  {
+    "locationName": "7495 Research Park",
+    "departmentName": "Quality Lab",
+    "departmentDescription": "Quality Control",
+    "status": "Active"
+  },
+  {
+    "locationName": "7495 Research Park",
+    "departmentName": "PD Lab",
+    "departmentDescription": "Product Development Lab",
+    "status": "Active"
+  },
+  {
+    "locationName": "AbelZeta",
+    "departmentName": "PD Lab",
+    "departmentDescription": "PD Lab",
+    "status": "Active"
+  },
+  {
+    "locationName": "AbelZeta",
+    "departmentName": "R&D",
+    "departmentDescription": "Research & Development",
+    "status": "Active"
+  },
+  {
+    "locationName": "AbelZeta",
+    "departmentName": "Facilitiesa",
+    "departmentDescription": "Facilities Department",
+    "status": "Active"
+  },
+  {
+    "locationName": "AbelZeta",
+    "departmentName": "Facilities",
+    "departmentDescription": "Facilities",
+    "status": "Active"
+  },
+  {
+    "locationName": "AbelZeta",
+    "departmentName": "QC",
+    "departmentDescription": "Quality Control",
+    "status": "Active"
+  },
+  {
+    "locationName": "AbelZeta",
+    "departmentName": "21 Byte Court",
+    "departmentDescription": "21 Byte Court",
+    "status": "Active"
+  }
+]

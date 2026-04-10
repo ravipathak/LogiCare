@@ -1,0 +1,120 @@
+.lc-create-location {
+  display: flex;
+  flex-direction: column;
+  max-height: min(90vh, 800px);
+  background: var(--lc-surface-raised);
+  border-radius: var(--lc-radius-md);
+}
+
+.lc-create-location__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px 16px;
+  background: var(--lc-surface-raised);
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.lc-create-location__title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+}
+
+.lc-create-location__close {
+  flex-shrink: 0;
+  color: #64748b;
+
+  &:hover {
+    color: #0f172a;
+  }
+}
+
+.lc-create-location__body {
+  padding: 20px 20px 8px;
+  box-sizing: border-box;
+}
+
+.lc-create-location__form {
+  margin: 0;
+}
+
+.lc-create-location__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 18px;
+  align-items: start;
+}
+
+.lc-create-location__field {
+  width: 100%;
+}
+
+/* Zip on first column only; second cell empty on last row */
+.lc-create-location__field--zip {
+  grid-column: 1;
+}
+
+:host ::ng-deep .lc-create-location__field.mat-mdc-form-field {
+  /* Compact outline fields ~40–44px total control height */
+  --mat-form-field-container-height: 44px;
+  --mat-form-field-container-vertical-padding: 0px;
+}
+
+:host ::ng-deep .lc-create-location__field .mat-mdc-text-field-wrapper {
+  padding-bottom: 0;
+}
+
+:host ::ng-deep .lc-create-location__field .mat-mdc-form-field-infix {
+  min-height: 40px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  box-sizing: border-box;
+}
+
+:host ::ng-deep .lc-create-location__field .mat-mdc-input-element,
+:host ::ng-deep .lc-create-location__field .mat-mdc-select-value {
+  line-height: 1.35;
+}
+
+:host ::ng-deep .lc-create-location__field .mat-mdc-form-field-subscript-wrapper {
+  margin-top: 4px;
+}
+
+.lc-create-location__actions {
+  padding: 16px 20px 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  border-top: 1px solid #e2e8f0;
+  margin: 0;
+  background: var(--lc-surface-raised);
+}
+
+.lc-create-location__btn-cancel {
+  min-width: 88px;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+.lc-create-location__btn-save {
+  min-width: 88px;
+  --mat-sys-primary: var(--lc-primary-blue);
+  --mat-sys-on-primary: #ffffff;
+  font-weight: 500;
+}
+
+@media (max-width: 640px) {
+  .lc-create-location__grid {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+  }
+
+  .lc-create-location__field--zip {
+    grid-column: auto;
+  }
+}

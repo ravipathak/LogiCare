@@ -1,0 +1,29 @@
+<section class="departments">
+  <header class="departments__header">
+    <h2 class="departments__title">Department List</h2>
+
+    <div class="departments__toolbar">
+      <mat-form-field class="departments__search" appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search departments..." />
+        <button mat-icon-button matSuffix type="button" aria-label="Search">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button type="button" mat-flat-button color="primary" class="departments__add">
+        <mat-icon>add</mat-icon>
+        Add Department
+      </button>
+    </div>
+  </header>
+
+  <div class="departments__grid-wrap">
+    <ag-grid-angular
+      class="ag-theme-alpine departments__grid"
+      [gridOptions]="gridOptions"
+      [columnDefs]="columnDefs"
+      [rowData]="rowData$ | async"
+    />
+  </div>
+</section>

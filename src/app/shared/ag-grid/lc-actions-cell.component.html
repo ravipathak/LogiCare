@@ -1,0 +1,28 @@
+<div class="lc-actions-menu">
+  <button
+    mat-stroked-button
+    type="button"
+    class="lc-actions-menu__trigger"
+    [matMenuTriggerFor]="menu"
+    [attr.aria-label]="ariaLabel"
+    (mousedown)="$event.stopPropagation()"
+    (click)="$event.stopPropagation()"
+  >
+    <mat-icon class="lc-actions-menu__cog" aria-hidden="true">settings</mat-icon>
+    <mat-icon class="lc-actions-menu__chevron" aria-hidden="true">expand_more</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu" xPosition="before" panelClass="lc-actions-menu-panel">
+    @for (action of visibleActions(); track action.id) {
+      <button
+        mat-menu-item
+        type="button"
+        [class.lc-actions-menu__danger]="action.danger"
+        (click)="run(action)"
+      >
+        <mat-icon>{{ action.materialIcon }}</mat-icon>
+        <span>{{ action.label }}</span>
+      </button>
+    }
+  </mat-menu>
+</div>

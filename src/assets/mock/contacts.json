@@ -1,0 +1,72 @@
+[
+  {
+    "locationName": "7495 Reasearch Park",
+    "contactName": "EJ Carter",
+    "phone": "703-344-6656",
+    "email": "ej.carter@valogicblo.com",
+    "status": "Inactive"
+  },
+  {
+    "locationName": "7495 Reasearch Park",
+    "contactName": "Neal Martin",
+    "phone": "443-838-6039",
+    "email": "neal.martin@valogicbio.com",
+    "status": "Active"
+  },
+  {
+    "locationName": "AbelZeta",
+    "contactName": "J Ren",
+    "phone": "301-310-6944",
+    "email": "jiaqiang.ren@cellbiomedgroup.com",
+    "status": "Inactive"
+  },
+  {
+    "locationName": "AbelZeta",
+    "contactName": "Jonathan Spaans",
+    "phone": "240-285-3631",
+    "email": "jonathan.spaans@abelzeta.com",
+    "status": "Active"
+  },
+  {
+    "locationName": "AbelZeta",
+    "contactName": "Baiye Henry",
+    "phone": "661-992-2066",
+    "email": "Baiye.Henry@abelzeta.com",
+    "status": "Inactive"
+  },
+  {
+    "locationName": "AbelZeta",
+    "contactName": "Michele Bastani",
+    "phone": "555-555-5555",
+    "email": "Michele.Bastani@abelzeta.com",
+    "status": "Inactive"
+  },
+  {
+    "locationName": "ABL",
+    "contactName": "James Vanderhorst",
+    "phone": "301-633-2200",
+    "email": "james.vanderhorst@ablinc.com",
+    "status": "Active"
+  },
+  {
+    "locationName": "Aenova",
+    "contactName": "Glen Hronich",
+    "phone": "336-665-1300",
+    "email": "N/A@NA.com",
+    "status": "Active"
+  },
+  {
+    "locationName": "AltImmune",
+    "contactName": "Ray Feng",
+    "phone": "240-654-1414",
+    "email": "rfeng@altimmune.com",
+    "status": "Active"
+  },
+  {
+    "locationName": "APT",
+    "contactName": "Bill Robertson",
+    "phone": "301-340-2008",
+    "email": "bill.robertson@valogic.us",
+    "status": "Inactive"
+  }
+]

@@ -1,0 +1,107 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Client Setup</h1>
+    <p class="page-subtitle">Configure locations, contacts, departments, and groups.</p>
+  </header>
+
+  <div class="tabs-card">
+    <section class="setup-stats" aria-label="Client setup summary">
+      <button
+        type="button"
+        class="setup-stat-card"
+        [class.setup-stat-card--active]="selectedTabIndex === 0"
+        (click)="selectTab(0)"
+      >
+        <mat-icon aria-hidden="true">place</mat-icon>
+        <div class="setup-stat-card__content">
+          <strong>{{ (locationCount$ | async) ?? 0 }}</strong>
+          <span>Locations</span>
+        </div>
+      </button>
+      <button
+        type="button"
+        class="setup-stat-card"
+        [class.setup-stat-card--active]="selectedTabIndex === 1"
+        (click)="selectTab(1)"
+      >
+        <mat-icon aria-hidden="true">contacts</mat-icon>
+        <div class="setup-stat-card__content">
+          <strong>{{ (contactCount$ | async) ?? 0 }}</strong>
+          <span>Contacts</span>
+        </div>
+      </button>
+      <button
+        type="button"
+        class="setup-stat-card"
+        [class.setup-stat-card--active]="selectedTabIndex === 2"
+        (click)="selectTab(2)"
+      >
+        <mat-icon aria-hidden="true">domain</mat-icon>
+        <div class="setup-stat-card__content">
+          <strong>{{ (departmentCount$ | async) ?? 0 }}</strong>
+          <span>Departments</span>
+        </div>
+      </button>
+      <button
+        type="button"
+        class="setup-stat-card"
+        [class.setup-stat-card--active]="selectedTabIndex === 3"
+        (click)="selectTab(3)"
+      >
+        <mat-icon aria-hidden="true">groups</mat-icon>
+        <div class="setup-stat-card__content">
+          <strong>{{ (groupCount$ | async) ?? 0 }}</strong>
+          <span>Groups</span>
+        </div>
+      </button>
+    </section>
+
+    <mat-tab-group
+      class="setup-tabs"
+      animationDuration="200ms"
+      [mat-stretch-tabs]="false"
+      [selectedIndex]="selectedTabIndex"
+      (selectedIndexChange)="selectedTabIndex = $event"
+    >
+      <mat-tab>
+        <ng-template matTabLabel>
+          <span class="tab-label">
+            <mat-icon aria-hidden="true">place</mat-icon>
+            Locations
+          </span>
+        </ng-template>
+        <app-locations-tab />
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template matTabLabel>
+          <span class="tab-label">
+            <mat-icon aria-hidden="true">contacts</mat-icon>
+            Contacts
+          </span>
+        </ng-template>
+        <app-contacts-tab />
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template matTabLabel>
+          <span class="tab-label">
+            <mat-icon aria-hidden="true">domain</mat-icon>
+            Departments
+          </span>
+        </ng-template>
+        <app-departments-tab />
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template matTabLabel>
+          <span class="tab-label">
+            <mat-icon aria-hidden="true">groups</mat-icon>
+            Groups
+          </span>
+        </ng-template>
+        <app-groups-tab />
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>

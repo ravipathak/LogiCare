@@ -1,0 +1,110 @@
+<mat-sidenav-container class="shell">
+  <mat-sidenav
+    #drawer
+    id="app-sidebar-nav"
+    class="sidebar"
+    [mode]="isHandset() ? 'over' : 'side'"
+    [opened]="sidebarOpen()"
+    (openedChange)="onSidenavOpenedChange($event)"
+  >
+    <div class="sidebar-inner">
+      <div class="sidebar-profile">
+        <div class="avatar" aria-hidden="true">{{ shortName.charAt(0) }}</div>
+        <div class="profile-text">
+          <div class="profile-name">{{ userName }}</div>
+          <span class="badge">Super Admin</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Main">
+        <a
+          class="nav-item"
+          routerLink="/home"
+          routerLinkActive="is-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMobileMenu()"
+        >
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </a>
+
+        <div class="nav-group">
+          <button type="button" class="nav-item nav-item--expandable" [class.is-open]="adminExpanded()" (click)="toggleAdmin()">
+            <mat-icon>manage_accounts</mat-icon>
+            <span>Administration</span>
+            <mat-icon class="chevron">{{ adminExpanded() ? 'expand_less' : 'expand_more' }}</mat-icon>
+          </button>
+          @if (adminExpanded()) {
+            <div class="nav-sub">
+              <span class="nav-subitem nav-subitem--muted">Standard</span>
+              <span class="nav-subitem nav-subitem--muted">Asset</span>
+              <a class="nav-subitem" routerLink="/admin/client-setup" routerLinkActive="is-active" (click)="closeMobileMenu()">
+                Client Setup
+              </a>
+              <span class="nav-subitem nav-subitem--muted">User</span>
+            </div>
+          }
+        </div>
+
+        <a class="nav-item" routerLink="/home" fragment="audit" (click)="closeMobileMenu()">
+          <mat-icon>assignment</mat-icon>
+          <span>Audit Trail</span>
+        </a>
+        <a class="nav-item" routerLink="/home" fragment="reports" (click)="closeMobileMenu()">
+          <mat-icon>description</mat-icon>
+          <span>Reports</span>
+        </a>
+        <a class="nav-item" routerLink="/home" fragment="help" (click)="closeMobileMenu()">
+          <mat-icon>help_outline</mat-icon>
+          <span>Help</span>
+        </a>
+        <a class="nav-item" routerLink="/home" fragment="about" (click)="closeMobileMenu()">
+          <mat-icon>info_outline</mat-icon>
+          <span>About</span>
+        </a>
+      </nav>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main">
+    <header class="top-bar">
+      <div class="top-bar__brand">
+        <button
+          type="button"
+          mat-icon-button
+          class="top-bar__menu"
+          (click)="toggleSidenav()"
+          [attr.aria-expanded]="sidebarOpen()"
+          aria-controls="app-sidebar-nav"
+          aria-label="Toggle navigation"
+        >
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="logo">
+          <span class="logo__accent">Logi</span><span class="logo__rest">Care</span>
+        </span>
+      </div>
+      <div class="top-bar__user">
+        <button type="button" mat-button [matMenuTriggerFor]="userMenu" class="user-trigger">
+          {{ shortName }}
+          <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu" xPosition="before">
+          <button mat-menu-item disabled>
+            <mat-icon>person</mat-icon>
+            Profile
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>logout</mat-icon>
+            Sign out
+          </button>
+        </mat-menu>
+      </div>
+    </header>
+
+    <div class="main-scroll">
+      <router-outlet />
+      <footer class="app-footer">Copyright © 2026 VaLogic LLC. All Rights Reserved.</footer>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,52 @@
+[
+  {
+    "groupName": "Air Handler",
+    "description": "Air Handler",
+    "status": "Active"
+  },
+  {
+    "groupName": "Air Sampler",
+    "description": "Air Sampler",
+    "status": "Active"
+  },
+  {
+    "groupName": "Alarm Status",
+    "description": "Alarm Status",
+    "status": "Active"
+  },
+  {
+    "groupName": "Amps",
+    "description": "Ampere",
+    "status": "Active"
+  },
+  {
+    "groupName": "Analyzer",
+    "description": "",
+    "status": "Active"
+  },
+  {
+    "groupName": "Autoclave",
+    "description": "",
+    "status": "Active"
+  },
+  {
+    "groupName": "BACT/Alert",
+    "description": "",
+    "status": "Active"
+  },
+  {
+    "groupName": "Balance/Scale",
+    "description": "",
+    "status": "Active"
+  },
+  {
+    "groupName": "Barcode Reader",
+    "description": "",
+    "status": "Active"
+  },
+  {
+    "groupName": "Bead Bath",
+    "description": "Bead Bath",
+    "status": "Active"
+  }
+]

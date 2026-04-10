@@ -1,0 +1,96 @@
+@use './app/shared/styles/ag-grid-theme';
+
+:root {
+  /* App shell + Client Setup (single source of truth) */
+  --lc-page-bg: #f8fafc;
+  --lc-surface-muted: #f1f5f9;
+  --lc-surface-raised: #ffffff;
+  --lc-radius-md: 8px;
+  --lc-spacing-page: clamp(16px, 2.5vw, 24px);
+  --lc-shadow-card: 0 1px 2px rgba(15, 23, 42, 0.05), 0 4px 16px rgba(15, 23, 42, 0.06);
+  --lc-shadow-card-strong: 0 2px 8px rgba(15, 23, 42, 0.07), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --lc-sidebar-width: 272px;
+  --lc-sidebar-bg: #0f172a;
+  --lc-header-bg: #1e293b;
+  --lc-sidebar-active-bg: #1e293b;
+  --lc-primary-blue: #2563eb;
+  --lc-tab-indicator: #2563eb;
+  --lc-grid-header-bg: #f1f5f9;
+  --lc-status-active-bg: #e6f4ea;
+  --lc-status-active-fg: #1e7e34;
+  --lc-status-inactive-bg: #ffeaea;
+  --lc-status-inactive-fg: #b42318;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+app-root {
+  height: 100%;
+  display: block;
+}
+
+/* Mat sidenav: avoid default border that reads as a gap next to the drawer */
+.mat-drawer-side {
+  border-right: none;
+}
+
+/* Client Setup modals — white surface, subtle shadow, matches app cards */
+.lc-create-location-dialog-panel .mat-mdc-dialog-container,
+.lc-create-contact-dialog-panel .mat-mdc-dialog-container {
+  padding: 0;
+  border-radius: var(--lc-radius-md);
+  overflow: hidden;
+  background: var(--lc-surface-raised);
+  box-shadow: var(--lc-shadow-card);
+}
+
+/* Shared AG Grid — actions menu (overlay is attached to body) */
+.lc-actions-menu-panel {
+  .mat-mdc-menu-item {
+    min-height: 44px;
+  }
+
+  .mat-mdc-menu-item .mat-icon {
+    margin-right: 0.75rem;
+    color: #475569;
+  }
+
+  .lc-actions-menu__danger .mat-icon {
+    color: #b91c1c;
+  }
+}
+
+/* Shared AG Grid — status pill (`lcStatusBadgeCellRenderer`) */
+.lc-status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 1.25;
+  color: #64748b;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+.lc-status-badge--active {
+  color: var(--lc-status-active-fg);
+  background: var(--lc-status-active-bg);
+  border-color: #b7e0c0;
+}
+
+.lc-status-badge--inactive {
+  color: var(--lc-status-inactive-fg);
+  background: var(--lc-status-inactive-bg);
+  border-color: #f5c4c1;
+}

@@ -1,0 +1,35 @@
+<section class="locations">
+  <header class="locations__header">
+    <h2 class="locations__title">Locations List</h2>
+
+    <div class="locations__toolbar">
+      <mat-form-field class="locations__search" appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search locations..." />
+        <button mat-icon-button matSuffix type="button" aria-label="Search">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button
+        type="button"
+        mat-flat-button
+        color="primary"
+        class="locations__add"
+        (click)="openCreateLocation()"
+      >
+        <mat-icon>add</mat-icon>
+        Add Location
+      </button>
+    </div>
+  </header>
+
+  <div class="locations__grid-wrap">
+    <ag-grid-angular
+      class="ag-theme-alpine locations__grid"
+      [gridOptions]="gridOptions"
+      [columnDefs]="columnDefs"
+      [rowData]="rowData$ | async"
+    />
+  </div>
+</section>

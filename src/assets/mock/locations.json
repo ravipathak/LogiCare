@@ -1,0 +1,52 @@
+[
+  {
+    "locationName": "Navinta III Inc",
+    "description": "Navinta III Inc",
+    "status": "Active"
+  },
+  {
+    "locationName": "Mainstreet Family Care",
+    "description": "Family Care",
+    "status": "Active"
+  },
+  {
+    "locationName": "Lung Bioengineering, Inc",
+    "description": "United Theradaptive",
+    "status": "Active"
+  },
+  {
+    "locationName": "VaLogic Boston",
+    "description": "Boston",
+    "status": "Active"
+  },
+  {
+    "locationName": "Lab-Vault",
+    "description": "Lab-Vault",
+    "status": "Active"
+  },
+  {
+    "locationName": "Ellington Geological Services",
+    "description": "Ellington Geological Serv...",
+    "status": "Active"
+  },
+  {
+    "locationName": "Montgomery County Sheriff's Office",
+    "description": "Montgomery County Sheriff...",
+    "status": "Active"
+  },
+  {
+    "locationName": "KIN-TEC Analytical",
+    "description": "KIN-TEC Analytical",
+    "status": "Active"
+  },
+  {
+    "locationName": "Certispec services",
+    "description": "Certispec services",
+    "status": "Active"
+  },
+  {
+    "locationName": "Pure Pharmaceuticals",
+    "description": "Pure Pharmaceuticals",
+    "status": "Active"
+  }
+]
