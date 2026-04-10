@@ -5,6 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { routes } from './app.routes';
 
@@ -13,7 +14,12 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideAnimationsAsync(),
     provideRouter(routes),
-    importProvidersFrom(AgGridModule, MatNativeDateModule, MatDialogModule),
+    importProvidersFrom(
+      AgGridModule,
+      MatNativeDateModule,
+      MatDialogModule,
+      MatSnackBarModule,
+    ),
     provideHttpClient(),
   ],
 };

@@ -7,7 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-main-layout',
@@ -27,6 +28,8 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class MainLayoutComponent {
   private readonly breakpoint = inject(BreakpointObserver);
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
 
   readonly isHandset = toSignal(
     this.breakpoint.observe('(max-width: 959px)').pipe(map(r => r.matches)),
@@ -56,5 +59,10 @@ export class MainLayoutComponent {
     if (this.isHandset()) {
       this.sidebarOpen.set(false);
     }
+  }
+
+  signOut(): void {
+    this.auth.logout();
+    void this.router.navigate(['/login']);
   }
 }

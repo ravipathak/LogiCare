@@ -1,4 +1,5 @@
 @use './app/shared/styles/ag-grid-theme';
+@use './app/shared/styles/toast';
 
 :root {
   /* App shell + Client Setup (single source of truth) */
@@ -20,6 +21,20 @@
   --lc-status-active-fg: #1e7e34;
   --lc-status-inactive-bg: #ffeaea;
   --lc-status-inactive-fg: #b42318;
+
+  /* Toasts (see `_toast.scss`) */
+  --lc-toast-error-bg: #fff1f2;
+  --lc-toast-error-border: #fecdd3;
+  --lc-toast-error-fg: #9f1239;
+  --lc-toast-success-bg: #ecfdf5;
+  --lc-toast-success-border: #a7f3d0;
+  --lc-toast-success-fg: #065f46;
+  --lc-toast-warning-bg: #fffbeb;
+  --lc-toast-warning-border: #fde68a;
+  --lc-toast-warning-fg: #92400e;
+  --lc-toast-info-bg: #eff6ff;
+  --lc-toast-info-border: #bfdbfe;
+  --lc-toast-info-fg: #1e40af;
 }
 
 html,
