@@ -1,4 +1,7 @@
-<mat-sidenav-container class="shell">
+<mat-sidenav-container
+  class="shell"
+  [class.lc-shell--nav-collapsed-desktop]="!sidebarOpen() && !isHandset()"
+>
   <mat-sidenav
     #drawer
     id="app-sidebar-nav"
@@ -41,7 +44,9 @@
               <a class="nav-subitem" routerLink="/admin/client-setup" routerLinkActive="is-active" (click)="closeMobileMenu()">
                 Client Setup
               </a>
-              <span class="nav-subitem nav-subitem--muted">User</span>
+              <a class="nav-subitem" routerLink="/admin/users" routerLinkActive="is-active" (click)="closeMobileMenu()">
+                Users
+              </a>
             </div>
           }
         </div>

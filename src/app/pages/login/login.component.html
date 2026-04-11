@@ -1,4 +1,5 @@
 <div class="login-page">
+  <lc-page-loader [visible]="pageLoader.visible()" mode="contained" />
   <div class="login-card" role="main">
     <div class="login-brand">
       <span class="logo">
@@ -10,7 +11,13 @@
     <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
       <mat-form-field appearance="outline" class="login-field">
         <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" autocomplete="username" />
+        <input
+          matInput
+          type="email"
+          formControlName="email"
+          autocomplete="username"
+          [readonly]="step() === 2"
+        />
         <mat-icon matPrefix>mail_outline</mat-icon>
         @if (form.controls.email.hasError('required') && form.controls.email.touched) {
           <mat-error>Email is required</mat-error>
@@ -20,23 +27,82 @@
         }
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="login-field">
-        <mat-label>Password</mat-label>
-        <input
-          matInput
-          type="password"
-          formControlName="password"
-          autocomplete="current-password"
-        />
-        <mat-icon matPrefix>lock_outline</mat-icon>
-        @if (form.controls.password.hasError('required') && form.controls.password.touched) {
-          <mat-error>Password is required</mat-error>
-        }
-      </mat-form-field>
+      @if (step() === 1) {
+        <button
+          mat-flat-button
+          class="login-submit login-submit--primary"
+          type="submit"
+          color="primary"
+          [disabled]="pageLoader.visible()"
+        >
+          Continue
+        </button>
+      }
 
-      <button mat-flat-button class="login-submit" type="submit" color="primary">
-        Sign in
-      </button>
+      @if (step() === 2) {
+        <div class="login-step2">
+          <button
+            type="button"
+            class="login-change-email"
+            mat-button
+            (click)="onBackToEmail()"
+            [disabled]="pageLoader.visible()"
+          >
+            <mat-icon>arrow_back</mat-icon>
+            Change email
+          </button>
+
+          <fieldset class="role-fieldset">
+            <legend class="role-legend">Select your role</legend>
+            <div
+              class="role-grid"
+              role="radiogroup"
+              aria-label="Select your role"
+            >
+              @for (opt of roleOptions; track opt.value) {
+                <button
+                  type="button"
+                  class="role-tile"
+                  [class.role-tile--selected]="form.controls.role.value === opt.value"
+                  [attr.aria-checked]="form.controls.role.value === opt.value"
+                  role="radio"
+                  (click)="selectRole(opt.value)"
+                >
+                  <mat-icon class="role-tile__icon" aria-hidden="true">{{ opt.icon }}</mat-icon>
+                  <span class="role-tile__label">{{ opt.label }}</span>
+                </button>
+              }
+            </div>
+            @if (form.controls.role.hasError('required') && form.controls.role.touched) {
+              <p class="role-error" role="alert">Please select a role</p>
+            }
+          </fieldset>
+
+          <mat-form-field appearance="outline" class="login-field">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              autocomplete="current-password"
+            />
+            <mat-icon matPrefix>lock_outline</mat-icon>
+            @if (form.controls.password.hasError('required') && form.controls.password.touched) {
+              <mat-error>Password is required</mat-error>
+            }
+          </mat-form-field>
+
+          <button
+            mat-flat-button
+            class="login-submit"
+            type="submit"
+            color="primary"
+            [disabled]="pageLoader.visible()"
+          >
+            Sign in
+          </button>
+        </div>
+      }
     </form>
   </div>
 </div>

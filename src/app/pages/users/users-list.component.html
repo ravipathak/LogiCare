@@ -1,0 +1,93 @@
+<section class="page users-list">
+  <div class="users-list__top">
+    <h1 class="users-list__page-title">Users List</h1>
+    <div class="users-list__top-actions">
+      <button
+        type="button"
+        mat-flat-button
+        class="users-list__btn-print"
+        (click)="printPdf()"
+      >
+        <mat-icon>picture_as_pdf</mat-icon>
+        Print PDF
+      </button>
+      <button
+        type="button"
+        mat-flat-button
+        color="primary"
+        class="users-list__btn-create"
+        (click)="createUser()"
+      >
+        <mat-icon>add</mat-icon>
+        Create User
+      </button>
+    </div>
+  </div>
+
+  <div class="users-list__controls">
+    <div class="users-list__status-group">
+      <span class="users-list__show-label">Show</span>
+      <mat-form-field
+        class="users-list__select users-list__select--status"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <mat-select
+          [value]="statusFilter()"
+          (selectionChange)="onStatusChange($event.value)"
+        >
+          <mat-option value="active">Active</mat-option>
+          <mat-option value="inactive">Inactive</mat-option>
+          <mat-option value="all">All</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span class="users-list__show-suffix">Users</span>
+    </div>
+
+    <div class="users-list__controls-right">
+      <mat-form-field
+        class="users-list__search"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <mat-label>Search Users</mat-label>
+        <input
+          matInput
+          type="search"
+          [value]="searchText()"
+          (input)="onSearchInput($any($event.target).value)"
+          autocomplete="off"
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <div class="users-list__page-size">
+        <span class="users-list__show-label">Show</span>
+        <mat-form-field
+          class="users-list__select users-list__select--pagesize"
+          appearance="outline"
+          subscriptSizing="dynamic"
+        >
+          <mat-select
+            [value]="pageSize()"
+            (selectionChange)="onPageSizeChange($event.value)"
+          >
+            <mat-option [value]="10">10</mat-option>
+            <mat-option [value]="25">25</mat-option>
+            <mat-option [value]="50">50</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <span class="users-list__show-suffix">entries</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="users-list__grid-wrap">
+    <ag-grid-angular
+      class="ag-theme-alpine users-list__grid"
+      [gridOptions]="gridOptions"
+      [columnDefs]="columnDefs"
+      [rowData]="filteredRows()"
+    />
+  </div>
+</section>

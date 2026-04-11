@@ -4,6 +4,7 @@
 }
 
 .login-page {
+  position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -14,7 +15,7 @@
 }
 
 .login-card {
-  width: min(100%, 400px);
+  width: min(100%, 440px);
   padding: 2rem 1.75rem 1.75rem;
   border-radius: var(--lc-radius-md);
   background: var(--lc-surface-raised);
@@ -66,4 +67,137 @@
   width: 100%;
   height: 44px;
   font-weight: 600;
+}
+
+.login-submit--primary {
+  margin-top: 0.5rem;
+}
+
+.login-step2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+  animation: login-step2-in 260ms ease-out;
+}
+
+.login-change-email {
+  align-self: flex-start;
+  margin: 0 0 0.35rem -0.5rem;
+  color: var(--lc-primary-blue);
+  font-weight: 500;
+
+  mat-icon {
+    margin-right: 0.15rem;
+    font-size: 1.1rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    vertical-align: middle;
+  }
+}
+
+.role-fieldset {
+  margin: 0.35rem 0 0.75rem;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+
+.role-legend {
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 0.65rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.role-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  clear: both;
+  width: 100%;
+}
+
+.role-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 88px;
+  padding: 0.75rem 0.5rem;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+  background: var(--lc-surface-muted);
+  color: #334155;
+  cursor: pointer;
+  font: inherit;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.12s ease;
+
+  &:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--lc-primary-blue);
+    outline-offset: 2px;
+  }
+}
+
+.role-tile--selected {
+  border-color: var(--lc-primary-blue);
+  background: #eff6ff;
+  color: #1e3a8a;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.12);
+
+  .role-tile__icon {
+    color: var(--lc-primary-blue);
+  }
+}
+
+.role-tile__icon {
+  font-size: 1.65rem;
+  width: 1.65rem;
+  height: 1.65rem;
+  color: #64748b;
+  transition: color 0.15s ease;
+}
+
+.role-tile__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.role-error {
+  margin: 0.5rem 0 0;
+  font-size: 0.8125rem;
+  color: #b91c1c;
+}
+
+@keyframes login-step2-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 380px) {
+  .role-grid {
+    grid-template-columns: 1fr;
+  }
 }

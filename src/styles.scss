@@ -56,6 +56,14 @@ app-root {
   border-right: none;
 }
 
+/* Desktop: hamburger hides the left rail — main area is full width; drop inner page max-width */
+.lc-shell--nav-collapsed-desktop app-client-setup .page,
+.lc-shell--nav-collapsed-desktop app-home .page,
+.lc-shell--nav-collapsed-desktop app-organization .page,
+.lc-shell--nav-collapsed-desktop app-users-list .page {
+  max-width: none;
+}
+
 /* Client Setup modals — white surface, subtle shadow, matches app cards */
 .lc-create-location-dialog-panel .mat-mdc-dialog-container,
 .lc-create-contact-dialog-panel .mat-mdc-dialog-container {

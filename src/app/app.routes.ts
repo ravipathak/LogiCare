@@ -35,6 +35,11 @@ export const routes: Routes = [
             m => m.ClientSetupComponent,
           ),
       },
+      {
+        path: 'admin/users',
+        loadComponent: () =>
+          import('./pages/users/users-list.component').then(m => m.UsersListComponent),
+      },
     ],
   },
 ];
