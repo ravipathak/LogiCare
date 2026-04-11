@@ -1,0 +1,276 @@
+<section class="page lc-create-standard-page">
+  <div class="lc-create-standard">
+    <header class="lc-create-standard__header">
+      <div class="lc-create-standard__head-text">
+        <h1 class="lc-create-standard__title">Create Standard</h1>
+        <p class="lc-create-standard__subtitle">Manage assets and standards — use the tabs to complete each section.</p>
+      </div>
+      <a mat-flat-button class="lc-create-standard__back" routerLink="/admin/schedule">
+        <mat-icon>arrow_back</mat-icon>
+        Back to Schedule
+      </a>
+    </header>
+
+    <form class="lc-create-standard__form" [formGroup]="form" (ngSubmit)="save()" novalidate>
+      <mat-tab-group
+        class="lc-create-standard__tabs"
+        animationDuration="200ms"
+        [mat-stretch-tabs]="false"
+        [selectedIndex]="selectedTabIndex"
+        (selectedIndexChange)="onTabChange($event)"
+      >
+        <mat-tab>
+          <ng-template matTabLabel>
+            <span class="lc-create-standard__tab-label">General</span>
+          </ng-template>
+          <div class="lc-create-standard__panel">
+            <h2 class="lc-create-standard__panel-title">General</h2>
+
+            <div class="lc-dialog-form-stack">
+              <div class="lc-dialog-form-row--2">
+                <mat-form-field appearance="outline" subscriptSizing="fixed" [hideRequiredMarker]="true">
+                  <mat-label>Location <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <mat-select formControlName="locationId" placeholder="Select location">
+                    @for (o of locationOptions; track o.value) {
+                      <mat-option [value]="o.value">{{ o.label }}</mat-option>
+                    }
+                  </mat-select>
+                  @if (form.controls.locationId.invalid && form.controls.locationId.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                </mat-form-field>
+                <mat-form-field appearance="outline" subscriptSizing="fixed" [hideRequiredMarker]="true">
+                  <mat-label>Contact <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <mat-select formControlName="contactId" placeholder="Select contact">
+                    @for (o of contactOptions; track o.value) {
+                      <mat-option [value]="o.value">{{ o.label }}</mat-option>
+                    }
+                  </mat-select>
+                  @if (form.controls.contactId.invalid && form.controls.contactId.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+
+              <div class="lc-dialog-form-row--2">
+                <mat-form-field appearance="outline" subscriptSizing="fixed" [hideRequiredMarker]="true">
+                  <mat-label>Department <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <mat-select formControlName="departmentId" placeholder="Select department">
+                    @for (o of departmentOptions; track o.value) {
+                      <mat-option [value]="o.value">{{ o.label }}</mat-option>
+                    }
+                  </mat-select>
+                  @if (form.controls.departmentId.invalid && form.controls.departmentId.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                </mat-form-field>
+                <mat-form-field appearance="outline" subscriptSizing="fixed" [hideRequiredMarker]="true">
+                  <mat-label>Room <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <mat-select formControlName="roomId" placeholder="Select room">
+                    @for (o of roomOptions; track o.value) {
+                      <mat-option [value]="o.value">{{ o.label }}</mat-option>
+                    }
+                  </mat-select>
+                  @if (form.controls.roomId.invalid && form.controls.roomId.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+
+              <mat-form-field appearance="outline" subscriptSizing="fixed" [hideRequiredMarker]="true">
+                <mat-label>Categories <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                <mat-select formControlName="categories" placeholder="Select categories" multiple>
+                  @for (c of categoryOptions; track c.value) {
+                    <mat-option [value]="c.value">{{ c.label }}</mat-option>
+                  }
+                </mat-select>
+                <mat-hint>Choose every category that applies to this standard.</mat-hint>
+                @if (form.controls.categories.hasError('categoriesRequired') && form.controls.categories.touched) {
+                  <mat-error>Select at least one category</mat-error>
+                }
+              </mat-form-field>
+
+              <div class="lc-dialog-form-row--2">
+                <mat-form-field appearance="outline" subscriptSizing="fixed" [hideRequiredMarker]="true">
+                  <mat-label>ID Number <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <input matInput formControlName="idNumber" placeholder="ID number" autocomplete="off" />
+                  @if (form.controls.idNumber.invalid && form.controls.idNumber.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                </mat-form-field>
+                <mat-form-field appearance="outline" subscriptSizing="fixed">
+                  <mat-label>Alternate tracking no.</mat-label>
+                  <input matInput formControlName="alternateTrackingNo" placeholder="Optional" autocomplete="off" />
+                </mat-form-field>
+              </div>
+
+              <mat-form-field appearance="outline" subscriptSizing="fixed" [hideRequiredMarker]="true">
+                <mat-label>Description <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                <input matInput formControlName="description" placeholder="Description" autocomplete="off" />
+                @if (form.controls.description.invalid && form.controls.description.touched) {
+                  <mat-error>Required</mat-error>
+                }
+              </mat-form-field>
+
+              <div class="lc-dialog-form-row--2">
+                <mat-form-field appearance="outline" subscriptSizing="fixed" [hideRequiredMarker]="true">
+                  <mat-label>System name <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <input matInput formControlName="systemName" placeholder="System name" autocomplete="off" />
+                  @if (form.controls.systemName.invalid && form.controls.systemName.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                </mat-form-field>
+                <mat-form-field appearance="outline" subscriptSizing="fixed">
+                  <mat-label>Serial no.</mat-label>
+                  <input matInput formControlName="serialNo" placeholder="Serial number" autocomplete="off" />
+                </mat-form-field>
+              </div>
+
+              <div class="lc-dialog-form-row--2">
+                <mat-form-field appearance="outline" subscriptSizing="fixed" [hideRequiredMarker]="true">
+                  <mat-label>Make <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <input matInput formControlName="make" placeholder="Make" autocomplete="off" />
+                  @if (form.controls.make.invalid && form.controls.make.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                </mat-form-field>
+                <mat-form-field appearance="outline" subscriptSizing="fixed" [hideRequiredMarker]="true">
+                  <mat-label>Model no. <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <input matInput formControlName="modelNo" placeholder="Model number" autocomplete="off" />
+                  @if (form.controls.modelNo.invalid && form.controls.modelNo.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template matTabLabel>
+            <span class="lc-create-standard__tab-label">Attributes</span>
+          </ng-template>
+          <div class="lc-create-standard__panel">
+            <div class="lc-create-standard__panel-head">
+              <h2 class="lc-create-standard__panel-title">Attributes</h2>
+              <button type="button" mat-stroked-button color="primary" (click)="addAttributeRow()">
+                <mat-icon>add</mat-icon>
+                Add row
+              </button>
+            </div>
+            <p class="lc-create-standard__hint">
+              Optional rows for category, units, operating range, accuracy, and calibration tolerance.
+            </p>
+
+            @if (attributes.length === 0) {
+              <div class="lc-create-standard__empty-attributes" role="status">
+                <mat-icon aria-hidden="true">tune</mat-icon>
+                <span>No attribute rows yet. Use <strong>Add row</strong> when you need detailed calibration metadata.</span>
+              </div>
+            } @else {
+              <div class="lc-create-standard__attr-list" formArrayName="attributes">
+                @for (row of attributes.controls; track $index; let i = $index) {
+                  <div class="lc-create-standard__attr-card" [formGroupName]="i">
+                    <div class="lc-create-standard__attr-card-head">
+                      <span class="lc-create-standard__attr-card-title">Row {{ i + 1 }}</span>
+                      <button type="button" mat-icon-button (click)="removeAttributeRow(i)" aria-label="Remove row">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                    </div>
+                    <div class="lc-dialog-form-stack lc-create-standard__attr-fields">
+                      <div class="lc-dialog-form-row--2">
+                        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                          <mat-label>Category</mat-label>
+                          <input matInput formControlName="category" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                          <mat-label>Eng. units</mat-label>
+                          <input matInput formControlName="engUnits" />
+                        </mat-form-field>
+                      </div>
+                      <div class="lc-dialog-form-row--2">
+                        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                          <mat-label>Oper. range</mat-label>
+                          <input matInput formControlName="operRange" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                          <mat-label>Accuracy</mat-label>
+                          <input matInput formControlName="accuracy" />
+                        </mat-form-field>
+                      </div>
+                      <div class="lc-dialog-form-row--2">
+                        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                          <mat-label>Resolution</mat-label>
+                          <input matInput formControlName="resolution" />
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                          <mat-label>Cal tolerance (±)</mat-label>
+                          <input matInput formControlName="calTolerance" />
+                        </mat-form-field>
+                      </div>
+                      <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                        <mat-label>Cal units</mat-label>
+                        <input matInput formControlName="calUnits" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                }
+              </div>
+            }
+          </div>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template matTabLabel>
+            <span class="lc-create-standard__tab-label">Schedules</span>
+          </ng-template>
+          <div class="lc-create-standard__panel">
+            <h2 class="lc-create-standard__panel-title">Schedules</h2>
+            <p class="lc-create-standard__hint">Turn on the sections you use; details can be added when scheduling is connected.</p>
+
+            <div class="lc-create-standard__schedule-stack">
+              <div class="lc-create-standard__toggle-row">
+                <mat-slide-toggle formControlName="calibrationScheduleEnabled" color="primary">
+                  Activate calibration schedule
+                </mat-slide-toggle>
+              </div>
+              <div class="lc-create-standard__toggle-block">
+                <mat-slide-toggle formControlName="pmScheduleEnabled" color="primary">
+                  Activate preventive maintenance schedule
+                </mat-slide-toggle>
+                <mat-checkbox formControlName="pmApplyCertificate" class="lc-create-standard__nested-check">
+                  Apply certificate
+                </mat-checkbox>
+              </div>
+              <div class="lc-create-standard__toggle-row">
+                <mat-slide-toggle formControlName="validationScheduleEnabled" color="primary">
+                  Activate validation schedule
+                </mat-slide-toggle>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab>
+          <ng-template matTabLabel>
+            <span class="lc-create-standard__tab-label">Comments</span>
+          </ng-template>
+          <div class="lc-create-standard__panel">
+            <h2 class="lc-create-standard__panel-title">Comments</h2>
+            <mat-form-field appearance="outline" subscriptSizing="dynamic" class="lc-create-standard__comments">
+              <mat-label>Notes</mat-label>
+              <textarea matInput formControlName="comments" rows="10" placeholder="Internal notes, handoff details, or reminders"></textarea>
+            </mat-form-field>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+
+      <footer class="lc-create-standard__actions">
+        <a mat-stroked-button class="lc-create-standard__cancel" routerLink="/admin/schedule">Cancel</a>
+        <button type="submit" mat-flat-button color="primary" class="lc-create-standard__submit">
+          Create Standard
+        </button>
+      </footer>
+    </form>
+  </div>
+</section>

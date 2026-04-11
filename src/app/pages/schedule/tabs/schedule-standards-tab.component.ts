@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AgGridAngular } from 'ag-grid-angular';
 import type { ColDef, GridOptions } from 'ag-grid-community';
@@ -33,6 +34,7 @@ import { ScheduleService, type ScheduleStandardRow } from '../../../services/sch
 })
 export class ScheduleStandardsTabComponent {
   private readonly scheduleService = inject(ScheduleService);
+  private readonly router = inject(Router);
 
   readonly locationFilter = signal<string>('all');
   readonly searchText = signal('');
@@ -111,5 +113,7 @@ export class ScheduleStandardsTabComponent {
     },
   ];
 
-  addStandard(): void {}
+  addStandard(): void {
+    void this.router.navigate(['/admin/schedule/create-standard']);
+  }
 }

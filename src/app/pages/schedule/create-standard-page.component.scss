@@ -1,0 +1,250 @@
+/* Outer shell matches Client Setup: 1200px cap; global rule drops max-width when nav is collapsed. */
+.page.lc-create-standard-page {
+  padding: var(--lc-spacing-page);
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.lc-create-standard {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  background: var(--lc-surface-raised);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: var(--lc-shadow-card-strong);
+  overflow: hidden;
+}
+
+.lc-create-standard__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 16px;
+  padding: 14px 18px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+}
+
+.lc-create-standard__title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+}
+
+.lc-create-standard__subtitle {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #64748b;
+  max-width: 52ch;
+}
+
+/* Match Create User — dark filled back control (not stroked). */
+.lc-create-standard__back {
+  flex-shrink: 0;
+  background: #334155 !important;
+  color: #f8fafc !important;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 0 1.1rem;
+  min-height: 42px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+
+  mat-icon {
+    margin-right: 0.35rem;
+    font-size: 1.15rem;
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  &:hover {
+    background: #1e293b !important;
+  }
+}
+
+.lc-create-standard__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.lc-create-standard__tabs {
+  --mat-tab-header-divider-color: transparent;
+  --mat-tab-active-indicator-height: 2px;
+  --mat-tab-active-indicator-color: var(--lc-tab-indicator);
+  --mdc-secondary-navigation-tab-active-indicator-color: var(--lc-tab-indicator);
+  --mat-tab-header-active-label-text-color: #0f172a;
+  --mat-tab-header-inactive-label-text-color: #64748b;
+}
+
+:host ::ng-deep .lc-create-standard__tabs .mat-mdc-tab-header {
+  padding: 0 16px;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+:host ::ng-deep .lc-create-standard__tabs .mat-mdc-tab-body-wrapper {
+  background: #ffffff;
+}
+
+.lc-create-standard__tab-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.lc-create-standard__panel {
+  padding: 20px 20px 8px;
+  box-sizing: border-box;
+}
+
+.lc-create-standard__panel-title {
+  margin: 0 0 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+  letter-spacing: -0.01em;
+}
+
+.lc-create-standard__panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+
+  .lc-create-standard__panel-title {
+    margin: 0;
+  }
+}
+
+.lc-create-standard__hint {
+  margin: 0 0 16px;
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+.lc-create-standard__empty-attributes {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1px dashed #cbd5e1;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.5;
+
+  mat-icon {
+    flex-shrink: 0;
+    color: #64748b;
+    margin-top: 2px;
+  }
+}
+
+.lc-create-standard__attr-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lc-create-standard__attr-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px 14px 14px;
+  background: #fafbfc;
+}
+
+.lc-create-standard__attr-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.lc-create-standard__attr-card-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #64748b;
+}
+
+.lc-create-standard__attr-fields.lc-dialog-form-stack {
+  gap: 10px;
+}
+
+.lc-create-standard__schedule-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 480px;
+}
+
+.lc-create-standard__toggle-row,
+.lc-create-standard__toggle-block {
+  padding: 14px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.lc-create-standard__toggle-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.lc-create-standard__nested-check {
+  margin-left: 0.25rem;
+}
+
+.lc-create-standard__comments {
+  width: 100%;
+}
+
+.lc-create-standard__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 14px 20px 18px;
+  border-top: 1px solid #e2e8f0;
+  background: #fafbfc;
+}
+
+.lc-create-standard__cancel {
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+  font-weight: 600;
+  min-width: 96px;
+}
+
+.lc-create-standard__submit {
+  font-weight: 600;
+  min-width: 160px;
+  --mat-sys-primary: var(--lc-primary-blue);
+  --mat-sys-on-primary: #ffffff;
+}
+
+.lc-create-standard .lc-dialog-form-stack {
+  gap: 12px;
+}
+
+.lc-create-standard .lc-dialog-form-row--2 {
+  gap: 14px;
+}
+
+@media (max-width: 640px) {
+  .lc-create-standard__header {
+    flex-direction: column;
+  }
+}

@@ -36,6 +36,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'admin/schedule/create-standard',
+        loadComponent: () =>
+          import('./pages/schedule/create-standard-page.component').then(
+            m => m.CreateStandardPageComponent,
+          ),
+      },
+      {
         path: 'admin/schedule',
         loadComponent: () =>
           import('./pages/schedule/schedule.component').then(m => m.ScheduleComponent),
