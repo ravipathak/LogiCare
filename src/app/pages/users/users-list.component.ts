@@ -9,11 +9,11 @@ import type {
   ICellRendererParams,
 } from 'ag-grid-community';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-
+import { RouterLink } from '@angular/router';
 import type { UserRow } from '../../services/users.service';
 import { UsersService } from '../../services/users.service';
 import { ToastService } from '../../services/toast.service';
@@ -26,10 +26,10 @@ import {
 function avatarCellRenderer(): HTMLElement {
   const wrap = document.createElement('div');
   wrap.className = 'lc-user-avatar-cell';
+  wrap.setAttribute('title', 'No profile photo');
   wrap.innerHTML = `
-    <div class="lc-user-avatar-cell__box">
-      <span class="material-icons lc-user-avatar-cell__icon" aria-hidden="true">person</span>
-      <span class="lc-user-avatar-cell__hint">NO IMAGE FOUND</span>
+    <div class="lc-user-avatar-cell__box" role="img" aria-label="No profile photo">
+      <span class="material-icons lc-user-avatar-cell__icon" aria-hidden="true">image_not_supported</span>
     </div>`;
   return wrap;
 }
@@ -53,11 +53,12 @@ export type UserStatusFilter = 'all' | 'active' | 'inactive';
   standalone: true,
   imports: [
     AgGridAngular,
+    RouterLink,
     MatButtonModule,
+    MatButtonToggleModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule,
   ],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.scss',
@@ -65,12 +66,10 @@ export type UserStatusFilter = 'all' | 'active' | 'inactive';
 export class UsersListComponent {
   private readonly usersService = inject(UsersService);
   private readonly toast = inject(ToastService);
-
   private gridApi: GridApi<UserRow> | null = null;
 
   readonly statusFilter = signal<UserStatusFilter>('active');
   readonly searchText = signal('');
-  readonly pageSize = signal(10);
 
   readonly allRows = toSignal(this.usersService.getUsers(), { initialValue: [] as UserRow[] });
 
@@ -96,7 +95,7 @@ export class UsersListComponent {
     ...createDefaultLogiCareGridOptions<UserRow>(),
     paginationPageSize: 10,
     getRowHeight: params => {
-      const n = params.data?.roles.length ?? 1;
+      const n = params.data?.roles?.length ?? 1;
       return Math.min(132, Math.max(48, 36 + n * 22));
     },
     onGridReady: (e: GridReadyEvent<UserRow>) => {
@@ -113,8 +112,8 @@ export class UsersListComponent {
     {
       colId: 'avatar',
       headerName: 'User Image',
-      maxWidth: 120,
-      minWidth: 108,
+      maxWidth: 100,
+      minWidth: 88,
       sortable: false,
       filter: false,
       cellRenderer: avatarCellRenderer,
@@ -223,17 +222,9 @@ export class UsersListComponent {
     this.searchText.set(value);
   }
 
-  onPageSizeChange(value: number): void {
-    this.pageSize.set(value);
-    this.gridApi?.setGridOption('paginationPageSize', value);
-  }
-
   printPdf(): void {
     this.toast.info('PDF export will run when reporting is connected.');
     window.print();
   }
 
-  createUser(): void {
-    this.toast.info('Create User will open when the user API is available.');
-  }
 }

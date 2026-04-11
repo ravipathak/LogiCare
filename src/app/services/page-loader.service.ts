@@ -18,6 +18,11 @@ export class PageLoaderService {
     this.depth.update(d => Math.max(0, d - 1));
   }
 
+  /** Clears all overlays (e.g. shell destroyed mid-navigation). */
+  reset(): void {
+    this.depth.set(0);
+  }
+
   /** Shows the loader for a fixed duration (demo / simulated API). */
   flash(durationMs = 1100): void {
     this.show();

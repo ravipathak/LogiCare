@@ -1,0 +1,228 @@
+<section class="page create-user-page">
+  <div class="lc-create-user lc-create-user--page">
+    <header class="lc-create-user__header">
+      <h2 class="lc-create-user__title" id="lc-create-user-title">Create User</h2>
+      <a mat-flat-button class="lc-create-user__back" routerLink="/admin/users">
+        <mat-icon>arrow_back</mat-icon>
+        Back to List
+      </a>
+    </header>
+
+    <main class="lc-create-user__body">
+      <form
+        id="lc-create-user-form"
+        class="lc-create-user__form"
+        [formGroup]="form"
+        (ngSubmit)="save()"
+        novalidate
+      >
+        <div class="lc-create-user__columns" aria-labelledby="lc-create-user-title">
+          <div class="lc-create-user__col lc-create-user__col--personal">
+            <div class="lc-create-user__section-head">
+              <mat-icon class="lc-create-user__section-icon" aria-hidden="true">person</mat-icon>
+              <span class="lc-create-user__section-title">Personal Info</span>
+            </div>
+
+            <div class="lc-dialog-form-stack">
+              <div class="lc-dialog-form-row--2">
+                <mat-form-field
+                  appearance="outline"
+                  subscriptSizing="fixed"
+                  class="lc-create-user__field"
+                  [hideRequiredMarker]="true"
+                >
+                  <mat-label>Last Name <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <input
+                    matInput
+                    formControlName="lastName"
+                    placeholder="Please enter Last Name"
+                    autocomplete="family-name"
+                  />
+                  @if (form.controls.lastName.invalid && form.controls.lastName.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                </mat-form-field>
+                <mat-form-field
+                  appearance="outline"
+                  subscriptSizing="fixed"
+                  class="lc-create-user__field"
+                  [hideRequiredMarker]="true"
+                >
+                  <mat-label>First Name <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <input
+                    matInput
+                    formControlName="firstName"
+                    placeholder="Please enter First Name"
+                    autocomplete="given-name"
+                  />
+                  @if (form.controls.firstName.invalid && form.controls.firstName.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+
+              <mat-form-field
+                appearance="outline"
+                subscriptSizing="fixed"
+                class="lc-create-user__field"
+                [hideRequiredMarker]="true"
+              >
+                <mat-label>Username / Email ID <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                <input matInput type="email" formControlName="email" autocomplete="username" />
+                <mat-icon matSuffix class="lc-create-user__suffix-icon">alternate_email</mat-icon>
+                @if (form.controls.email.hasError('required') && form.controls.email.touched) {
+                  <mat-error>Required</mat-error>
+                }
+                @if (form.controls.email.hasError('email') && form.controls.email.touched) {
+                  <mat-error>Enter a valid email</mat-error>
+                }
+              </mat-form-field>
+
+              <div class="lc-dialog-form-row--2">
+                <mat-form-field
+                  appearance="outline"
+                  subscriptSizing="fixed"
+                  class="lc-create-user__field"
+                  [hideRequiredMarker]="true"
+                >
+                  <mat-label>Password <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <input
+                    matInput
+                    [type]="hidePassword() ? 'password' : 'text'"
+                    formControlName="password"
+                    autocomplete="new-password"
+                  />
+                  <span matSuffix class="lc-create-user__suffix-group">
+                    <button
+                      type="button"
+                      mat-icon-button
+                      class="lc-create-user__visibility"
+                      (click)="hidePassword.set(!hidePassword())"
+                      [attr.aria-label]="hidePassword() ? 'Show password' : 'Hide password'"
+                      [attr.aria-pressed]="!hidePassword()"
+                    >
+                      <mat-icon>{{ hidePassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                  </span>
+                  @if (form.controls.password.invalid && form.controls.password.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                </mat-form-field>
+                <mat-form-field
+                  appearance="outline"
+                  subscriptSizing="fixed"
+                  class="lc-create-user__field"
+                  [hideRequiredMarker]="true"
+                >
+                  <mat-label>Confirm Password <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                  <input
+                    matInput
+                    [type]="hideConfirmPassword() ? 'password' : 'text'"
+                    formControlName="confirmPassword"
+                    placeholder="Re-enter the password"
+                    autocomplete="new-password"
+                  />
+                  <span matSuffix class="lc-create-user__suffix-group">
+                    <button
+                      type="button"
+                      mat-icon-button
+                      class="lc-create-user__visibility"
+                      (click)="hideConfirmPassword.set(!hideConfirmPassword())"
+                      [attr.aria-label]="hideConfirmPassword() ? 'Show confirm password' : 'Hide confirm password'"
+                      [attr.aria-pressed]="!hideConfirmPassword()"
+                    >
+                      <mat-icon>{{ hideConfirmPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+                    </button>
+                  </span>
+                  @if (form.controls.confirmPassword.invalid && form.controls.confirmPassword.touched) {
+                    <mat-error>Required</mat-error>
+                  }
+                  @if (form.hasError('passwordMismatch') && form.controls.confirmPassword.touched) {
+                    <mat-error>Passwords do not match</mat-error>
+                  }
+                </mat-form-field>
+              </div>
+
+              <mat-form-field
+                appearance="outline"
+                subscriptSizing="fixed"
+                class="lc-create-user__field"
+                [hideRequiredMarker]="true"
+              >
+                <mat-label>Roles <span class="lc-req-star" aria-hidden="true">*</span></mat-label>
+                <mat-select formControlName="roles" placeholder="Select one or more roles" multiple>
+                  @for (r of roleOptions; track r.value) {
+                    <mat-option [value]="r.value">{{ r.label }}</mat-option>
+                  }
+                </mat-select>
+                @if (form.controls.roles.hasError('rolesRequired') && form.controls.roles.touched) {
+                  <mat-error>Select at least one role</mat-error>
+                }
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" subscriptSizing="fixed" class="lc-create-user__field">
+                <mat-label>Locations</mat-label>
+                <mat-select formControlName="locationId" placeholder="None selected">
+                  <mat-option value="">None selected</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="lc-create-user__col lc-create-user__col--photo">
+            <div class="lc-create-user__section-head">
+              <mat-icon class="lc-create-user__section-icon" aria-hidden="true">photo_camera</mat-icon>
+              <span class="lc-create-user__section-title">User's Profile Image</span>
+            </div>
+
+            <div class="lc-dialog-form-stack">
+              <div class="lc-create-user__hint-box" role="note">
+                <div class="lc-create-user__hint-line">
+                  <mat-icon aria-hidden="true">touch_app</mat-icon>
+                  <span>Only PNG and JPEG/JPG are allowed.</span>
+                </div>
+                <div class="lc-create-user__hint-line">
+                  <mat-icon aria-hidden="true">touch_app</mat-icon>
+                  <span>Max 30kb file is allowed.</span>
+                </div>
+              </div>
+
+              <div class="lc-create-user__file-row">
+                <span class="lc-create-user__file-name">{{ profileFileName() }}</span>
+                <input
+                  #profileFileInput
+                  class="lc-create-user__file-input"
+                  type="file"
+                  accept="image/png,image/jpeg,.jpg,.jpeg"
+                  (change)="onProfileFileChange($event)"
+                />
+                <button
+                  type="button"
+                  mat-flat-button
+                  color="primary"
+                  class="lc-create-user__choose-file"
+                  (click)="profileFileInput.click()"
+                >
+                  Choose File
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </main>
+
+    <footer class="lc-create-user__actions">
+      <button
+        type="submit"
+        mat-flat-button
+        color="primary"
+        class="lc-create-user__submit"
+        form="lc-create-user-form"
+      >
+        <mat-icon>send</mat-icon>
+        Create User
+      </button>
+    </footer>
+  </div>
+</section>

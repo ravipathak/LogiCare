@@ -1,0 +1,30 @@
+/**
+ * Shared spacing for modal / dialog forms (Create User, Create Location, Create Contact, future popups).
+ * Uses tokens from `:root` in `styles.scss`.
+ */
+
+.lc-dialog-form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lc-dialog-form-row-gap);
+  min-width: 0;
+}
+
+.lc-dialog-form-row--2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--lc-dialog-form-col-gap);
+  align-items: flex-start;
+}
+
+.lc-dialog-form-stack .mat-mdc-form-field,
+.lc-dialog-form-row--2 .mat-mdc-form-field {
+  width: 100%;
+  min-width: 0;
+}
+
+/* One red asterisk after label text — pair with `[hideRequiredMarker]="true"` on mat-form-field */
+.lc-req-star {
+  color: #dc2626;
+  font-weight: 700;
+}

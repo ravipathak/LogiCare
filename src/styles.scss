@@ -1,5 +1,6 @@
 @use './app/shared/styles/ag-grid-theme';
 @use './app/shared/styles/toast';
+@use './app/shared/styles/dialog-forms';
 
 :root {
   /* App shell + Client Setup (single source of truth) */
@@ -35,6 +36,10 @@
   --lc-toast-info-bg: #eff6ff;
   --lc-toast-info-border: #bfdbfe;
   --lc-toast-info-fg: #1e40af;
+
+  /* Dialog / popup forms — vertical & horizontal rhythm (see `_dialog-forms.scss`) */
+  --lc-dialog-form-row-gap: 20px;
+  --lc-dialog-form-col-gap: 20px;
 }
 
 html,
@@ -60,7 +65,8 @@ app-root {
 .lc-shell--nav-collapsed-desktop app-client-setup .page,
 .lc-shell--nav-collapsed-desktop app-home .page,
 .lc-shell--nav-collapsed-desktop app-organization .page,
-.lc-shell--nav-collapsed-desktop app-users-list .page {
+.lc-shell--nav-collapsed-desktop app-users-list .page,
+.lc-shell--nav-collapsed-desktop app-create-user-page .page {
   max-width: none;
 }
 
@@ -68,10 +74,12 @@ app-root {
 .lc-create-location-dialog-panel .mat-mdc-dialog-container,
 .lc-create-contact-dialog-panel .mat-mdc-dialog-container {
   padding: 0;
-  border-radius: var(--lc-radius-md);
+  border-radius: 12px;
   overflow: hidden;
   background: var(--lc-surface-raised);
-  box-shadow: var(--lc-shadow-card);
+  box-shadow:
+    0 25px 50px -12px rgba(15, 23, 42, 0.2),
+    var(--lc-shadow-card);
 }
 
 /* Shared AG Grid — actions menu (overlay is attached to body) */

@@ -11,80 +11,55 @@
         <mat-icon>picture_as_pdf</mat-icon>
         Print PDF
       </button>
-      <button
-        type="button"
+      <a
         mat-flat-button
         color="primary"
         class="users-list__btn-create"
-        (click)="createUser()"
+        routerLink="/admin/users/create"
       >
         <mat-icon>add</mat-icon>
         Create User
-      </button>
+      </a>
     </div>
   </div>
 
   <div class="users-list__controls">
-    <div class="users-list__status-group">
-      <span class="users-list__show-label">Show</span>
-      <mat-form-field
-        class="users-list__select users-list__select--status"
-        appearance="outline"
-        subscriptSizing="dynamic"
+    <div class="users-list__filter-block">
+      <span class="users-list__filter-label" id="users-status-filter-label">Status</span>
+      <mat-button-toggle-group
+        class="users-list__status-toggle"
+        [value]="statusFilter()"
+        (change)="onStatusChange($event.value)"
+        aria-labelledby="users-status-filter-label"
+        hideSingleSelectionIndicator
       >
-        <mat-select
-          [value]="statusFilter()"
-          (selectionChange)="onStatusChange($event.value)"
-        >
-          <mat-option value="active">Active</mat-option>
-          <mat-option value="inactive">Inactive</mat-option>
-          <mat-option value="all">All</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <span class="users-list__show-suffix">Users</span>
+        <mat-button-toggle value="active">Active</mat-button-toggle>
+        <mat-button-toggle value="inactive">Inactive</mat-button-toggle>
+        <mat-button-toggle value="all">All</mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
 
-    <div class="users-list__controls-right">
-      <mat-form-field
-        class="users-list__search"
-        appearance="outline"
-        subscriptSizing="dynamic"
-      >
-        <mat-label>Search Users</mat-label>
-        <input
-          matInput
-          type="search"
-          [value]="searchText()"
-          (input)="onSearchInput($any($event.target).value)"
-          autocomplete="off"
-        />
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-
-      <div class="users-list__page-size">
-        <span class="users-list__show-label">Show</span>
-        <mat-form-field
-          class="users-list__select users-list__select--pagesize"
-          appearance="outline"
-          subscriptSizing="dynamic"
-        >
-          <mat-select
-            [value]="pageSize()"
-            (selectionChange)="onPageSizeChange($event.value)"
-          >
-            <mat-option [value]="10">10</mat-option>
-            <mat-option [value]="25">25</mat-option>
-            <mat-option [value]="50">50</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <span class="users-list__show-suffix">entries</span>
-      </div>
-    </div>
+    <mat-form-field
+      class="users-list__search"
+      appearance="outline"
+      subscriptSizing="dynamic"
+    >
+      <mat-label>Search Users</mat-label>
+      <input
+        matInput
+        type="search"
+        [value]="searchText()"
+        (input)="onSearchInput($any($event.target).value)"
+        autocomplete="off"
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
   </div>
 
   <div class="users-list__grid-wrap">
     <ag-grid-angular
       class="ag-theme-alpine users-list__grid"
+      style="width: 100%; height: 100%; display: block"
       [gridOptions]="gridOptions"
       [columnDefs]="columnDefs"
       [rowData]="filteredRows()"

@@ -36,6 +36,11 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'admin/users/create',
+        loadComponent: () =>
+          import('./pages/users/create-user-page.component').then(m => m.CreateUserPageComponent),
+      },
+      {
         path: 'admin/users',
         loadComponent: () =>
           import('./pages/users/users-list.component').then(m => m.UsersListComponent),

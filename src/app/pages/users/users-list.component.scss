@@ -63,6 +63,10 @@
 }
 
 .users-list__btn-create {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  text-decoration: none;
   min-height: 40px;
   padding: 0 1rem;
   font-weight: 600;
@@ -84,36 +88,49 @@
 .users-list__controls {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 16px 24px;
   margin-bottom: 20px;
 }
 
-.users-list__status-group,
-.users-list__page-size {
+.users-list__filter-block {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 
-.users-list__show-label,
-.users-list__show-suffix {
-  font-size: 0.9375rem;
-  color: #475569;
-  white-space: nowrap;
+.users-list__filter-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #64748b;
 }
 
-.users-list__controls-right {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 16px 24px;
-  margin-left: auto;
-  justify-content: flex-end;
-  flex: 1 1 auto;
-  min-width: 0;
+.users-list__status-toggle {
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--lc-surface-muted);
+
+  .mat-button-toggle {
+    min-width: 88px;
+    height: 40px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: #475569;
+  }
+
+  .mat-button-toggle-checked {
+    background: #eff6ff !important;
+    color: var(--lc-primary-blue) !important;
+  }
+
+  .mat-button-toggle-button {
+    padding: 0 14px;
+  }
 }
 
 .users-list__search {
@@ -121,20 +138,7 @@
   max-width: 360px;
   min-width: 200px;
   margin-bottom: 0;
-}
-
-.users-list__select {
-  margin-bottom: 0;
-  width: auto;
-  min-width: 120px;
-}
-
-.users-list__select--status {
-  min-width: 140px;
-}
-
-.users-list__select--pagesize {
-  min-width: 88px;
+  margin-left: auto;
 }
 
 .users-list__grid-wrap {
@@ -142,7 +146,9 @@
   border: 1px solid #e2e8f0;
   background: var(--lc-surface-raised);
   box-shadow: var(--lc-shadow-card-strong);
-  min-height: 420px;
+  /* Explicit height so AG Grid can measure the viewport (flex-only parents often yield 0px body height). */
+  height: min(520px, 62vh);
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -163,10 +169,16 @@
   --ag-background-color: #ffffff;
   --ag-row-hover-color: rgba(37, 99, 235, 0.06);
   --ag-selected-row-background-color: rgba(37, 99, 235, 0.1);
+  flex: 1 1 auto;
+  min-height: 0;
   width: 100%;
-  flex: 1;
-  min-height: 400px;
-  height: min(560px, 62vh);
+  height: 100%;
+}
+
+/* Ensure the grid’s internal root fills the host (AG Grid needs a definite height chain). */
+:host ::ng-deep .users-list__grid .ag-root-wrapper,
+:host ::ng-deep .users-list__grid .ag-root-wrapper-body.ag-layout-normal {
+  height: 100%;
 }
 
 :host ::ng-deep .users-list__grid .ag-header-cell {
@@ -221,33 +233,21 @@
 
 .lc-user-avatar-cell__box {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  border: 1px solid #cbd5e1;
-  border-radius: 4px;
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-  color: #64748b;
-  gap: 2px;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #94a3b8;
   box-sizing: border-box;
 }
 
 .lc-user-avatar-cell__icon {
-  font-size: 22px;
+  font-size: 26px;
   line-height: 1;
-  color: #3b82f6;
-}
-
-.lc-user-avatar-cell__hint {
-  font-size: 7px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-align: center;
-  line-height: 1.15;
-  max-width: 52px;
-  color: #64748b;
+  color: #94a3b8;
 }
 
 .lc-user-roles-cell {
@@ -271,14 +271,17 @@
     align-items: stretch;
   }
 
-  .users-list__controls-right {
+  .users-list__search {
     margin-left: 0;
-    flex-direction: column;
-    align-items: stretch;
+    max-width: none;
   }
 
-  .users-list__search {
-    max-width: none;
+  .users-list__status-toggle {
+    width: 100%;
+
+    .mat-button-toggle {
+      flex: 1;
+    }
   }
 
   .users-list__top {
