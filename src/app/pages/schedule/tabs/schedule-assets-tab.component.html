@@ -1,0 +1,47 @@
+<section class="schedule-tab">
+  <header class="schedule-tab__header">
+    <h2 class="schedule-tab__title">Assets</h2>
+
+    <div class="schedule-tab__toolbar">
+      <mat-form-field class="schedule-tab__locations" appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Locations</mat-label>
+        <mat-select [value]="locationFilter()" (selectionChange)="locationFilter.set($event.value)">
+          <mat-option value="all">All Locations</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="schedule-tab__search" appearance="outline" subscriptSizing="dynamic">
+        <mat-label>Search</mat-label>
+        <input matInput placeholder="Search assets..." [value]="searchText()" (input)="searchText.set($any($event.target).value)" />
+        <button mat-icon-button matSuffix type="button" aria-label="Search">
+          <mat-icon>search</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button type="button" mat-flat-button color="primary" class="schedule-tab__add" (click)="addAsset()">
+        <mat-icon>add</mat-icon>
+        Add Asset
+      </button>
+    </div>
+  </header>
+
+  <div class="schedule-tab__grid-wrap">
+    @if (isEmpty()) {
+      <div class="schedule-tab__empty" aria-live="polite">
+        <p class="schedule-tab__empty-title">No assets found</p>
+        <p class="schedule-tab__empty-sub">Get started by adding your first asset.</p>
+        <button type="button" mat-flat-button color="primary" class="schedule-tab__empty-btn" (click)="addAsset()">
+          <mat-icon>add</mat-icon>
+          Add Asset
+        </button>
+      </div>
+    }
+    <ag-grid-angular
+      class="ag-theme-alpine schedule-tab__grid"
+      [class.schedule-tab__grid--faded]="isEmpty()"
+      [gridOptions]="gridOptions"
+      [columnDefs]="columnDefs"
+      [rowData]="rowData$ | async"
+    />
+  </div>
+</section>

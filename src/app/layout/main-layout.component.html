@@ -39,10 +39,11 @@
           </button>
           @if (adminExpanded()) {
             <div class="nav-sub">
-              <span class="nav-subitem nav-subitem--muted">Standard</span>
-              <span class="nav-subitem nav-subitem--muted">Asset</span>
               <a class="nav-subitem" routerLink="/admin/client-setup" routerLinkActive="is-active" (click)="closeMobileMenu()">
                 Client Setup
+              </a>
+              <a class="nav-subitem" routerLink="/admin/schedule" routerLinkActive="is-active" (click)="closeMobileMenu()">
+                Schedule
               </a>
               <a class="nav-subitem" routerLink="/admin/users" routerLinkActive="is-active" (click)="closeMobileMenu()">
                 Users

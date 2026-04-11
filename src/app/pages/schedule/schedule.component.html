@@ -1,0 +1,63 @@
+<section class="page">
+  <header class="page-header">
+    <h1 class="page-title">Schedule</h1>
+    <p class="page-subtitle">Manage standards and assets by location.</p>
+  </header>
+
+  <div class="tabs-card">
+    <section class="setup-stats" aria-label="Schedule summary">
+      <button
+        type="button"
+        class="setup-stat-card"
+        [class.setup-stat-card--active]="selectedTabIndex === 0"
+        (click)="onTabSelected(0)"
+      >
+        <mat-icon aria-hidden="true">fact_check</mat-icon>
+        <div class="setup-stat-card__content">
+          <strong>{{ (standardsCount$ | async) ?? 0 }}</strong>
+          <span>Standards</span>
+        </div>
+      </button>
+      <button
+        type="button"
+        class="setup-stat-card"
+        [class.setup-stat-card--active]="selectedTabIndex === 1"
+        (click)="onTabSelected(1)"
+      >
+        <mat-icon aria-hidden="true">inventory_2</mat-icon>
+        <div class="setup-stat-card__content">
+          <strong>{{ (assetsCount$ | async) ?? 0 }}</strong>
+          <span>Assets</span>
+        </div>
+      </button>
+    </section>
+
+    <mat-tab-group
+      class="setup-tabs"
+      animationDuration="200ms"
+      [mat-stretch-tabs]="false"
+      [selectedIndex]="selectedTabIndex"
+      (selectedIndexChange)="onTabSelected($event)"
+    >
+      <mat-tab>
+        <ng-template matTabLabel>
+          <span class="tab-label">
+            <mat-icon aria-hidden="true">fact_check</mat-icon>
+            Standards
+          </span>
+        </ng-template>
+        <app-schedule-standards-tab />
+      </mat-tab>
+
+      <mat-tab>
+        <ng-template matTabLabel>
+          <span class="tab-label">
+            <mat-icon aria-hidden="true">inventory_2</mat-icon>
+            Assets
+          </span>
+        </ng-template>
+        <app-schedule-assets-tab />
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>
