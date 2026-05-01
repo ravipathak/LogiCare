@@ -47,17 +47,73 @@
   margin-bottom: 0;
 }
 
+:host ::ng-deep .locations__search .mat-mdc-text-field-wrapper {
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow:
+    0 8px 18px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  transition:
+    box-shadow 0.16s ease,
+    transform 0.16s ease;
+}
+
+:host ::ng-deep .locations__search:hover .mat-mdc-text-field-wrapper {
+  box-shadow:
+    0 12px 24px rgba(15, 23, 42, 0.11),
+    0 0 0 2px rgba(59, 130, 246, 0.08);
+}
+
+:host ::ng-deep .locations__search.mat-focused .mat-mdc-text-field-wrapper {
+  box-shadow:
+    0 14px 26px rgba(37, 99, 235, 0.18),
+    0 0 0 2px rgba(59, 130, 246, 0.2);
+  transform: translateY(-1px);
+}
+
+:host ::ng-deep .locations__search .mat-mdc-form-field-infix {
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+:host ::ng-deep .locations__search .locations__search-suffix {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 0.1rem;
+}
+
+:host ::ng-deep .locations__search .locations__search-divider {
+  display: inline-block;
+  width: 1px;
+  height: 22px;
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0.25), rgba(37, 99, 235, 0.5), rgba(148, 163, 184, 0.25));
+}
+
+:host ::ng-deep .locations__search .locations__search-suffix mat-icon {
+  color: #2563eb;
+  font-size: 1.15rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  opacity: 0.88;
+}
+
 .locations__add {
   flex: 0 0 auto;
   min-height: 44px;
   padding: 0 1.1rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.01em;
-  border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(37, 99, 235, 0.22);
+  border-radius: 10px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 55%, #1d4ed8 100%);
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.3);
   /* M3 filled button reads primary from system tokens */
   --mat-sys-primary: var(--lc-primary-blue);
   --mat-sys-on-primary: #ffffff;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    filter 0.16s ease;
 
   mat-icon {
     margin-right: 0.2rem;
@@ -65,15 +121,32 @@
     font-size: 1.25rem;
     width: 1.25rem;
     height: 1.25rem;
+    transition: transform 0.16s ease;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.04);
+    box-shadow: 0 14px 28px rgba(37, 99, 235, 0.34);
+
+    mat-icon {
+      transform: rotate(90deg);
+    }
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 }
 
 /* Square corners: rounded wrapper clips AG Grid header fill */
 .locations__grid-wrap {
-  border-radius: 0;
-  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  border: 1px solid #dbeafe;
   background: var(--lc-surface-raised);
-  box-shadow: var(--lc-shadow-card-strong);
+  box-shadow:
+    0 14px 30px rgba(30, 41, 59, 0.12),
+    var(--lc-shadow-card-strong);
   min-height: 420px;
   display: flex;
   flex-direction: column;
@@ -86,20 +159,20 @@
 
 /* Grid header matches --lc-grid-header-bg (#F1F5F9); accents use primary #2563EB */
 .locations__grid.ag-theme-alpine {
-  --ag-border-radius: 0;
+  --ag-border-radius: 12px;
   --ag-alpine-active-color: var(--lc-primary-blue);
   --ag-font-size: 14px;
-  --ag-header-height: 44px;
+  --ag-header-height: 48px;
   --ag-row-height: 44px;
   --ag-cell-horizontal-padding: 16px;
-  --ag-header-background-color: var(--lc-grid-header-bg);
-  --ag-header-foreground-color: #334155;
-  --ag-border-color: #e2e8f0;
+  --ag-header-background-color: #eef2ff;
+  --ag-header-foreground-color: #1e293b;
+  --ag-border-color: #dbeafe;
   --ag-secondary-border-color: #e2e8f0;
   --ag-row-border-color: #e8edf2;
   --ag-odd-row-background-color: #fafbfc;
   --ag-background-color: #ffffff;
-  --ag-row-hover-color: rgba(37, 99, 235, 0.06);
+  --ag-row-hover-color: rgba(37, 99, 235, 0.1);
   --ag-selected-row-background-color: rgba(37, 99, 235, 0.1);
   width: 100%;
   flex: 1;
@@ -107,17 +180,36 @@
   height: min(520px, 62vh);
 }
 
+:host ::ng-deep .locations__grid .ag-row {
+  transition:
+    background-color 0.14s ease,
+    box-shadow 0.14s ease,
+    transform 0.14s ease;
+}
+
+:host ::ng-deep .locations__grid .ag-row:hover {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.1), rgba(14, 165, 233, 0.06));
+  box-shadow: inset 3px 0 0 #3b82f6;
+  transform: translateX(1px);
+}
+
 :host ::ng-deep .locations__grid .ag-header,
 :host ::ng-deep .locations__grid .ag-header-row {
-  background-color: var(--lc-grid-header-bg);
+  background: linear-gradient(90deg, #eef2ff 0%, #e0f2fe 100%);
+  border-bottom: 1px solid #bfdbfe;
 }
 
 :host ::ng-deep .locations__grid .ag-header-cell {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  background-color: var(--lc-grid-header-bg);
+  letter-spacing: 0.045em;
+  color: #1e3a8a;
+  background: transparent;
+}
+
+:host ::ng-deep .locations__grid .ag-header-cell:hover {
+  background: rgba(59, 130, 246, 0.08);
 }
 
 :host ::ng-deep .locations__grid .ag-header-cell:focus,

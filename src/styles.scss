@@ -88,16 +88,109 @@ app-root {
 .lc-actions-menu-panel {
   .mat-mdc-menu-item {
     min-height: 44px;
+    border-radius: 10px;
+    margin: 2px 6px;
+    transition: background 0.14s ease, transform 0.14s ease;
+
+    &:hover {
+      background: #f8fafc;
+      transform: translateX(2px);
+    }
   }
 
-  .mat-mdc-menu-item .mat-icon {
+  .mat-mdc-menu-item .mat-icon,
+  .mat-mdc-menu-item .lc-actions-menu__icon {
     margin-right: 0.75rem;
-    color: #475569;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.14);
   }
 
-  .lc-actions-menu__danger .mat-icon {
-    color: #b91c1c;
+  .lc-actions-menu__icon--view {
+    background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
   }
+
+  .lc-actions-menu__icon--edit {
+    background: linear-gradient(135deg, #a855f7, #7e22ce) !important;
+  }
+
+  .lc-actions-menu__icon--inactive {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  }
+
+  .lc-actions-menu__icon--delete {
+    background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+  }
+}
+
+/* Force icon-chip colors inside overlay menus (higher specificity fallback). */
+.cdk-overlay-container .mat-mdc-menu-panel .mat-mdc-menu-item .lc-actions-menu__icon {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  min-width: 1.5rem !important;
+  min-height: 1.5rem !important;
+  margin-right: 0.75rem !important;
+  border-radius: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: #fff !important;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.14) !important;
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    filter 0.16s ease !important;
+}
+
+.cdk-overlay-container .mat-mdc-menu-panel .mat-mdc-menu-item .lc-actions-menu__icon--view {
+  background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+}
+
+.cdk-overlay-container .mat-mdc-menu-panel .mat-mdc-menu-item .lc-actions-menu__icon--edit {
+  background: linear-gradient(135deg, #a855f7, #7e22ce) !important;
+}
+
+.cdk-overlay-container .mat-mdc-menu-panel .mat-mdc-menu-item .lc-actions-menu__icon--inactive {
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+}
+
+.cdk-overlay-container .mat-mdc-menu-panel .mat-mdc-menu-item .lc-actions-menu__icon--delete {
+  background: linear-gradient(135deg, #ef4444, #b91c1c) !important;
+}
+
+.cdk-overlay-container .mat-mdc-menu-panel .mat-mdc-menu-item:hover .lc-actions-menu__icon {
+  transform: translateY(-1px) scale(1.05) !important;
+  filter: brightness(1.08) saturate(1.08) !important;
+}
+
+.cdk-overlay-container .mat-mdc-menu-panel .mat-mdc-menu-item:hover .lc-actions-menu__icon--view {
+  box-shadow:
+    0 0 0 3px rgba(59, 130, 246, 0.16),
+    0 8px 16px rgba(37, 99, 235, 0.32) !important;
+}
+
+.cdk-overlay-container .mat-mdc-menu-panel .mat-mdc-menu-item:hover .lc-actions-menu__icon--edit {
+  box-shadow:
+    0 0 0 3px rgba(168, 85, 247, 0.16),
+    0 8px 16px rgba(126, 34, 206, 0.3) !important;
+}
+
+.cdk-overlay-container .mat-mdc-menu-panel .mat-mdc-menu-item:hover .lc-actions-menu__icon--inactive {
+  box-shadow:
+    0 0 0 3px rgba(245, 158, 11, 0.16),
+    0 8px 16px rgba(217, 119, 6, 0.3) !important;
+}
+
+.cdk-overlay-container .mat-mdc-menu-panel .mat-mdc-menu-item:hover .lc-actions-menu__icon--delete {
+  box-shadow:
+    0 0 0 3px rgba(239, 68, 68, 0.16),
+    0 8px 16px rgba(185, 28, 28, 0.3) !important;
 }
 
 /* Shared AG Grid — status pill (`lcStatusBadgeCellRenderer`) */

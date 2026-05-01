@@ -17,10 +17,19 @@
       <button
         mat-menu-item
         type="button"
+        [attr.data-action-id]="action.id"
         [class.lc-actions-menu__danger]="action.danger"
         (click)="run(action)"
       >
-        <mat-icon>{{ action.materialIcon }}</mat-icon>
+        <mat-icon
+          class="lc-actions-menu__icon"
+          [class.lc-actions-menu__icon--view]="action.id === 'view'"
+          [class.lc-actions-menu__icon--edit]="action.id === 'edit'"
+          [class.lc-actions-menu__icon--inactive]="action.id === 'inactive' || action.id === 'deactivate' || action.id === 'toggle'"
+          [class.lc-actions-menu__icon--delete]="action.id === 'delete' || action.danger"
+        >
+          {{ action.materialIcon }}
+        </mat-icon>
         <span>{{ action.label }}</span>
       </button>
     }

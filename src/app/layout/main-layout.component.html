@@ -27,13 +27,13 @@
           [routerLinkActiveOptions]="{ exact: true }"
           (click)="closeMobileMenu()"
         >
-          <mat-icon>home</mat-icon>
+          <mat-icon class="nav-icon nav-icon--home">home</mat-icon>
           <span>Home</span>
         </a>
 
         <div class="nav-group">
           <button type="button" class="nav-item nav-item--expandable" [class.is-open]="adminExpanded()" (click)="toggleAdmin()">
-            <mat-icon>manage_accounts</mat-icon>
+            <mat-icon class="nav-icon nav-icon--admin">manage_accounts</mat-icon>
             <span>Administration</span>
             <mat-icon class="chevron">{{ adminExpanded() ? 'expand_less' : 'expand_more' }}</mat-icon>
           </button>
@@ -53,19 +53,19 @@
         </div>
 
         <a class="nav-item" routerLink="/home" fragment="audit" (click)="closeMobileMenu()">
-          <mat-icon>assignment</mat-icon>
+          <mat-icon class="nav-icon nav-icon--audit">assignment</mat-icon>
           <span>Audit Trail</span>
         </a>
         <a class="nav-item" routerLink="/home" fragment="reports" (click)="closeMobileMenu()">
-          <mat-icon>description</mat-icon>
+          <mat-icon class="nav-icon nav-icon--reports">description</mat-icon>
           <span>Reports</span>
         </a>
         <a class="nav-item" routerLink="/home" fragment="help" (click)="closeMobileMenu()">
-          <mat-icon>help_outline</mat-icon>
+          <mat-icon class="nav-icon nav-icon--help">help_outline</mat-icon>
           <span>Help</span>
         </a>
         <a class="nav-item" routerLink="/home" fragment="about" (click)="closeMobileMenu()">
-          <mat-icon>info_outline</mat-icon>
+          <mat-icon class="nav-icon nav-icon--about">info_outline</mat-icon>
           <span>About</span>
         </a>
       </nav>

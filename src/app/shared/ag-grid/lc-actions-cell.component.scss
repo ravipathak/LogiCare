@@ -16,17 +16,25 @@
   --mat-sys-outline: #e2e8f0;
   min-height: 0;
   height: auto;
-  padding: 0.28rem 0.5rem;
+  padding: 0.3rem 0.52rem;
   border-radius: 999px;
-  color: #64748b;
+  color: #1e40af;
   line-height: 1.25;
+  border-color: #bfdbfe;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.16);
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease,
+    background 0.16s ease;
 
   .lc-actions-menu__cog {
     margin: 0;
     font-size: 1.1rem;
     width: 1.1rem;
     height: 1.1rem;
-    color: #94a3b8;
+    color: #2563eb;
+    transition: transform 0.22s ease;
   }
 
   .lc-actions-menu__chevron {
@@ -34,6 +42,16 @@
     font-size: 1rem;
     width: 1rem;
     height: 1rem;
-    color: #94a3b8;
+    color: #2563eb;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.22);
+
+    .lc-actions-menu__cog {
+      transform: rotate(40deg);
+    }
   }
 }

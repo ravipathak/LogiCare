@@ -111,7 +111,7 @@
     background: rgba(255, 255, 255, 0.05);
     color: #fff;
 
-    mat-icon {
+    mat-icon:not(.chevron) {
       color: #a8b0c0;
     }
   }
@@ -120,10 +120,46 @@
     background: var(--lc-sidebar-active-bg);
     color: #f3f4f6;
 
-    mat-icon {
+    mat-icon:not(.chevron) {
       color: #e5e7eb;
     }
   }
+}
+
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 8px;
+  font-size: 1rem !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.24);
+}
+
+.nav-icon--home {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.nav-icon--admin {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.nav-icon--audit {
+  background: linear-gradient(135deg, #06b6d4, #0e7490);
+}
+
+.nav-icon--reports {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.nav-icon--help {
+  background: linear-gradient(135deg, #22c55e, #15803d);
+}
+
+.nav-icon--about {
+  background: linear-gradient(135deg, #ec4899, #db2777);
 }
 
 .nav-item--expandable {

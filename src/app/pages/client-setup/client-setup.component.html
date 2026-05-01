@@ -8,11 +8,11 @@
     <section class="setup-stats" aria-label="Client setup summary">
       <button
         type="button"
-        class="setup-stat-card"
+        class="setup-stat-card setup-stat-card--locations"
         [class.setup-stat-card--active]="selectedTabIndex === 0"
         (click)="onTabSelected(0)"
       >
-        <mat-icon aria-hidden="true">place</mat-icon>
+        <mat-icon class="setup-stat-card__icon" aria-hidden="true">place</mat-icon>
         <div class="setup-stat-card__content">
           <strong>{{ (locationCount$ | async) ?? 0 }}</strong>
           <span>Locations</span>
@@ -20,11 +20,11 @@
       </button>
       <button
         type="button"
-        class="setup-stat-card"
+        class="setup-stat-card setup-stat-card--contacts"
         [class.setup-stat-card--active]="selectedTabIndex === 1"
         (click)="onTabSelected(1)"
       >
-        <mat-icon aria-hidden="true">contacts</mat-icon>
+        <mat-icon class="setup-stat-card__icon" aria-hidden="true">contacts</mat-icon>
         <div class="setup-stat-card__content">
           <strong>{{ (contactCount$ | async) ?? 0 }}</strong>
           <span>Contacts</span>
@@ -32,11 +32,11 @@
       </button>
       <button
         type="button"
-        class="setup-stat-card"
+        class="setup-stat-card setup-stat-card--departments"
         [class.setup-stat-card--active]="selectedTabIndex === 2"
         (click)="onTabSelected(2)"
       >
-        <mat-icon aria-hidden="true">domain</mat-icon>
+        <mat-icon class="setup-stat-card__icon" aria-hidden="true">domain</mat-icon>
         <div class="setup-stat-card__content">
           <strong>{{ (departmentCount$ | async) ?? 0 }}</strong>
           <span>Departments</span>
@@ -44,11 +44,11 @@
       </button>
       <button
         type="button"
-        class="setup-stat-card"
+        class="setup-stat-card setup-stat-card--groups"
         [class.setup-stat-card--active]="selectedTabIndex === 3"
         (click)="onTabSelected(3)"
       >
-        <mat-icon aria-hidden="true">groups</mat-icon>
+        <mat-icon class="setup-stat-card__icon" aria-hidden="true">groups</mat-icon>
         <div class="setup-stat-card__content">
           <strong>{{ (groupCount$ | async) ?? 0 }}</strong>
           <span>Groups</span>
@@ -66,7 +66,7 @@
       <mat-tab>
         <ng-template matTabLabel>
           <span class="tab-label">
-            <mat-icon aria-hidden="true">place</mat-icon>
+            <mat-icon class="tab-label__icon tab-label__icon--locations" aria-hidden="true">place</mat-icon>
             Locations
           </span>
         </ng-template>
@@ -76,7 +76,7 @@
       <mat-tab>
         <ng-template matTabLabel>
           <span class="tab-label">
-            <mat-icon aria-hidden="true">contacts</mat-icon>
+            <mat-icon class="tab-label__icon tab-label__icon--contacts" aria-hidden="true">contacts</mat-icon>
             Contacts
           </span>
         </ng-template>
@@ -86,7 +86,7 @@
       <mat-tab>
         <ng-template matTabLabel>
           <span class="tab-label">
-            <mat-icon aria-hidden="true">domain</mat-icon>
+            <mat-icon class="tab-label__icon tab-label__icon--departments" aria-hidden="true">domain</mat-icon>
             Departments
           </span>
         </ng-template>
@@ -96,7 +96,7 @@
       <mat-tab>
         <ng-template matTabLabel>
           <span class="tab-label">
-            <mat-icon aria-hidden="true">groups</mat-icon>
+            <mat-icon class="tab-label__icon tab-label__icon--groups" aria-hidden="true">groups</mat-icon>
             Groups
           </span>
         </ng-template>

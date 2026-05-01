@@ -6,9 +6,10 @@
       <mat-form-field class="locations__search" appearance="outline" subscriptSizing="dynamic">
         <mat-label>Search</mat-label>
         <input matInput placeholder="Search locations..." />
-        <button mat-icon-button matSuffix type="button" aria-label="Search">
+        <span matSuffix class="locations__search-suffix" aria-hidden="true">
+          <span class="locations__search-divider"></span>
           <mat-icon>search</mat-icon>
-        </button>
+        </span>
       </mat-form-field>
 
       <button
