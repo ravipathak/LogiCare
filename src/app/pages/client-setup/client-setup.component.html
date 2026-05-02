@@ -1,83 +1,77 @@
-<section class="page">
-  <header class="page-header">
-    <h1 class="page-title">Client Setup</h1>
-    <p class="page-subtitle">Configure locations, contacts, departments, and groups.</p>
-  </header>
+<div class="client-setup-page">
+  <div class="client-setup-page__container">
+    <div class="page-shell-card">
+      <div class="page-hero-panel">
+        <header class="page-header">
+          <h1 class="page-title">Client Setup</h1>
+          <p class="page-subtitle">Configure locations, contacts, departments, and groups.</p>
+        </header>
 
-  <div class="tabs-card">
-    <section class="setup-stats" aria-label="Client setup summary">
-      <button
-        type="button"
-        class="setup-stat-card setup-stat-card--locations"
-        [class.setup-stat-card--active]="selectedTabIndex === 0"
-        (click)="onTabSelected(0)"
-      >
-        <mat-icon class="setup-stat-card__icon" aria-hidden="true">place</mat-icon>
-        <div class="setup-stat-card__body">
-          <span class="setup-stat-card__label">Total Locations</span>
-          <strong class="setup-stat-card__value">{{ (locationCount$ | async) ?? 0 }}</strong>
-        </div>
-      </button>
-      <button
-        type="button"
-        class="setup-stat-card setup-stat-card--contacts"
-        [class.setup-stat-card--active]="selectedTabIndex === 1"
-        (click)="onTabSelected(1)"
-      >
-        <mat-icon class="setup-stat-card__icon" aria-hidden="true">contacts</mat-icon>
-        <div class="setup-stat-card__body">
-          <span class="setup-stat-card__label">Total Contacts</span>
-          <strong class="setup-stat-card__value">{{ (contactCount$ | async) ?? 0 }}</strong>
-        </div>
-      </button>
-      <button
-        type="button"
-        class="setup-stat-card setup-stat-card--departments"
-        [class.setup-stat-card--active]="selectedTabIndex === 2"
-        (click)="onTabSelected(2)"
-      >
-        <mat-icon class="setup-stat-card__icon" aria-hidden="true">domain</mat-icon>
-        <div class="setup-stat-card__body">
-          <span class="setup-stat-card__label">Departments</span>
-          <strong class="setup-stat-card__value">{{ (departmentCount$ | async) ?? 0 }}</strong>
-        </div>
-      </button>
-      <button
-        type="button"
-        class="setup-stat-card setup-stat-card--groups"
-        [class.setup-stat-card--active]="selectedTabIndex === 3"
-        (click)="onTabSelected(3)"
-      >
-        <mat-icon class="setup-stat-card__icon" aria-hidden="true">groups</mat-icon>
-        <div class="setup-stat-card__body">
-          <span class="setup-stat-card__label">Groups</span>
-          <strong class="setup-stat-card__value">{{ (groupCount$ | async) ?? 0 }}</strong>
-        </div>
-      </button>
-    </section>
+        <section class="setup-stats" aria-label="Client setup summary">
+          <app-setup-stat-card
+            variant="locations"
+            label="Total Locations"
+            icon="place"
+            trend="+12"
+            [value]="(locationCount$ | async) ?? 0"
+            [active]="selectedTabIndex === 0"
+            (cardClick)="onTabSelected(0)"
+          />
+          <app-setup-stat-card
+            variant="contacts"
+            label="Total Contacts"
+            icon="contacts"
+            trend="+8"
+            [value]="(contactCount$ | async) ?? 0"
+            [active]="selectedTabIndex === 1"
+            (cardClick)="onTabSelected(1)"
+          />
+          <app-setup-stat-card
+            variant="departments"
+            label="Departments"
+            icon="domain"
+            trend="+4"
+            [value]="(departmentCount$ | async) ?? 0"
+            [active]="selectedTabIndex === 2"
+            (cardClick)="onTabSelected(2)"
+          />
+          <app-setup-stat-card
+            variant="groups"
+            label="Groups"
+            icon="groups"
+            trend="+3"
+            [value]="(groupCount$ | async) ?? 0"
+            [active]="selectedTabIndex === 3"
+            (cardClick)="onTabSelected(3)"
+          />
+        </section>
+      </div>
 
-    <mat-tab-group
-      class="setup-tabs setup-tabs--pill"
-      animationDuration="200ms"
-      [mat-stretch-tabs]="true"
-      [selectedIndex]="selectedTabIndex"
-      (selectedIndexChange)="onTabSelected($event)"
-    >
-      <mat-tab label="Locations">
-        <app-locations-tab />
-      </mat-tab>
+      <div class="tabs-card">
+        <mat-tab-group
+          class="setup-tabs setup-tabs--pill"
+          animationDuration="200ms"
+          [mat-stretch-tabs]="true"
+          [selectedIndex]="selectedTabIndex"
+          (selectedIndexChange)="onTabSelected($event)"
+        >
+          <mat-tab label="Locations">
+            <app-locations-tab />
+          </mat-tab>
 
-      <mat-tab label="Contacts">
-        <app-contacts-tab />
-      </mat-tab>
+          <mat-tab label="Contacts">
+            <app-contacts-tab />
+          </mat-tab>
 
-      <mat-tab label="Departments">
-        <app-departments-tab />
-      </mat-tab>
+          <mat-tab label="Departments">
+            <app-departments-tab />
+          </mat-tab>
 
-      <mat-tab label="Groups">
-        <app-groups-tab />
-      </mat-tab>
-    </mat-tab-group>
+          <mat-tab label="Groups">
+            <app-groups-tab />
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
   </div>
-</section>
+</div>

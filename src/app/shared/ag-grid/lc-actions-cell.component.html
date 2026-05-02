@@ -1,6 +1,6 @@
 <div class="lc-actions-menu">
   <button
-    mat-stroked-button
+    mat-icon-button
     type="button"
     class="lc-actions-menu__trigger"
     [matMenuTriggerFor]="menu"
@@ -8,8 +8,7 @@
     (mousedown)="$event.stopPropagation()"
     (click)="$event.stopPropagation()"
   >
-    <mat-icon class="lc-actions-menu__cog" aria-hidden="true">settings</mat-icon>
-    <mat-icon class="lc-actions-menu__chevron" aria-hidden="true">expand_more</mat-icon>
+    <mat-icon class="lc-actions-menu__more" aria-hidden="true">more_vert</mat-icon>
   </button>
 
   <mat-menu #menu="matMenu" xPosition="before" panelClass="lc-actions-menu-panel">

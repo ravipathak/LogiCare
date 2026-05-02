@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { map } from 'rxjs';
 
@@ -13,6 +12,7 @@ import { ContactsTabComponent } from './tabs/contacts-tab.component';
 import { DepartmentsTabComponent } from './tabs/departments-tab.component';
 import { GroupsTabComponent } from './tabs/groups-tab.component';
 import { LocationsTabComponent } from './tabs/locations-tab.component';
+import { SetupStatCardComponent } from './components/setup-stat-card/setup-stat-card.component';
 
 @Component({
   selector: 'app-client-setup',
@@ -20,7 +20,7 @@ import { LocationsTabComponent } from './tabs/locations-tab.component';
   imports: [
     AsyncPipe,
     MatTabsModule,
-    MatIconModule,
+    SetupStatCardComponent,
     LocationsTabComponent,
     ContactsTabComponent,
     DepartmentsTabComponent,

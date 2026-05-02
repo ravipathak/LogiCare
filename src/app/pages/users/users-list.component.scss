@@ -142,10 +142,10 @@
 }
 
 .users-list__grid-wrap {
-  border-radius: 0;
-  border: 1px solid #e2e8f0;
-  background: var(--lc-surface-raised);
-  box-shadow: var(--lc-shadow-card-strong);
+  border-radius: 16px;
+  border: none;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   /* Explicit height so AG Grid can measure the viewport (flex-only parents often yield 0px body height). */
   height: min(520px, 62vh);
   min-height: 400px;
@@ -157,18 +157,20 @@
 .users-list__grid.ag-theme-alpine {
   --ag-border-radius: 0;
   --ag-alpine-active-color: var(--lc-primary-blue);
-  --ag-font-size: 14px;
-  --ag-header-height: 44px;
+  --ag-font-size: 15px;
+  --ag-header-height: 48px;
+  --ag-row-height: 56px;
   --ag-cell-horizontal-padding: 16px;
-  --ag-header-background-color: var(--lc-grid-header-bg);
-  --ag-header-foreground-color: #334155;
-  --ag-border-color: #e2e8f0;
-  --ag-secondary-border-color: #e2e8f0;
-  --ag-row-border-color: #e8edf2;
-  --ag-odd-row-background-color: #fafbfc;
+  --ag-header-background-color: transparent;
+  --ag-header-foreground-color: #475569;
+  --ag-border-color: transparent;
+  --ag-secondary-border-color: transparent;
+  --ag-row-border-color: #f1f5f9;
+  --ag-borders: none;
+  --ag-odd-row-background-color: #ffffff;
   --ag-background-color: #ffffff;
-  --ag-row-hover-color: rgba(37, 99, 235, 0.06);
-  --ag-selected-row-background-color: rgba(37, 99, 235, 0.1);
+  --ag-row-hover-color: #f8fafc;
+  --ag-selected-row-background-color: rgba(59, 130, 246, 0.08);
   flex: 1 1 auto;
   min-height: 0;
   width: 100%;
@@ -181,44 +183,78 @@
   height: 100%;
 }
 
+:host ::ng-deep .users-list__grid .ag-header,
+:host ::ng-deep .users-list__grid .ag-header-row {
+  background: linear-gradient(135deg, #ebf4ff 0%, #f0f7ff 40%, #f8fafc 100%);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 5px 16px -4px rgba(15, 23, 42, 0.08);
+}
+
 :host ::ng-deep .users-list__grid .ag-header-cell {
+  padding: 14px 16px;
   font-weight: 600;
   font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  background-color: var(--lc-grid-header-bg);
+  letter-spacing: 0.05em;
+  color: #475569;
+  background: transparent;
+  transition:
+    background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:host ::ng-deep .users-list__grid .ag-header-cell:hover {
+  background: rgba(59, 130, 246, 0.06);
+}
+
+:host ::ng-deep .users-list__grid .ag-root-wrapper {
+  border: none !important;
+  box-shadow: none;
+}
+
+:host ::ng-deep .users-list__grid .ag-row {
+  transition: background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:host ::ng-deep .users-list__grid .ag-row:hover {
+  background: linear-gradient(180deg, #fbfcff 0%, #f4f8fc 100%) !important;
 }
 
 :host ::ng-deep .users-list__grid .ag-cell {
-  display: flex;
-  align-items: center;
   line-height: 1.45;
+  transition: background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-:host ::ng-deep .users-list__grid .ag-cell.lc-cell--roles {
+:host ::ng-deep .users-list__grid .ag-cell.lc-cell--roles .ag-cell-wrapper {
   align-items: flex-start;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-:host ::ng-deep .users-list__grid .ag-cell.lc-cell--avatar {
+:host ::ng-deep .users-list__grid .ag-cell.lc-cell--avatar .ag-cell-wrapper {
   justify-content: flex-start;
 }
 
-:host ::ng-deep .users-list__grid .ag-cell.lc-cell--status {
+:host ::ng-deep .users-list__grid .ag-cell.lc-cell--status .ag-cell-wrapper {
   justify-content: flex-start;
 }
 
 :host ::ng-deep .users-list__grid .ag-cell.lc-cell--actions {
-  justify-content: flex-start;
   overflow: visible;
+}
+
+:host ::ng-deep .users-list__grid .ag-cell.lc-cell--actions .ag-cell-wrapper {
+  justify-content: flex-start;
 }
 
 :host ::ng-deep .users-list__grid .ag-paging-panel {
   border-top: 1px solid #e2e8f0;
-  padding: 0.65rem 14px;
+  padding: 0.65rem 16px;
   min-height: 48px;
   font-size: 13px;
+  font-weight: 500;
   color: #64748b;
   background: #fafbfc;
 }
@@ -263,6 +299,50 @@
   font-size: 13px;
   line-height: 1.35;
   color: #334155;
+}
+
+:host-context(.main--dark) {
+  .users-list__grid-wrap {
+    background: #1e293b;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  }
+
+  .users-list__grid.ag-theme-alpine {
+    --ag-row-border-color: #334155;
+    --ag-background-color: #1e293b;
+    --ag-odd-row-background-color: #1e293b;
+    --ag-data-background-color: #1e293b;
+    --ag-row-hover-color: rgba(51, 65, 85, 0.65);
+    --ag-selected-row-background-color: rgba(59, 130, 246, 0.22);
+    --ag-header-foreground-color: #cbd5e1;
+  }
+}
+
+:host-context(.main--dark) ::ng-deep .users-list__grid .ag-header,
+:host-context(.main--dark) ::ng-deep .users-list__grid .ag-header-row {
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.42) 0%, rgba(30, 41, 59, 0.95) 55%, #1e293b 100%);
+  border-bottom: 1px solid rgba(71, 85, 105, 0.85);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 6px 18px -4px rgba(0, 0, 0, 0.35);
+}
+
+:host-context(.main--dark) ::ng-deep .users-list__grid .ag-header-cell {
+  color: #cbd5e1;
+}
+
+:host-context(.main--dark) ::ng-deep .users-list__grid .ag-header-cell:hover {
+  background: rgba(59, 130, 246, 0.12);
+}
+
+:host-context(.main--dark) ::ng-deep .users-list__grid .ag-row:hover {
+  background: linear-gradient(180deg, rgba(51, 65, 85, 0.85) 0%, rgba(30, 41, 59, 0.92) 100%) !important;
+}
+
+:host-context(.main--dark) ::ng-deep .users-list__grid .ag-paging-panel {
+  border-top-color: #475569;
+  background: #0f172a;
+  color: #94a3b8;
 }
 
 @media (max-width: 720px) {

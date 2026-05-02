@@ -1,21 +1,23 @@
-/* Client Setup tab grids — AG Alpine aligned with pill strip + card surfaces (add class lc-setup-grid on ag-grid-angular). */
+/* Premium SaaS AG Grid — Client Setup (class `lc-setup-grid` on ag-grid-angular). */
 
 app-client-setup .lc-setup-grid.ag-theme-alpine {
-  --ag-border-radius: 14px;
+  --ag-border-radius: 0;
   --ag-alpine-active-color: var(--lc-primary-blue);
   --ag-font-size: 15px;
   --ag-header-height: 48px;
-  --ag-row-height: 44px;
+  --ag-row-height: 56px;
   --ag-cell-horizontal-padding: 16px;
   --ag-header-background-color: transparent;
-  --ag-header-foreground-color: #1d4ed8;
-  --ag-border-color: rgba(148, 163, 184, 0.28);
-  --ag-secondary-border-color: #e2e8f0;
-  --ag-row-border-color: #eef2f7;
-  --ag-odd-row-background-color: #fafbfc;
+  --ag-header-foreground-color: #475569;
+  --ag-border-color: transparent;
+  --ag-secondary-border-color: transparent;
+  --ag-row-border-color: #f1f5f9;
+  --ag-borders: none;
+  --ag-row-border-style: solid;
+  --ag-odd-row-background-color: #ffffff;
   --ag-background-color: #ffffff;
-  --ag-row-hover-color: rgba(59, 130, 246, 0.07);
-  --ag-selected-row-background-color: rgba(59, 130, 246, 0.12);
+  --ag-row-hover-color: #f8fafc;
+  --ag-selected-row-background-color: rgba(59, 130, 246, 0.08);
   width: 100%;
   flex: 1;
   min-height: 400px;
@@ -23,7 +25,9 @@ app-client-setup .lc-setup-grid.ag-theme-alpine {
 }
 
 app-client-setup .lc-setup-grid .ag-root-wrapper {
-  border-radius: 14px;
+  border-radius: 0;
+  border: none !important;
+  box-shadow: none;
 }
 
 app-client-setup .lc-setup-grid .ag-center-cols-container {
@@ -32,22 +36,28 @@ app-client-setup .lc-setup-grid .ag-center-cols-container {
 
 app-client-setup .lc-setup-grid .ag-header,
 app-client-setup .lc-setup-grid .ag-header-row {
-  background: linear-gradient(90deg, #e8f0fe 0%, #dbeafe 50%, #e0f2fe 100%);
-  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+  background: linear-gradient(135deg, #ebf4ff 0%, #f0f7ff 40%, #f8fafc 100%);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 5px 16px -4px rgba(15, 23, 42, 0.08);
 }
 
 app-client-setup .lc-setup-grid .ag-header-cell {
-  font-weight: 700;
-  font-size: 11px;
+  padding: 14px 16px;
+  font-weight: 600;
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.055em;
-  color: #1d4ed8;
+  letter-spacing: 0.05em;
+  color: #475569;
   background: transparent;
-  transition: background 0.15s ease;
+  transition:
+    background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 app-client-setup .lc-setup-grid .ag-header-cell:hover {
-  background: rgba(59, 130, 246, 0.09);
+  background: rgba(59, 130, 246, 0.06);
 }
 
 app-client-setup .lc-setup-grid .ag-header-cell:focus,
@@ -57,23 +67,30 @@ app-client-setup .lc-setup-grid .ag-header-cell:focus-within {
 
 app-client-setup .lc-setup-grid .ag-header-cell-menu-button,
 app-client-setup .lc-setup-grid .ag-header-cell-filter-button {
-  color: #2563eb;
-  opacity: 0.88;
+  color: #64748b;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
 }
 
+app-client-setup .lc-setup-grid .ag-header-cell-menu-button:hover,
+app-client-setup .lc-setup-grid .ag-header-cell-filter-button:hover {
+  opacity: 1;
+}
+
+/* Do not use transform/z-index on rows — it breaks AG Grid’s horizontal scroll spacer layering (white edge strips). */
 app-client-setup .lc-setup-grid .ag-row {
-  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+  transition: background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* No inset outline — it reads as horizontal “gutter” inside the card next to `overflow: hidden` viewports. */
 app-client-setup .lc-setup-grid .ag-row:hover {
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.08), rgba(14, 165, 233, 0.045)) !important;
-  box-shadow: inset 3px 0 0 #3b82f6;
+  background: linear-gradient(180deg, #fbfcff 0%, #f4f8fc 100%) !important;
 }
 
+/* Keep default cell display — `display: flex` on `.ag-cell` breaks absolute-positioned cell width with flex layouts. */
 app-client-setup .lc-setup-grid .ag-cell {
-  display: flex;
-  align-items: center;
   line-height: 1.45;
+  transition: background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 app-client-setup .lc-setup-grid .ag-cell-wrapper {
@@ -89,41 +106,45 @@ app-client-setup .lc-setup-grid .ag-group-value {
   text-overflow: ellipsis;
 }
 
-app-client-setup .lc-setup-grid .ag-cell.lc-cell--status {
+app-client-setup .lc-setup-grid .ag-cell.lc-cell--status .ag-cell-wrapper {
   justify-content: flex-start;
 }
 
 app-client-setup .lc-setup-grid .ag-cell.lc-cell--actions {
-  justify-content: flex-start;
   overflow: visible;
 }
 
+app-client-setup .lc-setup-grid .ag-cell.lc-cell--actions .ag-cell-wrapper {
+  justify-content: flex-start;
+}
+
 app-client-setup .lc-setup-grid .ag-paging-panel {
-  border-top: 1px solid #e8edf2;
-  padding: 0.65rem 14px;
+  border-top: 1px solid #e2e8f0;
+  padding: 0.65rem 16px;
   min-height: 48px;
   font-size: 13px;
   font-weight: 500;
   color: #64748b;
-  background: linear-gradient(180deg, #fafbfc 0%, #f4f6f9 100%);
+  background: #fafbfc;
+  transition: background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Dark shell: override [class*=ag-theme-] defaults (ag-grid.css loads before app styles) */
+/* Dark shell */
 .main--dark app-client-setup .lc-setup-grid.ag-theme-alpine,
 mat-sidenav-content.main--dark app-client-setup .lc-setup-grid.ag-theme-alpine {
   --ag-foreground-color: #e2e8f0 !important;
   --ag-data-color: #e2e8f0 !important;
   --ag-secondary-foreground-color: #cbd5e1 !important;
   --ag-header-background-color: transparent !important;
-  --ag-header-foreground-color: #bfdbfe !important;
-  --ag-border-color: #475569 !important;
-  --ag-secondary-border-color: #475569 !important;
+  --ag-header-foreground-color: #94a3b8 !important;
+  --ag-border-color: transparent !important;
+  --ag-secondary-border-color: transparent !important;
   --ag-row-border-color: #334155 !important;
   --ag-background-color: #1e293b !important;
   --ag-data-background-color: #1e293b !important;
-  --ag-odd-row-background-color: #0f172a !important;
-  --ag-row-hover-color: rgba(59, 130, 246, 0.22) !important;
-  --ag-selected-row-background-color: rgba(59, 130, 246, 0.28) !important;
+  --ag-odd-row-background-color: #1e293b !important;
+  --ag-row-hover-color: rgba(30, 41, 59, 0.95) !important;
+  --ag-selected-row-background-color: rgba(59, 130, 246, 0.22) !important;
   --ag-subheader-background-color: #1e293b !important;
   --ag-control-panel-background-color: #1e293b !important;
   color-scheme: dark;
@@ -133,13 +154,16 @@ mat-sidenav-content.main--dark app-client-setup .lc-setup-grid.ag-theme-alpine {
 .main--dark app-client-setup .lc-setup-grid .ag-header-row,
 mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-header,
 mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-header-row {
-  background: linear-gradient(90deg, #334155 0%, #1e293b 100%);
-  border-bottom-color: #475569;
+  background: linear-gradient(135deg, rgba(30, 58, 138, 0.42) 0%, rgba(30, 41, 59, 0.95) 55%, #1e293b 100%);
+  border-bottom: 1px solid rgba(71, 85, 105, 0.85);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 6px 18px -4px rgba(0, 0, 0, 0.35);
 }
 
 .main--dark app-client-setup .lc-setup-grid .ag-header-cell,
 mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-header-cell {
-  color: #bfdbfe;
+  color: #cbd5e1;
 }
 
 .main--dark app-client-setup .lc-setup-grid .ag-header-cell:hover,
@@ -156,18 +180,16 @@ mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-header-cell-f
 
 .main--dark app-client-setup .lc-setup-grid .ag-row:hover,
 mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-row:hover {
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.14), rgba(14, 165, 233, 0.08)) !important;
-  box-shadow: inset 3px 0 0 #60a5fa;
+  background: linear-gradient(180deg, rgba(51, 65, 85, 0.85) 0%, rgba(30, 41, 59, 0.92) 100%) !important;
 }
 
 .main--dark app-client-setup .lc-setup-grid .ag-paging-panel,
 mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-paging-panel {
   border-top-color: #475569;
   color: #94a3b8;
-  background: linear-gradient(180deg, #0f172a 0%, #020617 100%);
+  background: #0f172a;
 }
 
-/* Viewports often keep light fill from ag-grid base — force dark surfaces */
 .main--dark app-client-setup .lc-setup-grid .ag-body-viewport,
 .main--dark app-client-setup .lc-setup-grid .ag-center-cols-viewport,
 .main--dark app-client-setup .lc-setup-grid .ag-body-horizontal-scroll-viewport,
@@ -177,3 +199,13 @@ mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-body-horizont
   background-color: #1e293b !important;
 }
 
+.main--dark app-client-setup .lc-setup-grid .ag-root-wrapper,
+mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-root-wrapper {
+  box-shadow: none;
+}
+
+/* Align horizontal scroll spacer strips with grid body — avoids bright edge bands beside rows. */
+.ag-theme-alpine .ag-horizontal-left-spacer:not(.ag-scroller-corner),
+.ag-theme-alpine .ag-horizontal-right-spacer:not(.ag-scroller-corner) {
+  background-color: var(--ag-background-color);
+}

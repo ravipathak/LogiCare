@@ -1,4 +1,4 @@
-/* Client Setup — pill mat-tab-group (global so Material DOM + tokens from app-client-setup resolve). */
+/* Client Setup — floating segmented pill tabs */
 
 app-client-setup .setup-tabs--pill {
   --mat-tab-header-divider-color: transparent;
@@ -13,19 +13,15 @@ app-client-setup .setup-tabs--pill {
 }
 
 app-client-setup .setup-tabs--pill .mat-mdc-tab-header {
-  padding: 7px 8px;
-  margin: 14px var(--cs-inset) 0;
+  padding: 5px;
+  margin: 10px var(--cs-inset) 6px;
   box-sizing: border-box;
-  border: 1px solid var(--cs-pill-track-edge);
-  border-bottom: 1px solid rgba(15, 23, 42, 0.05);
-  background:
-    linear-gradient(165deg, rgba(255, 255, 255, 0.55) 0%, transparent 42%),
-    linear-gradient(180deg, #eef4fc 0%, #e4ecf8 52%, #dfe8f5 100%);
-  border-radius: 16px;
+  border: none;
+  border-radius: 18px;
+  background: #e2e8f0;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    inset 0 -1px 0 rgba(15, 23, 42, 0.04),
-    0 1px 3px rgba(59, 130, 246, 0.05);
+    inset 0 2px 4px rgba(255, 255, 255, 0.45),
+    0 2px 8px rgba(15, 23, 42, 0.05);
 }
 
 app-client-setup .setup-tabs--pill .mat-mdc-tab-labels {
@@ -36,20 +32,18 @@ app-client-setup .setup-tabs--pill .mat-mdc-tab {
   flex: 1;
   min-width: 0;
   padding: 0;
-  height: 42px;
+  height: 44px;
   border-radius: 999px;
   overflow: hidden;
   isolation: isolate;
-  transform: translateZ(0);
+  transform: translateZ(0) scale(1);
   backface-visibility: hidden;
   transition:
-    background 0.22s cubic-bezier(0.34, 1.2, 0.64, 1),
-    box-shadow 0.22s cubic-bezier(0.34, 1.2, 0.64, 1),
-    color 0.18s ease,
-    transform 0.18s ease;
+    transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Hard clip sub-layers to the capsule (fixes gray “ears” from ripple / focus rects) */
 app-client-setup .setup-tabs--pill .mat-mdc-tab .mdc-tab__content {
   border-radius: inherit;
   overflow: hidden;
@@ -64,30 +58,23 @@ app-client-setup .setup-tabs--pill .mat-mdc-tab .mat-focus-indicator {
   border-radius: inherit !important;
 }
 
-/* Keep ripple / focus layer circular inside pills */
 app-client-setup .setup-tabs--pill .mat-mdc-tab .mat-mdc-tab-ripple,
 app-client-setup .setup-tabs--pill .mat-mdc-tab .mdc-tab__ripple,
 app-client-setup .setup-tabs--pill .mat-mdc-tab .mat-mdc-button-persistent-ripple {
   border-radius: inherit !important;
 }
 
-/* Default ripple wash reads dark gray against white pill at curved corners */
 app-client-setup .setup-tabs--pill .mat-mdc-tab.mdc-tab--active .mat-mdc-button-persistent-ripple::before {
   opacity: 0 !important;
 }
 
 app-client-setup .setup-tabs--pill .mat-mdc-tab:not(.mdc-tab--active):hover {
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 2px 10px rgba(59, 130, 246, 0.1);
-  transform: translateY(-0.5px) translateZ(0);
-}
-
-app-client-setup .setup-tabs--pill .mat-mdc-tab:not(.mdc-tab--active):active {
-  transform: translateZ(0);
+  background: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
 }
 
 app-client-setup .setup-tabs--pill .mat-mdc-tab .mdc-tab__text-label {
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   letter-spacing: -0.02em;
 }
 
@@ -100,12 +87,13 @@ app-client-setup .setup-tabs--pill .mat-mdc-tab.mdc-tab--active .mdc-tab__text-l
 }
 
 app-client-setup .setup-tabs--pill .mat-mdc-tab.mdc-tab--active {
-  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
-  /* Blue-tinted shadows only — slate shadows cause visible corners on capsules */
+  background: #ffffff !important;
+  transform: translateZ(0) scale(1.02);
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.98) inset,
-    0 4px 14px rgba(59, 130, 246, 0.18),
-    0 0 0 1px rgba(59, 130, 246, 0.14);
+    0 2px 6px rgba(15, 23, 42, 0.06),
+    0 10px 28px rgba(59, 130, 246, 0.14),
+    0 0 0 1px rgba(255, 255, 255, 0.95) inset;
+  z-index: 1;
 }
 
 app-client-setup .setup-tabs--pill .mat-mdc-tab.mdc-tab--active:focus-visible {
@@ -118,9 +106,9 @@ app-client-setup .setup-tabs--pill .mdc-tab-indicator {
 }
 
 app-client-setup .setup-tabs--pill .mat-mdc-tab-body-wrapper {
-  padding: 0 var(--lc-tab-inline) clamp(18px, 2.5vw, 26px);
+  padding: 8px var(--lc-tab-inline) clamp(20px, 3vw, 28px);
   box-sizing: border-box;
-  background: var(--cs-surface);
+  background: transparent;
 }
 
 app-client-setup .setup-tabs--pill .mat-mdc-tab-body-content {
@@ -128,35 +116,28 @@ app-client-setup .setup-tabs--pill .mat-mdc-tab-body-content {
 }
 
 .main--dark app-client-setup .setup-tabs--pill .mat-mdc-tab-header {
-  background:
-    linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, transparent 46%),
-    linear-gradient(180deg, #3d5169 0%, #2f3f54 52%, #283548 100%);
-  border-color: var(--cs-pill-track-edge);
-  border-bottom-color: rgba(148, 163, 184, 0.1);
+  background: #334155;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.22),
-    0 1px 4px rgba(0, 0, 0, 0.28);
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .main--dark app-client-setup .setup-tabs--pill .mat-mdc-tab:not(.mdc-tab--active):hover {
-  background: rgba(255, 255, 255, 0.09);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .main--dark app-client-setup .setup-tabs--pill .mat-mdc-tab.mdc-tab--active {
-  background: linear-gradient(180deg, #1e2d40 0%, #141f2e 100%) !important;
+  background: linear-gradient(180deg, #1e293b 0%, #172033 100%) !important;
   box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.35),
     0 0 0 1px rgba(255, 255, 255, 0.08) inset,
-    0 6px 20px rgba(0, 0, 0, 0.38),
-    0 0 0 1px var(--cs-pill-active-ring);
+    0 0 0 1px rgba(96, 165, 250, 0.25);
 }
 
 .main--dark app-client-setup .setup-tabs--pill .mat-mdc-tab.mdc-tab--active .mat-mdc-button-persistent-ripple::before {
   opacity: 0 !important;
 }
 
-/* Material tab tokens resolve before host vars in some builds — force readable labels in dark shell */
 .main--dark app-client-setup .setup-tabs--pill {
   --mat-tab-header-active-label-text-color: #f8fafc;
   --mat-tab-header-active-focus-label-text-color: #f8fafc;

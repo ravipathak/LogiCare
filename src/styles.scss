@@ -7,24 +7,28 @@
 
 :root {
   /* App shell + Client Setup (single source of truth) */
-  --lc-page-bg: #f9fafb;
+  --lc-page-bg: #f8fafc;
   --lc-surface-muted: #f1f5f9;
   --lc-surface-raised: #ffffff;
   --lc-radius-md: 8px;
   --lc-spacing-page: clamp(16px, 2.5vw, 24px);
-  --lc-shadow-card: 0 1px 2px rgba(15, 23, 42, 0.05), 0 4px 16px rgba(15, 23, 42, 0.06);
-  --lc-shadow-card-strong: 0 2px 8px rgba(15, 23, 42, 0.07), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --lc-elevate-saas: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --lc-shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.06);
+  --lc-shadow-card-strong: var(--lc-elevate-saas);
   --lc-sidebar-width: 296px;
-  --lc-sidebar-bg: #f3f4f6;
+  --lc-sidebar-bg: #eef1f5;
   --lc-header-bg: #ffffff;
   --lc-sidebar-active-bg: #eff6ff;
   --lc-primary-blue: #3b82f6;
   --lc-tab-indicator: #2563eb;
   --lc-grid-header-bg: #f1f5f9;
-  --lc-status-active-bg: #e6f4ea;
-  --lc-status-active-fg: #1e7e34;
-  --lc-status-inactive-bg: #ffeaea;
-  --lc-status-inactive-fg: #b42318;
+  /* Softer badge tones (still clearly readable) */
+  --lc-status-active-bg: #f0fdf4;
+  --lc-status-active-fg: #15803d;
+  --lc-status-active-border: #bbf7d0;
+  --lc-status-inactive-bg: #fff1f2;
+  --lc-status-inactive-fg: #be123c;
+  --lc-status-inactive-border: #fecdd3;
 
   /* Toasts (see `_toast.scss`) */
   --lc-toast-error-bg: #fff1f2;
@@ -70,13 +74,14 @@ app-root {
   border-right: none;
 }
 
-/* Client Setup — use main column width like reference (no narrow max-width rail) */
-app-client-setup .page {
-  max-width: none;
+/* Client Setup — centered rail inside main-scroll */
+app-client-setup {
+  display: block;
+  min-height: 100%;
 }
 
-/* Desktop: hamburger hides the left rail — main area is full width; drop inner page max-width */
-.lc-shell--nav-collapsed-desktop app-client-setup .page,
+/* Desktop: hamburger hides the left rail — main area is full width */
+.lc-shell--nav-collapsed-desktop app-client-setup .client-setup-page__container,
 .lc-shell--nav-collapsed-desktop app-home .page,
 .lc-shell--nav-collapsed-desktop app-organization .page,
 .lc-shell--nav-collapsed-desktop app-users-list .page,
@@ -213,24 +218,48 @@ app-client-setup .page {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  padding: 0.28rem 0.65rem;
+  padding: 4px 10px;
   border-radius: 999px;
   font-weight: 600;
   font-size: 11px;
   line-height: 1.25;
+  letter-spacing: 0.02em;
   color: #64748b;
-  background: #f1f5f9;
+  background: #f8fafc;
   border: 1px solid #e2e8f0;
+  transition:
+    background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .lc-status-badge--active {
   color: var(--lc-status-active-fg);
   background: var(--lc-status-active-bg);
-  border-color: #b7e0c0;
+  border-color: var(--lc-status-active-border);
 }
 
 .lc-status-badge--inactive {
   color: var(--lc-status-inactive-fg);
   background: var(--lc-status-inactive-bg);
-  border-color: #f5c4c1;
+  border-color: var(--lc-status-inactive-border);
+}
+
+.main--dark .lc-status-badge {
+  color: #94a3b8;
+  background: rgba(148, 163, 184, 0.12);
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.main--dark .lc-status-badge--active {
+  color: #6ee7b7;
+  background: rgba(6, 78, 59, 0.45);
+  border-color: rgba(52, 211, 153, 0.25);
+}
+
+.main--dark .lc-status-badge--inactive {
+  color: #fca5a5;
+  background: rgba(127, 29, 29, 0.35);
+  border-color: rgba(248, 113, 113, 0.22);
 }

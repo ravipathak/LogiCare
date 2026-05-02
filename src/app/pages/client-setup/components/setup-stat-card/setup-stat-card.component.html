@@ -1,0 +1,21 @@
+<button
+  type="button"
+  class="stat-card"
+  [class.stat-card--active]="active"
+  [class.stat-card--locations]="variant === 'locations'"
+  [class.stat-card--contacts]="variant === 'contacts'"
+  [class.stat-card--departments]="variant === 'departments'"
+  [class.stat-card--groups]="variant === 'groups'"
+  (click)="onClick()"
+>
+  <div class="stat-card__icon-wrap" aria-hidden="true">
+    <mat-icon class="stat-card__icon">{{ icon }}</mat-icon>
+  </div>
+  <div class="stat-card__center">
+    <span class="stat-card__label">{{ label }}</span>
+    <strong class="stat-card__value">{{ value }}</strong>
+  </div>
+  @if (trend) {
+    <span class="stat-card__trend">{{ trend }}</span>
+  }
+</button>

@@ -13,45 +13,55 @@
 }
 
 .lc-actions-menu__trigger {
-  --mat-sys-outline: #e2e8f0;
-  min-height: 0;
-  height: auto;
-  padding: 0.3rem 0.52rem;
-  border-radius: 999px;
-  color: #1e40af;
-  line-height: 1.25;
-  border-color: #bfdbfe;
-  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.16);
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  color: #64748b;
   transition:
-    transform 0.16s ease,
-    box-shadow 0.16s ease,
-    background 0.16s ease;
-
-  .lc-actions-menu__cog {
-    margin: 0;
-    font-size: 1.1rem;
-    width: 1.1rem;
-    height: 1.1rem;
-    color: #2563eb;
-    transition: transform 0.22s ease;
-  }
-
-  .lc-actions-menu__chevron {
-    margin: 0;
-    font-size: 1rem;
-    width: 1rem;
-    height: 1rem;
-    color: #2563eb;
-  }
+    background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover {
-    transform: translateY(-1px);
-    background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.22);
-
-    .lc-actions-menu__cog {
-      transform: rotate(40deg);
-    }
+    background: rgba(241, 245, 249, 0.95);
+    color: #2563eb;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
   }
+
+  &:focus-visible {
+    outline: 2px solid rgba(59, 130, 246, 0.45);
+    outline-offset: 1px;
+  }
+}
+
+.lc-actions-menu__more {
+  margin: 0;
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  opacity: 0.6;
+  transition: opacity 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lc-actions-menu__trigger:hover .lc-actions-menu__more {
+  opacity: 1;
+}
+
+:host-context(.main--dark) .lc-actions-menu__trigger {
+  color: #94a3b8;
+
+  &:hover {
+    background: rgba(148, 163, 184, 0.18);
+    color: #e2e8f0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+:host-context(.main--dark) .lc-actions-menu__more {
+  opacity: 0.55;
+}
+
+:host-context(.main--dark) .lc-actions-menu__trigger:hover .lc-actions-menu__more {
+  opacity: 1;
 }

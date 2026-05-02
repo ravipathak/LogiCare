@@ -18,14 +18,49 @@ export function createDefaultLogiCareGridOptions<T>(): GridOptions<T> {
     paginationPageSize: 10,
     paginationPageSizeSelector: [10, 25, 50],
     suppressCellFocus: true,
+    /** Avoid AG Grid’s `.ag-row-hover::before` overlay — it fights custom row CSS and clips as white edge bands. */
+    suppressRowHoverHighlight: true,
     animateRows: true,
     rowHeight: 44,
     headerHeight: 44,
     domLayout: 'normal',
+    /**
+     * Keeps column widths pinned to the grid body width so `.ag-row` borders span the full white card
+     * (avoids short horizontal dividers when total column width is below the viewport).
+     * @agModule ColumnAutoSizeModule (included in AllCommunityModule)
+     */
+    autoSizeStrategy: {
+      type: 'fitGridWidth',
+    },
     onGridReady: e => {
-      // Tab panels / hidden panels can mount before layout is visible — redraw after paint.
-      setTimeout(() => e.api.redrawRows(), 0);
-      setTimeout(() => e.api.redrawRows(), 200);
+      const api = e.api;
+      const sync = () => {
+        try {
+          api.sizeColumnsToFit();
+        } catch {
+          /* e.g. zero-width host during first paint */
+        }
+        api.redrawRows();
+      };
+      // Tab panels / hidden panels can mount before layout is visible — sync after paint.
+      setTimeout(sync, 0);
+      setTimeout(sync, 200);
+    },
+    onGridSizeChanged: e => {
+      try {
+        e.api.sizeColumnsToFit();
+      } catch {
+        /* ignore */
+      }
+      e.api.redrawRows();
+    },
+    onFirstDataRendered: e => {
+      try {
+        e.api.sizeColumnsToFit();
+      } catch {
+        /* ignore */
+      }
+      e.api.redrawRows();
     },
   };
 }
