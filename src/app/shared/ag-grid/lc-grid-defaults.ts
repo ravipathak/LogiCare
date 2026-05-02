@@ -21,8 +21,9 @@ export function createDefaultLogiCareGridOptions<T>(): GridOptions<T> {
     /** Avoid AG Grid’s `.ag-row-hover::before` overlay — it fights custom row CSS and clips as white edge bands. */
     suppressRowHoverHighlight: true,
     animateRows: true,
-    rowHeight: 44,
-    headerHeight: 44,
+    /** Match Client Setup grid theme `--ag-header-height` / `--ag-row-height` in `_lc-client-setup-grid.scss`. */
+    rowHeight: 56,
+    headerHeight: 48,
     domLayout: 'normal',
     /**
      * Keeps column widths pinned to the grid body width so `.ag-row` borders span the full white card
@@ -31,6 +32,7 @@ export function createDefaultLogiCareGridOptions<T>(): GridOptions<T> {
      */
     autoSizeStrategy: {
       type: 'fitGridWidth',
+      defaultMinWidth: 80,
     },
     onGridReady: e => {
       const api = e.api;
@@ -43,8 +45,9 @@ export function createDefaultLogiCareGridOptions<T>(): GridOptions<T> {
         api.redrawRows();
       };
       // Tab panels / hidden panels can mount before layout is visible — sync after paint.
-      setTimeout(sync, 0);
-      setTimeout(sync, 200);
+      for (const ms of [0, 50, 120, 280, 450, 700]) {
+        setTimeout(sync, ms);
+      }
     },
     onGridSizeChanged: e => {
       try {
@@ -61,6 +64,13 @@ export function createDefaultLogiCareGridOptions<T>(): GridOptions<T> {
         /* ignore */
       }
       e.api.redrawRows();
+    },
+    onPaginationChanged: e => {
+      try {
+        e.api.sizeColumnsToFit();
+      } catch {
+        /* ignore */
+      }
     },
   };
 }

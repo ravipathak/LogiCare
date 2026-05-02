@@ -15,7 +15,7 @@
     <span class="stat-card__label">{{ label }}</span>
     <strong class="stat-card__value">{{ value }}</strong>
   </div>
-  @if (trend) {
-    <span class="stat-card__trend">{{ trend }}</span>
+  @if (active) {
+    <span class="stat-card__selection" aria-hidden="true"></span>
   }
 </button>

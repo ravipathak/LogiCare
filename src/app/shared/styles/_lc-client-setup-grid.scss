@@ -12,6 +12,8 @@ app-client-setup .lc-setup-grid.ag-theme-alpine {
   --ag-border-color: transparent;
   --ag-secondary-border-color: transparent;
   --ag-row-border-color: #f1f5f9;
+  /* Keep row lines visible; we also add a full-bleed header rule on `.ag-header-viewport` below. */
+  --ag-row-border-width: 1px;
   --ag-borders: none;
   --ag-row-border-style: solid;
   --ag-odd-row-background-color: #ffffff;
@@ -19,13 +21,19 @@ app-client-setup .lc-setup-grid.ag-theme-alpine {
   --ag-row-hover-color: #f8fafc;
   --ag-selected-row-background-color: rgba(59, 130, 246, 0.08);
   width: 100%;
-  flex: 1;
-  min-height: 400px;
-  height: min(520px, 62vh);
+  flex: 1 1 auto;
+  /* `domLayout: 'autoHeight'` on Client Setup tabs — fixed pixel height prevents rows from painting. */
+  min-height: min(420px, 70vh);
+  height: auto;
 }
 
+/*
+ * Must follow the card’s rounded clip. Square corners here paint over the inner arc of the outer
+ * border (especially bottom corners next to the paging bar), so the frame looks “missing”.
+ */
 app-client-setup .lc-setup-grid .ag-root-wrapper {
-  border-radius: 0;
+  border-radius: calc(var(--lc-grid-card-radius, 16px) - 1px);
+  overflow: hidden;
   border: none !important;
   box-shadow: none;
 }
@@ -34,16 +42,28 @@ app-client-setup .lc-setup-grid .ag-center-cols-container {
   min-width: 100%;
 }
 
+/*
+ * Row/header borders are painted on the center column canvas only — if horizontal spacers exist,
+ * borders look “short”. Draw one continuous line under the full header strip (spacers + center).
+ */
+app-client-setup .lc-setup-grid .ag-header-viewport {
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 1px 0 0 rgba(226, 232, 240, 0.98);
+}
+
 app-client-setup .lc-setup-grid .ag-header,
 app-client-setup .lc-setup-grid .ag-header-row {
   background: linear-gradient(135deg, #ebf4ff 0%, #f0f7ff 40%, #f8fafc 100%);
-  border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+  border-bottom: none !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.92),
     0 5px 16px -4px rgba(15, 23, 42, 0.08);
 }
 
 app-client-setup .lc-setup-grid .ag-header-cell {
+  display: flex;
+  align-items: center;
   padding: 14px 16px;
   font-weight: 600;
   font-size: 12px;
@@ -54,6 +74,12 @@ app-client-setup .lc-setup-grid .ag-header-cell {
   transition:
     background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1),
     color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+app-client-setup .lc-setup-grid .ag-header-cell-label {
+  display: flex;
+  align-items: center;
+  min-height: 0;
 }
 
 app-client-setup .lc-setup-grid .ag-header-cell:hover {
@@ -87,8 +113,10 @@ app-client-setup .lc-setup-grid .ag-row:hover {
   background: linear-gradient(180deg, #fbfcff 0%, #f4f8fc 100%) !important;
 }
 
-/* Keep default cell display — `display: flex` on `.ag-cell` breaks absolute-positioned cell width with flex layouts. */
+/* Flex + vertical center — wrapper alone cannot center when `.ag-cell` is not a flex row. */
 app-client-setup .lc-setup-grid .ag-cell {
+  display: flex;
+  align-items: center;
   line-height: 1.45;
   transition: background-color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -96,6 +124,8 @@ app-client-setup .lc-setup-grid .ag-cell {
 app-client-setup .lc-setup-grid .ag-cell-wrapper {
   flex: 1;
   min-width: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
 }
@@ -150,12 +180,17 @@ mat-sidenav-content.main--dark app-client-setup .lc-setup-grid.ag-theme-alpine {
   color-scheme: dark;
 }
 
+.main--dark app-client-setup .lc-setup-grid .ag-header-viewport,
+mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-header-viewport {
+  box-shadow: 0 1px 0 0 rgba(71, 85, 105, 0.85);
+}
+
 .main--dark app-client-setup .lc-setup-grid .ag-header,
 .main--dark app-client-setup .lc-setup-grid .ag-header-row,
 mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-header,
 mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-header-row {
   background: linear-gradient(135deg, rgba(30, 58, 138, 0.42) 0%, rgba(30, 41, 59, 0.95) 55%, #1e293b 100%);
-  border-bottom: 1px solid rgba(71, 85, 105, 0.85);
+  border-bottom: none !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.06),
     0 6px 18px -4px rgba(0, 0, 0, 0.35);
@@ -202,6 +237,27 @@ mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-body-horizont
 .main--dark app-client-setup .lc-setup-grid .ag-root-wrapper,
 mat-sidenav-content.main--dark app-client-setup .lc-setup-grid .ag-root-wrapper {
   box-shadow: none;
+}
+
+/*
+ * Card shell: use a real border, not an inset box-shadow. Inset shadows sit *under* descendant
+ * paints — row/hover backgrounds cover the inner ring (random rows looked like “broken” sides).
+ */
+app-client-setup [class$='__grid-wrap'] {
+  --lc-grid-card-radius: 16px;
+  border-radius: var(--lc-grid-card-radius);
+  isolation: isolate;
+  border: 1px solid rgba(226, 232, 240, 1);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  /* `clip` gives cleaner corner + border than `hidden` in Chromium; keep hidden as fallback. */
+  overflow: hidden;
+  overflow: clip;
+}
+
+.main--dark app-client-setup [class$='__grid-wrap'],
+mat-sidenav-content.main--dark app-client-setup [class$='__grid-wrap'] {
+  border-color: rgba(71, 85, 105, 0.95);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
 }
 
 /* Align horizontal scroll spacer strips with grid body — avoids bright edge bands beside rows. */

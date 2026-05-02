@@ -52,19 +52,16 @@
 }
 
 .locations__grid-wrap {
-  border-radius: 16px;
-  border: none;
+  /* Border + radius: `_lc-client-setup-grid.scss` (`app-client-setup [class$='__grid-wrap']`). */
   background: #ffffff;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   min-height: 420px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  /* Align grid surface with tab strip edges (counteracts `.mat-mdc-tab-body-wrapper` horizontal padding). */
-  margin-left: calc(-1 * var(--lc-tab-inline, 18px));
-  margin-right: calc(-1 * var(--lc-tab-inline, 18px));
-  width: calc(100% + 2 * var(--lc-tab-inline, 18px));
-  max-width: none;
+  /* overflow + radius: `app-client-setup [class$='__grid-wrap']` in `_lc-client-setup-grid.scss` */
+  /* Full width within tab padding — do not use negative horizontal margins here: they extend past
+     the tab body and get clipped, which cuts off the first column and row borders. */
+  width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
 }
 
@@ -79,9 +76,7 @@
   }
 
   .locations__grid-wrap {
-    border: none;
     background: #1e293b;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
   }
 }
 
