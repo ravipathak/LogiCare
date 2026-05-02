@@ -3,11 +3,14 @@
     <h2 class="locations__title">Locations List</h2>
 
     <div class="locations__toolbar">
-      <mat-form-field class="locations__search" appearance="outline" subscriptSizing="dynamic">
-        <mat-label>Search</mat-label>
-        <input matInput placeholder="Search locations..." />
-        <span matSuffix class="locations__search-suffix" aria-hidden="true">
-          <span class="locations__search-divider"></span>
+      <mat-form-field
+        class="locations__search lc-toolbar-search"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <input matInput placeholder="Search locations…" aria-label="Search locations" />
+        <span matSuffix class="lc-toolbar-search__suffix" aria-hidden="true">
+          <span class="lc-toolbar-search__divider"></span>
           <mat-icon>search</mat-icon>
         </span>
       </mat-form-field>
@@ -16,7 +19,7 @@
         type="button"
         mat-flat-button
         color="primary"
-        class="locations__add"
+        class="locations__add lc-btn-primary-elevate"
         (click)="openCreateLocation()"
       >
         <mat-icon>add</mat-icon>
@@ -27,7 +30,7 @@
 
   <div class="locations__grid-wrap">
     <ag-grid-angular
-      class="ag-theme-alpine locations__grid"
+      class="ag-theme-alpine locations__grid lc-setup-grid"
       [gridOptions]="gridOptions"
       [columnDefs]="columnDefs"
       [rowData]="rowData$ | async"

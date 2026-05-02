@@ -13,9 +13,9 @@
         (click)="onTabSelected(0)"
       >
         <mat-icon class="setup-stat-card__icon" aria-hidden="true">place</mat-icon>
-        <div class="setup-stat-card__content">
-          <strong>{{ (locationCount$ | async) ?? 0 }}</strong>
-          <span>Locations</span>
+        <div class="setup-stat-card__body">
+          <span class="setup-stat-card__label">Total Locations</span>
+          <strong class="setup-stat-card__value">{{ (locationCount$ | async) ?? 0 }}</strong>
         </div>
       </button>
       <button
@@ -25,9 +25,9 @@
         (click)="onTabSelected(1)"
       >
         <mat-icon class="setup-stat-card__icon" aria-hidden="true">contacts</mat-icon>
-        <div class="setup-stat-card__content">
-          <strong>{{ (contactCount$ | async) ?? 0 }}</strong>
-          <span>Contacts</span>
+        <div class="setup-stat-card__body">
+          <span class="setup-stat-card__label">Total Contacts</span>
+          <strong class="setup-stat-card__value">{{ (contactCount$ | async) ?? 0 }}</strong>
         </div>
       </button>
       <button
@@ -37,9 +37,9 @@
         (click)="onTabSelected(2)"
       >
         <mat-icon class="setup-stat-card__icon" aria-hidden="true">domain</mat-icon>
-        <div class="setup-stat-card__content">
-          <strong>{{ (departmentCount$ | async) ?? 0 }}</strong>
-          <span>Departments</span>
+        <div class="setup-stat-card__body">
+          <span class="setup-stat-card__label">Departments</span>
+          <strong class="setup-stat-card__value">{{ (departmentCount$ | async) ?? 0 }}</strong>
         </div>
       </button>
       <button
@@ -49,57 +49,33 @@
         (click)="onTabSelected(3)"
       >
         <mat-icon class="setup-stat-card__icon" aria-hidden="true">groups</mat-icon>
-        <div class="setup-stat-card__content">
-          <strong>{{ (groupCount$ | async) ?? 0 }}</strong>
-          <span>Groups</span>
+        <div class="setup-stat-card__body">
+          <span class="setup-stat-card__label">Groups</span>
+          <strong class="setup-stat-card__value">{{ (groupCount$ | async) ?? 0 }}</strong>
         </div>
       </button>
     </section>
 
     <mat-tab-group
-      class="setup-tabs"
+      class="setup-tabs setup-tabs--pill"
       animationDuration="200ms"
-      [mat-stretch-tabs]="false"
+      [mat-stretch-tabs]="true"
       [selectedIndex]="selectedTabIndex"
       (selectedIndexChange)="onTabSelected($event)"
     >
-      <mat-tab>
-        <ng-template matTabLabel>
-          <span class="tab-label">
-            <mat-icon class="tab-label__icon tab-label__icon--locations" aria-hidden="true">place</mat-icon>
-            Locations
-          </span>
-        </ng-template>
+      <mat-tab label="Locations">
         <app-locations-tab />
       </mat-tab>
 
-      <mat-tab>
-        <ng-template matTabLabel>
-          <span class="tab-label">
-            <mat-icon class="tab-label__icon tab-label__icon--contacts" aria-hidden="true">contacts</mat-icon>
-            Contacts
-          </span>
-        </ng-template>
+      <mat-tab label="Contacts">
         <app-contacts-tab />
       </mat-tab>
 
-      <mat-tab>
-        <ng-template matTabLabel>
-          <span class="tab-label">
-            <mat-icon class="tab-label__icon tab-label__icon--departments" aria-hidden="true">domain</mat-icon>
-            Departments
-          </span>
-        </ng-template>
+      <mat-tab label="Departments">
         <app-departments-tab />
       </mat-tab>
 
-      <mat-tab>
-        <ng-template matTabLabel>
-          <span class="tab-label">
-            <mat-icon class="tab-label__icon tab-label__icon--groups" aria-hidden="true">groups</mat-icon>
-            Groups
-          </span>
-        </ng-template>
+      <mat-tab label="Groups">
         <app-groups-tab />
       </mat-tab>
     </mat-tab-group>

@@ -1,21 +1,24 @@
 @use './app/shared/styles/ag-grid-theme';
 @use './app/shared/styles/toast';
 @use './app/shared/styles/dialog-forms';
+@use './app/shared/styles/lc-premium-controls';
+@use './app/shared/styles/client-setup-pill-tabs';
+@use './app/shared/styles/lc-client-setup-grid';
 
 :root {
   /* App shell + Client Setup (single source of truth) */
-  --lc-page-bg: #f8fafc;
+  --lc-page-bg: #f9fafb;
   --lc-surface-muted: #f1f5f9;
   --lc-surface-raised: #ffffff;
   --lc-radius-md: 8px;
   --lc-spacing-page: clamp(16px, 2.5vw, 24px);
   --lc-shadow-card: 0 1px 2px rgba(15, 23, 42, 0.05), 0 4px 16px rgba(15, 23, 42, 0.06);
   --lc-shadow-card-strong: 0 2px 8px rgba(15, 23, 42, 0.07), 0 1px 2px rgba(15, 23, 42, 0.04);
-  --lc-sidebar-width: 272px;
-  --lc-sidebar-bg: #0f172a;
-  --lc-header-bg: #1e293b;
-  --lc-sidebar-active-bg: #1e293b;
-  --lc-primary-blue: #2563eb;
+  --lc-sidebar-width: 296px;
+  --lc-sidebar-bg: #f3f4f6;
+  --lc-header-bg: #ffffff;
+  --lc-sidebar-active-bg: #eff6ff;
+  --lc-primary-blue: #3b82f6;
   --lc-tab-indicator: #2563eb;
   --lc-grid-header-bg: #f1f5f9;
   --lc-status-active-bg: #e6f4ea;
@@ -46,8 +49,14 @@ html,
 body {
   height: 100%;
   margin: 0;
-  font-family: Roboto, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  font-size: 15px;
+  font-family:
+    Inter,
+    Roboto,
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -59,6 +68,11 @@ app-root {
 /* Mat sidenav: avoid default border that reads as a gap next to the drawer */
 .mat-drawer-side {
   border-right: none;
+}
+
+/* Client Setup — use main column width like reference (no narrow max-width rail) */
+app-client-setup .page {
+  max-width: none;
 }
 
 /* Desktop: hamburger hides the left rail — main area is full width; drop inner page max-width */

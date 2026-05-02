@@ -1,5 +1,6 @@
 <mat-sidenav-container
   class="shell"
+  [class.shell--dark]="shellDark()"
   [class.lc-shell--nav-collapsed-desktop]="!sidebarOpen() && !isHandset()"
 >
   <mat-sidenav
@@ -11,15 +12,17 @@
     (openedChange)="onSidenavOpenedChange($event)"
   >
     <div class="sidebar-inner">
-      <div class="sidebar-profile">
-        <div class="avatar" aria-hidden="true">{{ shortName.charAt(0) }}</div>
-        <div class="profile-text">
-          <div class="profile-name">{{ userName }}</div>
-          <span class="badge">Super Admin</span>
+      <div class="sidebar-brand">
+        <div class="sidebar-brand__mark" aria-hidden="true">
+          <span class="sidebar-brand__cube"></span>
+        </div>
+        <div class="sidebar-brand__text">
+          <span class="sidebar-brand__name">Logi</span><span class="sidebar-brand__name-rest">Care</span>
         </div>
       </div>
 
       <nav class="sidebar-nav" aria-label="Main">
+        <p class="nav-section-label">Main</p>
         <a
           class="nav-item"
           routerLink="/home"
@@ -27,15 +30,16 @@
           [routerLinkActiveOptions]="{ exact: true }"
           (click)="closeMobileMenu()"
         >
-          <mat-icon class="nav-icon nav-icon--home">home</mat-icon>
+          <mat-icon class="nav-item__icon" fontSet="material-icons-outlined">home</mat-icon>
           <span>Home</span>
         </a>
 
+        <p class="nav-section-label">Administration</p>
         <div class="nav-group">
           <button type="button" class="nav-item nav-item--expandable" [class.is-open]="adminExpanded()" (click)="toggleAdmin()">
-            <mat-icon class="nav-icon nav-icon--admin">manage_accounts</mat-icon>
+            <mat-icon class="nav-item__icon" fontSet="material-icons-outlined">admin_panel_settings</mat-icon>
             <span>Administration</span>
-            <mat-icon class="chevron">{{ adminExpanded() ? 'expand_less' : 'expand_more' }}</mat-icon>
+            <mat-icon class="nav-item__chevron">{{ adminExpanded() ? 'expand_less' : 'expand_more' }}</mat-icon>
           </button>
           @if (adminExpanded()) {
             <div class="nav-sub">
@@ -52,29 +56,43 @@
           }
         </div>
 
+        <p class="nav-section-label">Workspace</p>
         <a class="nav-item" routerLink="/home" fragment="audit" (click)="closeMobileMenu()">
-          <mat-icon class="nav-icon nav-icon--audit">assignment</mat-icon>
+          <mat-icon class="nav-item__icon" fontSet="material-icons-outlined">assignment</mat-icon>
           <span>Audit Trail</span>
         </a>
         <a class="nav-item" routerLink="/home" fragment="reports" (click)="closeMobileMenu()">
-          <mat-icon class="nav-icon nav-icon--reports">description</mat-icon>
+          <mat-icon class="nav-item__icon" fontSet="material-icons-outlined">description</mat-icon>
           <span>Reports</span>
         </a>
+
+        <p class="nav-section-label">Support</p>
         <a class="nav-item" routerLink="/home" fragment="help" (click)="closeMobileMenu()">
-          <mat-icon class="nav-icon nav-icon--help">help_outline</mat-icon>
+          <mat-icon class="nav-item__icon" fontSet="material-icons-outlined">help_outline</mat-icon>
           <span>Help</span>
         </a>
         <a class="nav-item" routerLink="/home" fragment="about" (click)="closeMobileMenu()">
-          <mat-icon class="nav-icon nav-icon--about">info_outline</mat-icon>
+          <mat-icon class="nav-item__icon" fontSet="material-icons-outlined">info</mat-icon>
           <span>About</span>
         </a>
       </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" class="sidebar-profile" [matMenuTriggerFor]="userMenu" aria-haspopup="menu" aria-label="Account menu">
+          <div class="avatar" aria-hidden="true">{{ shortName.charAt(0) }}</div>
+          <div class="sidebar-profile__meta">
+            <span class="sidebar-profile__name">{{ userName }}</span>
+            <span class="sidebar-profile__role">Super Admin</span>
+          </div>
+          <mat-icon class="sidebar-profile__more" aria-hidden="true">expand_more</mat-icon>
+        </button>
+      </div>
     </div>
   </mat-sidenav>
 
-  <mat-sidenav-content class="main">
+  <mat-sidenav-content class="main" [class.main--dark]="shellDark()">
     <header class="top-bar">
-      <div class="top-bar__brand">
+      <div class="top-bar__left">
         <button
           type="button"
           mat-icon-button
@@ -86,13 +104,46 @@
         >
           <mat-icon>menu</mat-icon>
         </button>
-        <span class="logo">
-          <span class="logo__accent">Logi</span><span class="logo__rest">Care</span>
-        </span>
       </div>
-      <div class="top-bar__user">
-        <button type="button" mat-button [matMenuTriggerFor]="userMenu" class="user-trigger">
-          {{ shortName }}
+
+      <div class="top-bar__actions">
+        <button
+          type="button"
+          mat-icon-button
+          class="top-bar__action"
+          aria-label="Notifications"
+          matTooltip="Notifications"
+          matTooltipPosition="below"
+        >
+          <mat-icon>notifications_none</mat-icon>
+          <span class="top-bar__notify-dot" aria-hidden="true"></span>
+        </button>
+        <a
+          mat-icon-button
+          class="top-bar__action"
+          routerLink="/home"
+          fragment="help"
+          aria-label="Help"
+          matTooltip="Help"
+          matTooltipPosition="below"
+          (click)="closeMobileMenu()"
+        >
+          <mat-icon>help_outline</mat-icon>
+        </a>
+        <button
+          type="button"
+          mat-icon-button
+          class="top-bar__action"
+          [attr.aria-label]="shellDark() ? 'Light mode' : 'Dark mode'"
+          matTooltip="{{ shellDark() ? 'Light mode' : 'Dark mode' }}"
+          matTooltipPosition="below"
+          (click)="toggleShellDark()"
+        >
+          <mat-icon>{{ shellDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+        </button>
+
+        <button type="button" mat-button [matMenuTriggerFor]="userMenu" class="top-bar__user-trigger">
+          <span class="top-bar__user-name">{{ shortName }}</span>
           <mat-icon iconPositionEnd>arrow_drop_down</mat-icon>
         </button>
         <mat-menu #userMenu="matMenu" xPosition="before">
@@ -111,7 +162,9 @@
     <div class="main-scroll">
       <lc-page-loader [visible]="pageLoader.visible()" mode="contained" />
       <router-outlet />
-      <footer class="app-footer">Copyright © 2026 VaLogic LLC. All Rights Reserved.</footer>
+      <footer class="app-footer">
+        <span class="app-footer__text">Copyright © 2026 VaLogic LLC. All Rights Reserved.</span>
+      </footer>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

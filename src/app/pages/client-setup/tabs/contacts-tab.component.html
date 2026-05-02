@@ -3,15 +3,25 @@
     <h2 class="contacts__title">Contacts List</h2>
 
     <div class="contacts__toolbar">
-      <mat-form-field class="contacts__search" appearance="outline" subscriptSizing="dynamic">
-        <mat-label>Search</mat-label>
-        <input matInput placeholder="Search contacts..." />
-        <button mat-icon-button matSuffix type="button" aria-label="Search">
+      <mat-form-field
+        class="contacts__search lc-toolbar-search"
+        appearance="outline"
+        subscriptSizing="dynamic"
+      >
+        <input matInput placeholder="Search contacts…" aria-label="Search contacts" />
+        <span matSuffix class="lc-toolbar-search__suffix" aria-hidden="true">
+          <span class="lc-toolbar-search__divider"></span>
           <mat-icon>search</mat-icon>
-        </button>
+        </span>
       </mat-form-field>
 
-      <button type="button" mat-flat-button color="primary" class="contacts__add" (click)="openCreateContact()">
+      <button
+        type="button"
+        mat-flat-button
+        color="primary"
+        class="contacts__add lc-btn-primary-elevate"
+        (click)="openCreateContact()"
+      >
         <mat-icon>add</mat-icon>
         Add Contact
       </button>
@@ -20,7 +30,7 @@
 
   <div class="contacts__grid-wrap">
     <ag-grid-angular
-      class="ag-theme-alpine contacts__grid"
+      class="ag-theme-alpine contacts__grid lc-setup-grid"
       [gridOptions]="gridOptions"
       [columnDefs]="columnDefs"
       [rowData]="rowData$ | async"

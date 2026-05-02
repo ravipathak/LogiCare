@@ -5,6 +5,7 @@ import { map } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {
@@ -33,6 +34,7 @@ import { LcPageLoaderComponent } from '../shared/ui/lc-page-loader/lc-page-loade
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
+    MatTooltipModule,
     LcPageLoaderComponent,
   ],
   templateUrl: './main-layout.component.html',
@@ -107,6 +109,9 @@ export class MainLayoutComponent {
   readonly sidebarOpen = signal(true);
   readonly adminExpanded = signal(true);
 
+  /** App shell light/dark (header, sidebar, footer band). */
+  readonly shellDark = signal(false);
+
   readonly userName = 'Ravi Pathak';
   readonly shortName = 'Ravi';
 
@@ -120,6 +125,10 @@ export class MainLayoutComponent {
 
   toggleAdmin(): void {
     this.adminExpanded.update(v => !v);
+  }
+
+  toggleShellDark(): void {
+    this.shellDark.update(v => !v);
   }
 
   closeMobileMenu(): void {
