@@ -11,7 +11,7 @@
     <mat-icon class="lc-actions-menu__more" aria-hidden="true">more_vert</mat-icon>
   </button>
 
-  <mat-menu #menu="matMenu" xPosition="before" panelClass="lc-actions-menu-panel">
+  <mat-menu #menu="matMenu" xPosition="before" class="lc-actions-menu-panel">
     @for (action of visibleActions(); track action.id) {
       <button
         mat-menu-item
