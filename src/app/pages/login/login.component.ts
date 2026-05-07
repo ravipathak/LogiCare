@@ -6,6 +6,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -21,6 +22,7 @@ import { LcPageLoaderComponent } from '../../shared/ui/lc-page-loader/lc-page-lo
   imports: [
     ReactiveFormsModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
@@ -45,7 +47,16 @@ export class LoginComponent {
     email: ['', [Validators.required, Validators.email]],
     password: [''],
     role: [null as UserRole | null],
+    rememberMe: [false],
   });
+
+  onForgotPassword(): void {
+    this.toast.info('Password reset will be available soon. Contact your administrator if you need access.');
+  }
+
+  onSignUp(): void {
+    this.toast.info('Self-service sign-up is not enabled yet. Please ask your team for an invitation.');
+  }
 
   onContinueEmail(): void {
     const emailCtrl = this.form.controls.email;

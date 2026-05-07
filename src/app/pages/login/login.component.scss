@@ -1,56 +1,471 @@
+/* Login — colors aligned with main-layout shell + Client Setup page */
 :host {
   display: block;
   min-height: 100%;
+  --lc-login-sidebar: #0f172a;
+  --lc-login-sidebar-edge: rgba(148, 163, 184, 0.1);
+  --lc-login-primary: var(--lc-primary-blue, #3b82f6);
+  --lc-login-primary-strong: var(--lc-tab-indicator, #2563eb);
+  --lc-login-text: #0f172a;
+  --lc-login-muted: #64748b;
+  --lc-login-border: rgba(226, 232, 240, 0.95);
+  --lc-login-page: var(--lc-page-bg, #f8fafc);
+  --lc-login-radius-field: 14px;
+  --lc-login-radius-card: 22px;
+  --lc-login-radius-btn: 12px;
+  --lc-login-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --lc-login-transition: 0.22s var(--lc-login-ease);
+  --lc-login-elevate-card:
+    0 1px 0 rgba(255, 255, 255, 0.65) inset,
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 28px 56px rgba(15, 23, 42, 0.1),
+    0 48px 96px rgba(15, 23, 42, 0.06),
+    0 0 80px rgba(59, 130, 246, 0.07);
+  --lc-login-main-pad-x: 40px;
+  --lc-login-shell-gap: clamp(16px, 2.4vw, 28px);
+  --lc-login-cta-gradient: linear-gradient(135deg, #6366f1 0%, #4f46e5 28%, #3b82f6 62%, #2563eb 100%);
 }
 
 .login-page {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--lc-spacing-page);
+  flex-direction: column;
   box-sizing: border-box;
-  background: linear-gradient(165deg, #0f172a 0%, #1e293b 42%, var(--lc-page-bg) 42%);
+  overflow-x: hidden;
+  /* Client Setup --cs-muted family */
+  background: linear-gradient(165deg, #eef2ff 0%, #f1f5f9 48%, var(--lc-login-page) 100%);
 }
 
+@media (max-width: 899px) {
+  .login-page {
+    background: linear-gradient(165deg, #eef2ff 0%, #f1f5f9 40%, var(--lc-login-page) 100%);
+  }
+}
+
+.login-page__ambient {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  /* Stat-card accent echoes (SetupStatCard — locations / contacts / depts / groups) */
+  background:
+    radial-gradient(ellipse 70% 48% at 82% 18%, rgba(56, 189, 248, 0.09), transparent 55%),
+    radial-gradient(ellipse 55% 42% at 96% 72%, rgba(192, 132, 252, 0.07), transparent 50%),
+    radial-gradient(ellipse 50% 38% at 8% 88%, rgba(251, 146, 60, 0.06), transparent 48%),
+    radial-gradient(ellipse 42% 36% at 22% 12%, rgba(244, 114, 182, 0.05), transparent 45%);
+}
+
+.login-page__shell {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 100vh;
+  min-height: 100dvh;
+  align-items: stretch;
+}
+
+@media (min-width: 900px) {
+  .login-page__shell {
+    /* Left ~52%, right ~48% — balanced pair per viewport */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 48%);
+    column-gap: var(--lc-login-shell-gap);
+  }
+}
+
+/* Right panel: centers card, horizontal inset so card never hugs the split edge */
+.login-main {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  min-height: 100dvh;
+  box-sizing: border-box;
+  padding: clamp(28px, 5vh, 56px) clamp(20px, 5vw, var(--lc-login-main-pad-x));
+}
+
+/* Layered soft wash — right workspace only */
+.login-main::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 85% 60% at 100% 0%, rgba(199, 210, 254, 0.35), transparent 52%),
+    radial-gradient(ellipse 70% 55% at 0% 100%, rgba(191, 219, 254, 0.28), transparent 50%),
+    radial-gradient(ellipse 55% 45% at 80% 72%, rgba(224, 231, 255, 0.45), transparent 48%),
+    linear-gradient(195deg, rgba(255, 255, 255, 0.55) 0%, rgba(248, 250, 252, 0.15) 42%, rgba(241, 245, 249, 0.5) 100%);
+}
+
+@media (min-width: 900px) {
+  .login-main {
+    align-self: stretch;
+    padding-left: var(--lc-login-main-pad-x);
+    padding-right: var(--lc-login-main-pad-x);
+  }
+}
+
+/* —— Left rail — shell sidebar palette —— */
+.login-aside {
+  display: none;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(40px, 6vw, 72px);
+  background: linear-gradient(165deg, #111c33 0%, var(--lc-login-sidebar) 38%, #0a1628 100%);
+  color: #e2e8f0;
+  box-shadow:
+    4px 0 28px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.045),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Soft radial light — depth without changing structure */
+.login-aside::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 95% 72% at 14% 18%, rgba(96, 165, 250, 0.16), transparent 58%),
+    radial-gradient(ellipse 65% 50% at 88% 12%, rgba(59, 130, 246, 0.12), transparent 52%),
+    radial-gradient(ellipse 55% 48% at 100% 52%, rgba(147, 197, 253, 0.08), transparent 48%),
+    radial-gradient(ellipse 80% 60% at 50% 108%, rgba(37, 99, 235, 0.14), transparent 55%);
+}
+
+/* Subtle inner edge toward split — layered rail */
+.login-aside::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(148, 163, 184, 0.14) 42%,
+    rgba(96, 165, 250, 0.12) 58%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  opacity: 0.85;
+}
+
+@media (min-width: 900px) {
+  .login-aside {
+    display: flex;
+  }
+}
+
+.login-aside__mesh {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 1;
+  background:
+    radial-gradient(ellipse 72% 58% at 12% 8%, rgba(255, 255, 255, 0.07), transparent 52%),
+    radial-gradient(ellipse 58% 48% at 92% 82%, rgba(59, 130, 246, 0.14), transparent 54%),
+    radial-gradient(ellipse 52% 44% at 0% 68%, rgba(99, 102, 241, 0.12), transparent 52%),
+    radial-gradient(ellipse 45% 38% at 72% 38%, rgba(255, 255, 255, 0.03), transparent 50%),
+    linear-gradient(180deg, var(--lc-login-sidebar-edge) 0%, transparent 1px);
+  pointer-events: none;
+}
+
+.login-aside__orb {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  transition: opacity 0.5s var(--lc-login-ease), transform 0.5s var(--lc-login-ease);
+}
+
+.login-aside__orb--1 {
+  width: min(56vw, 460px);
+  height: min(56vw, 460px);
+  top: -14%;
+  right: -12%;
+  background: rgba(59, 130, 246, 0.26);
+}
+
+.login-aside__orb--2 {
+  width: min(50vw, 400px);
+  height: min(50vw, 400px);
+  bottom: -10%;
+  left: -14%;
+  background: rgba(37, 99, 235, 0.24);
+}
+
+.login-aside:hover .login-aside__orb--1 {
+  opacity: 0.92;
+  transform: scale(1.03);
+}
+
+.login-aside:hover .login-aside__orb--2 {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Abstract shapes — soft premium depth (Stripe / Linear family) */
+.login-aside__shape {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.55;
+  transition: opacity 0.45s var(--lc-login-ease), transform 0.45s var(--lc-login-ease);
+}
+
+.login-aside__shape--a {
+  width: min(42vw, 320px);
+  height: min(38vw, 280px);
+  top: 8%;
+  right: -6%;
+  border-radius: 47% 53% 42% 58% / 38% 45% 55% 62%;
+  background: linear-gradient(145deg, rgba(99, 102, 241, 0.22) 0%, rgba(59, 130, 246, 0.08) 55%, transparent 100%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transform: rotate(-14deg);
+}
+
+.login-aside__shape--b {
+  width: min(48vw, 360px);
+  height: min(36vw, 240px);
+  bottom: 6%;
+  left: -18%;
+  border-radius: 58% 42% 52% 48% / 55% 38% 62% 45%;
+  background: linear-gradient(200deg, rgba(37, 99, 235, 0.18) 0%, rgba(15, 23, 42, 0.02) 70%);
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  transform: rotate(8deg);
+}
+
+.login-aside:hover .login-aside__shape {
+  opacity: 0.72;
+}
+
+.login-aside:hover .login-aside__shape--a {
+  transform: rotate(-12deg) scale(1.02);
+}
+
+.login-aside:hover .login-aside__shape--b {
+  transform: rotate(6deg) scale(1.03);
+}
+
+.login-aside__content {
+  position: relative;
+  z-index: 5;
+  max-width: 28rem;
+}
+
+.login-aside__cube {
+  display: block;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #3b82f6 0%, #2563eb 55%, #1d4ed8 100%);
+  box-shadow:
+    0 4px 18px rgba(37, 99, 235, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  position: relative;
+  transition:
+    transform 0.28s var(--lc-login-ease),
+    box-shadow 0.28s var(--lc-login-ease),
+    filter 0.28s var(--lc-login-ease);
+
+  &:hover {
+    transform: translateY(-2px) scale(1.02);
+    filter: brightness(1.06);
+    box-shadow:
+      0 8px 28px rgba(37, 99, 235, 0.45),
+      0 0 32px rgba(59, 130, 246, 0.22),
+      0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+      inset 0 1px 0 rgba(255, 255, 255, 0.32);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.22);
+    pointer-events: none;
+  }
+}
+
+.login-aside__wordmark {
+  margin: 1.5rem 0 0;
+  font-size: clamp(1.875rem, 1.5rem + 1.2vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.042em;
+  line-height: 1.12;
+}
+
+.login-aside__wordmark-a {
+  color: #60a5fa;
+}
+
+.login-aside__wordmark-b {
+  color: #f8fafc;
+}
+
+.login-aside__tagline {
+  margin: 1.375rem 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.62;
+  color: #94a3b8;
+  max-width: 30ch;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+  transition: color 0.35s var(--lc-login-ease);
+}
+
+.login-aside:hover .login-aside__tagline {
+  color: #a8b4c9;
+}
+
+/* —— Card — deeper glass + layered elevation —— */
 .login-card {
-  width: min(100%, 440px);
-  padding: 2rem 1.75rem 1.75rem;
-  border-radius: var(--lc-radius-md);
-  background: var(--lc-surface-raised);
-  box-shadow: var(--lc-shadow-card-strong);
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 540px;
+  margin: 0;
+  padding: clamp(32px, 5vw, 40px);
+  border-radius: var(--lc-login-radius-card);
+  container-type: inline-size;
+  container-name: login-card;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(28px) saturate(1.12);
+  -webkit-backdrop-filter: blur(28px) saturate(1.12);
+  box-shadow: var(--lc-login-elevate-card);
+  box-sizing: border-box;
+  transition:
+    box-shadow 0.36s var(--lc-login-ease),
+    border-color 0.36s var(--lc-login-ease),
+    background-color 0.36s var(--lc-login-ease),
+    transform 0.36s var(--lc-login-ease);
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.82);
+    transform: translateY(-1px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.75) inset,
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 32px 64px rgba(15, 23, 42, 0.11),
+      0 56px 110px rgba(15, 23, 42, 0.07),
+      0 0 0 1px rgba(226, 232, 240, 0.8) inset,
+      inset 0 1px 0 rgba(255, 255, 255, 0.98),
+      0 0 100px rgba(99, 102, 241, 0.09),
+      0 0 72px rgba(59, 130, 246, 0.08);
+  }
+}
+
+@media (max-width: 899px) {
+  .login-card {
+    max-width: min(100%, 540px);
+    padding: 28px;
+  }
 }
 
 .login-brand {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.logo {
-  font-size: 1.75rem;
+.login-brand__mark {
+  display: inline-flex;
+  margin-bottom: 1.25rem;
+  transition: transform 0.28s var(--lc-login-ease);
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+    transition-duration: 0.12s;
+  }
+}
+
+.login-brand__cube {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #3b82f6 0%, #2563eb 55%, #1d4ed8 100%);
+  box-shadow:
+    0 4px 14px rgba(59, 130, 246, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  position: relative;
+  transition:
+    transform 0.28s var(--lc-login-ease),
+    box-shadow 0.28s var(--lc-login-ease),
+    filter 0.28s var(--lc-login-ease);
+
+  .login-brand__mark:hover & {
+    transform: scale(1.05);
+    filter: brightness(1.04);
+    box-shadow:
+      0 8px 24px rgba(37, 99, 235, 0.32),
+      0 0 28px rgba(59, 130, 246, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+      inset 0 1px 0 rgba(255, 255, 255, 0.32);
+  }
+
+  .login-brand__mark:active & {
+    transform: scale(1.02);
+    transition-duration: 0.12s;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border-radius: 7px;
+    background: rgba(255, 255, 255, 0.22);
+    pointer-events: none;
+  }
+}
+
+.login-title {
+  margin: 0;
+  font-size: clamp(1.6875rem, 1.4rem + 1.1vw, 1.9375rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.logo__accent {
-  color: var(--lc-primary-blue);
-}
-
-.logo__rest {
-  color: #0f172a;
+  letter-spacing: -0.038em;
+  line-height: 1.16;
+  color: var(--lc-login-text);
 }
 
 .login-subtitle {
-  margin: 0.65rem 0 0;
-  font-size: 0.95rem;
-  color: #64748b;
+  margin: 0.875rem auto 0;
+  max-width: 36ch;
+  font-size: 0.96875rem;
+  line-height: 1.58;
+  color: var(--lc-login-muted);
+  font-weight: 400;
+  letter-spacing: -0.014em;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 1.25rem;
 }
 
 .login-field {
@@ -59,45 +474,218 @@
 
 .login-field mat-icon[matPrefix] {
   margin-right: 0.5rem;
-  color: #64748b;
+  color: var(--lc-login-muted);
+}
+
+:host ::ng-deep .login-card .login-field .mat-mdc-text-field-wrapper {
+  border-radius: var(--lc-login-radius-field);
+  background-color: rgba(248, 250, 252, 0.94) !important;
+  transition:
+    box-shadow 0.24s var(--lc-login-ease),
+    border-color 0.24s var(--lc-login-ease),
+    background-color 0.24s var(--lc-login-ease);
+}
+
+:host ::ng-deep .login-card .login-field .mdc-notched-outline .mdc-notched-outline__leading,
+:host ::ng-deep .login-card .login-field .mdc-notched-outline .mdc-notched-outline__notch,
+:host ::ng-deep .login-card .login-field .mdc-notched-outline .mdc-notched-outline__trailing {
+  border-color: var(--lc-login-border) !important;
+  border-width: 1px !important;
+}
+
+:host ::ng-deep .login-card .login-field.mat-focused .mdc-notched-outline .mdc-notched-outline__leading,
+:host ::ng-deep .login-card .login-field.mat-focused .mdc-notched-outline .mdc-notched-outline__notch,
+:host ::ng-deep .login-card .login-field.mat-focused .mdc-notched-outline .mdc-notched-outline__trailing {
+  border-color: var(--lc-login-primary) !important;
+}
+
+:host ::ng-deep .login-card .login-field.mat-focused .mat-mdc-text-field-wrapper {
+  background-color: #ffffff !important;
+  box-shadow:
+    0 0 0 3px rgba(59, 130, 246, 0.28),
+    0 0 0 1px rgba(99, 102, 241, 0.12),
+    0 10px 28px rgba(59, 130, 246, 0.12),
+    0 0 40px rgba(99, 102, 241, 0.08);
+}
+
+:host ::ng-deep .login-card .login-field.mat-focused mat-icon[matPrefix] {
+  color: var(--lc-login-primary);
+}
+
+:host ::ng-deep .login-card .login-field .mat-mdc-form-field-infix {
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  min-height: 52px !important;
+}
+
+:host ::ng-deep .login-card .login-field .mat-mdc-input-element {
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+}
+
+.login-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 1.5rem;
+}
+
+.login-row--split {
+  justify-content: space-between;
+  margin-top: -0.25rem;
+}
+
+.login-row--end {
+  justify-content: flex-end;
+  margin-top: -0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.login-link {
+  border: none;
+  background: none;
+  padding: 0.25rem 0;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--lc-login-primary);
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 6px;
+  transition:
+    color 0.22s var(--lc-login-ease),
+    opacity 0.22s var(--lc-login-ease),
+    transform 0.22s var(--lc-login-ease),
+    background-color 0.22s var(--lc-login-ease);
+
+  &:hover {
+    color: var(--lc-login-primary-strong);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transform: translateY(-1px);
+    background-color: rgba(59, 130, 246, 0.06);
+  }
+
+  &:active {
+    transform: translateY(0);
+    opacity: 0.92;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(59, 130, 246, 0.45);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+.login-link--strong {
+  font-weight: 600;
+  margin-left: 0.25rem;
+}
+
+.login-signup {
+  margin: 1rem 0 0;
+  padding-top: 1.375rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #94a3b8;
+  border-top: 1px solid rgba(226, 232, 240, 0.95);
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.45) 0%, transparent 72%);
+}
+
+:host ::ng-deep .login-row .mat-mdc-checkbox {
+  --mdc-checkbox-selected-focus-icon-color: var(--lc-login-primary);
+  --mdc-checkbox-selected-hover-icon-color: var(--lc-login-primary);
+  --mdc-checkbox-selected-icon-color: var(--lc-login-primary);
+  --mdc-checkbox-selected-pressed-icon-color: var(--lc-login-primary);
+}
+
+:host ::ng-deep .login-row .mat-mdc-checkbox .mdc-label {
+  font-size: 0.875rem;
+  color: var(--lc-login-text);
 }
 
 .login-submit {
-  margin-top: 0.75rem;
+  margin-top: 0.5rem;
   width: 100%;
-  height: 44px;
+  min-height: 52px;
+  padding: 0.8125rem 1.25rem !important;
   font-weight: 600;
+  font-size: 0.96875rem;
+  letter-spacing: -0.012em;
+  border-radius: var(--lc-login-radius-btn) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14) inset,
+    0 6px 20px rgba(79, 70, 229, 0.35),
+    0 12px 32px rgba(37, 99, 235, 0.28),
+    0 4px 12px rgba(15, 23, 42, 0.12) !important;
+  transition:
+    transform 0.26s var(--lc-login-ease),
+    box-shadow 0.26s var(--lc-login-ease),
+    filter 0.26s var(--lc-login-ease) !important;
+
+  &:hover:not([disabled]) {
+    transform: translateY(-3px);
+    filter: brightness(1.05) saturate(1.03);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+      0 10px 28px rgba(79, 70, 229, 0.4),
+      0 20px 48px rgba(37, 99, 235, 0.32),
+      0 8px 20px rgba(15, 23, 42, 0.14),
+      0 0 56px rgba(99, 102, 241, 0.22) !important;
+  }
+
+  &:active:not([disabled]) {
+    transform: translateY(-1px);
+    transition-duration: 0.12s;
+  }
 }
 
 .login-submit--primary {
-  margin-top: 0.5rem;
+  margin-top: 0;
+}
+
+.login-submit.mat-mdc-unelevated-button {
+  --mdc-filled-button-container-color: transparent;
+  --mdc-filled-button-label-text-color: #fff;
+  background: var(--lc-login-cta-gradient) !important;
 }
 
 .login-step2 {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  margin-top: 0.25rem;
-  animation: login-step2-in 260ms ease-out;
+  gap: 1.375rem;
+  margin-top: 0;
+  min-width: 0;
+  animation: login-step2-in 0.32s var(--lc-login-ease);
 }
 
 .login-change-email {
   align-self: flex-start;
-  margin: 0 0 0.35rem -0.5rem;
-  color: var(--lc-primary-blue);
+  margin: -0.5rem 0 -0.25rem -0.625rem;
+  color: var(--lc-login-primary);
   font-weight: 500;
+  border-radius: 8px;
+  transition:
+    background-color var(--lc-login-transition),
+    transform var(--lc-login-transition);
+
+  &:hover:not([disabled]) {
+    background-color: rgba(59, 130, 246, 0.08);
+    transform: translateX(-2px);
+  }
 
   mat-icon {
-    margin-right: 0.15rem;
-    font-size: 1.1rem;
-    width: 1.1rem;
-    height: 1.1rem;
+    margin-right: 0.25rem;
+    font-size: 1.125rem;
+    width: 1.125rem;
+    height: 1.125rem;
     vertical-align: middle;
   }
 }
 
 .role-fieldset {
-  margin: 0.35rem 0 0.75rem;
+  margin: 0;
   padding: 0;
   border: none;
   min-width: 0;
@@ -107,76 +695,442 @@
   float: left;
   width: 100%;
   padding: 0;
-  margin: 0 0 0.65rem;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  margin: 0 0 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #64748b;
 }
 
 .role-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
   clear: both;
   width: 100%;
+  min-width: 0;
 }
 
+/* 2×2 when the card is mid-width — still short (two rows) */
+@container login-card (max-width: 520px) {
+  .role-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* One horizontal row + swipe — no tall stack, minimal page scroll */
+@container login-card (max-width: 400px) {
+  .role-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 0 10px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 2px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .role-grid::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .role-grid::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.45);
+    border-radius: 999px;
+  }
+
+  .role-tile {
+    flex: 0 0 auto;
+    width: min(118px, 44vw);
+    min-width: 108px;
+    max-width: 132px;
+    scroll-snap-align: start;
+  }
+}
+
+/* Summary-style role tiles — compact column (icon + name), Client Setup palette */
 .role-tile {
+  --role-tile-ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --role-tile-ease-bounce: cubic-bezier(0.34, 1.2, 0.64, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+  min-height: 96px;
+  padding: 12px 8px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.22s var(--role-tile-ease),
+    border-color 0.22s var(--role-tile-ease),
+    box-shadow 0.22s var(--role-tile-ease);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    opacity: 0.88;
+    pointer-events: none;
+    transition: opacity 0.22s var(--role-tile-ease);
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0.42;
+    background: linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.55) 0%,
+      transparent 38%,
+      rgba(59, 130, 246, 0.06) 100%
+    );
+    transition:
+      opacity 0.22s var(--role-tile-ease),
+      background 0.22s var(--role-tile-ease);
+  }
+
+  &:hover {
+    transform: translateY(-3px) scale(1.02);
+    border-color: rgba(59, 130, 246, 0.35);
+    box-shadow:
+      0 22px 48px rgba(15, 23, 42, 0.11),
+      0 10px 28px rgba(59, 130, 246, 0.12),
+      0 0 0 1px rgba(59, 130, 246, 0.08),
+      0 0 64px rgba(59, 130, 246, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+    &::before {
+      opacity: 1;
+    }
+
+    &::after {
+      opacity: 0.78;
+    }
+  }
+
+  &:active {
+    transform: translateY(-2px) scale(1.008);
+    transition-duration: 0.12s;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgba(59, 130, 246, 0.55);
+    outline-offset: 3px;
+  }
+}
+
+.role-tile__selection {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: 0 0 15px 15px;
+}
+
+.role-tile--admin.role-tile--selected .role-tile__selection {
+  background: linear-gradient(90deg, #38bdf8 0%, #0284c7 100%);
+}
+
+.role-tile--reviewer.role-tile--selected .role-tile__selection {
+  background: linear-gradient(90deg, #c084fc 0%, #7c3aed 100%);
+}
+
+.role-tile--operator.role-tile--selected .role-tile__selection {
+  background: linear-gradient(90deg, #fb923c 0%, #ea580c 100%);
+}
+
+.role-tile--superadmin.role-tile--selected .role-tile__selection {
+  background: linear-gradient(90deg, #f472b6 0%, #db2777 100%);
+}
+
+.role-tile--selected {
+  box-shadow:
+    0 12px 32px rgba(15, 23, 42, 0.1),
+    0 4px 12px rgba(15, 23, 42, 0.07);
+}
+
+.role-tile--admin.role-tile--selected {
+  border-color: rgba(14, 165, 233, 0.38);
+}
+
+.role-tile--reviewer.role-tile--selected {
+  border-color: rgba(139, 92, 246, 0.38);
+}
+
+.role-tile--operator.role-tile--selected {
+  border-color: rgba(249, 115, 22, 0.4);
+}
+
+.role-tile--superadmin.role-tile--selected {
+  border-color: rgba(236, 72, 153, 0.38);
+}
+
+.role-tile--selected:hover {
+  transform: translateY(-2px) scale(1.015);
+}
+
+.role-tile__icon-wrap {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: #fff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 4px 14px rgba(59, 130, 246, 0.3),
+    0 10px 28px rgba(15, 23, 42, 0.14);
+  transition:
+    transform 0.22s var(--role-tile-ease-bounce),
+    box-shadow 0.22s var(--role-tile-ease);
+}
+
+.role-tile:hover .role-tile__icon-wrap {
+  transform: scale(1.08) rotate(-2deg);
+}
+
+.role-tile__icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+}
+
+.role-tile__body {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.45rem;
-  min-height: 88px;
-  padding: 0.75rem 0.5rem;
-  border-radius: 10px;
-  border: 2px solid #e2e8f0;
-  background: var(--lc-surface-muted);
-  color: #334155;
-  cursor: pointer;
-  font: inherit;
-  transition:
-    border-color 0.15s ease,
-    background 0.15s ease,
-    box-shadow 0.15s ease,
-    transform 0.12s ease;
+  gap: 0;
+}
 
-  &:hover {
-    border-color: #cbd5e1;
-    background: #f8fafc;
-  }
+.role-tile__name {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  font-size: clamp(0.75rem, 0.68rem + 0.35vw, 0.875rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #0f172a;
+  line-height: 1.3;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  text-align: center;
+}
 
-  &:focus-visible {
-    outline: 2px solid var(--lc-primary-blue);
-    outline-offset: 2px;
+/* —— Variants (same palette order as stat cards: locations / contacts / departments / groups) —— */
+
+.role-tile--admin::before {
+  background: linear-gradient(145deg, #eff6ff 0%, #f8fafc 46%, #e0f2fe 100%);
+}
+
+.role-tile--admin::after {
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.58) 0%,
+    transparent 38%,
+    rgba(14, 165, 233, 0.085) 100%
+  );
+}
+
+.role-tile--admin:hover {
+  border-color: rgba(14, 165, 233, 0.42);
+  box-shadow:
+    0 24px 52px rgba(15, 23, 42, 0.12),
+    0 12px 32px rgba(14, 165, 233, 0.16),
+    0 0 0 1px rgba(14, 165, 233, 0.12),
+    0 0 72px rgba(56, 189, 248, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+
+  &::after {
+    background: linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.45) 0%,
+      transparent 32%,
+      rgba(2, 132, 199, 0.18) 100%
+    );
   }
 }
 
-.role-tile--selected {
-  border-color: var(--lc-primary-blue);
-  background: #eff6ff;
-  color: #1e3a8a;
-  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.12);
+.role-tile--admin:hover .role-tile__icon-wrap {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 8px 26px rgba(14, 165, 233, 0.5),
+    0 16px 40px rgba(2, 132, 199, 0.22);
+}
 
-  .role-tile__icon {
-    color: var(--lc-primary-blue);
+.role-tile--admin .role-tile__icon-wrap {
+  background: linear-gradient(145deg, #38bdf8 0%, #0ea5e9 40%, #0284c7 100%);
+}
+
+.role-tile--reviewer::before {
+  background: linear-gradient(145deg, #f5f3ff 0%, #fafafa 46%, #ede9fe 100%);
+}
+
+.role-tile--reviewer::after {
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    transparent 38%,
+    rgba(168, 85, 247, 0.065) 100%
+  );
+}
+
+.role-tile--reviewer:hover {
+  border-color: rgba(139, 92, 246, 0.42);
+  box-shadow:
+    0 24px 52px rgba(15, 23, 42, 0.12),
+    0 12px 32px rgba(139, 92, 246, 0.14),
+    0 0 0 1px rgba(139, 92, 246, 0.12),
+    0 0 72px rgba(192, 132, 252, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+
+  &::after {
+    background: linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.42) 0%,
+      transparent 32%,
+      rgba(124, 58, 237, 0.16) 100%
+    );
   }
 }
 
-.role-tile__icon {
-  font-size: 1.65rem;
-  width: 1.65rem;
-  height: 1.65rem;
-  color: #64748b;
-  transition: color 0.15s ease;
+.role-tile--reviewer:hover .role-tile__icon-wrap {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 8px 26px rgba(168, 85, 247, 0.45),
+    0 18px 44px rgba(124, 58, 237, 0.22);
 }
 
-.role-tile__label {
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
+.role-tile--reviewer .role-tile__icon-wrap {
+  background: linear-gradient(145deg, #c084fc 0%, #a855f7 40%, #7c3aed 100%);
+}
+
+.role-tile--operator::before {
+  background: linear-gradient(145deg, #fff7ed 0%, #fafafa 46%, #ffedd5 100%);
+}
+
+.role-tile--operator::after {
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.52) 0%,
+    transparent 38%,
+    rgba(249, 115, 22, 0.065) 100%
+  );
+}
+
+.role-tile--operator:hover {
+  border-color: rgba(249, 115, 22, 0.45);
+  box-shadow:
+    0 24px 52px rgba(15, 23, 42, 0.12),
+    0 12px 32px rgba(249, 115, 22, 0.16),
+    0 0 0 1px rgba(249, 115, 22, 0.12),
+    0 0 72px rgba(251, 146, 60, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+
+  &::after {
+    background: linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 32%,
+      rgba(234, 88, 12, 0.16) 100%
+    );
+  }
+}
+
+.role-tile--operator:hover .role-tile__icon-wrap {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 8px 26px rgba(251, 146, 60, 0.48),
+    0 18px 44px rgba(234, 88, 12, 0.22);
+}
+
+.role-tile--operator .role-tile__icon-wrap {
+  background: linear-gradient(145deg, #fb923c 0%, #f97316 40%, #ea580c 100%);
+}
+
+.role-tile--superadmin::before {
+  background: linear-gradient(145deg, #fdf2f8 0%, #fafafa 46%, #fce7f3 100%);
+}
+
+.role-tile--superadmin::after {
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.52) 0%,
+    transparent 38%,
+    rgba(236, 72, 153, 0.065) 100%
+  );
+}
+
+.role-tile--superadmin:hover {
+  border-color: rgba(236, 72, 153, 0.42);
+  box-shadow:
+    0 24px 52px rgba(15, 23, 42, 0.12),
+    0 12px 32px rgba(236, 72, 153, 0.14),
+    0 0 0 1px rgba(236, 72, 153, 0.12),
+    0 0 72px rgba(244, 114, 182, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.78);
+
+  &::after {
+    background: linear-gradient(
+      125deg,
+      rgba(255, 255, 255, 0.4) 0%,
+      transparent 32%,
+      rgba(219, 39, 119, 0.14) 100%
+    );
+  }
+}
+
+.role-tile--superadmin:hover .role-tile__icon-wrap {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    0 0 0 1px rgba(255, 255, 255, 0.22),
+    0 8px 26px rgba(244, 114, 182, 0.45),
+    0 18px 44px rgba(219, 39, 119, 0.2);
+}
+
+.role-tile--superadmin .role-tile__icon-wrap {
+  background: linear-gradient(145deg, #f472b6 0%, #ec4899 40%, #db2777 100%);
 }
 
 .role-error {
@@ -188,7 +1142,7 @@
 @keyframes login-step2-in {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -196,8 +1150,26 @@
   }
 }
 
-@media (max-width: 380px) {
+/* Narrow viewports: horizontal strip (scroll inside card, not page stack) */
+@media (max-width: 420px) {
   .role-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 0 10px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+
+  .role-tile {
+    flex: 0 0 auto;
+    width: min(118px, 44vw);
+    min-width: 108px;
+    max-width: 132px;
+    scroll-snap-align: start;
   }
 }

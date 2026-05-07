@@ -1,108 +1,161 @@
 <div class="login-page">
+  <div class="login-page__ambient" aria-hidden="true"></div>
   <lc-page-loader [visible]="pageLoader.visible()" mode="contained" />
-  <div class="login-card" role="main">
-    <div class="login-brand">
-      <span class="logo">
-        <span class="logo__accent">Logi</span><span class="logo__rest">Care</span>
-      </span>
-      <p class="login-subtitle">Sign in to continue</p>
-    </div>
+  <div class="login-page__shell">
+    <aside class="login-aside" aria-label="LogiCare product branding">
+      <div class="login-aside__mesh" aria-hidden="true"></div>
+      <div class="login-aside__orb login-aside__orb--1" aria-hidden="true"></div>
+      <div class="login-aside__orb login-aside__orb--2" aria-hidden="true"></div>
+      <div class="login-aside__shape login-aside__shape--a" aria-hidden="true"></div>
+      <div class="login-aside__shape login-aside__shape--b" aria-hidden="true"></div>
+      <div class="login-aside__content">
+        <span class="login-aside__cube" aria-hidden="true"></span>
+        <p class="login-aside__wordmark">
+          <span class="login-aside__wordmark-a">Logi</span><span class="login-aside__wordmark-b">Care</span>
+        </p>
+        <p class="login-aside__tagline">Operations, clarity, and care—on one calm surface.</p>
+      </div>
+    </aside>
 
-    <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
-      <mat-form-field appearance="outline" class="login-field">
-        <mat-label>Email</mat-label>
-        <input
-          matInput
-          type="email"
-          formControlName="email"
-          autocomplete="username"
-          [readonly]="step() === 2"
-        />
-        <mat-icon matPrefix>mail_outline</mat-icon>
-        @if (form.controls.email.hasError('required') && form.controls.email.touched) {
-          <mat-error>Email is required</mat-error>
-        }
-        @if (form.controls.email.hasError('email') && form.controls.email.touched) {
-          <mat-error>Enter a valid email</mat-error>
-        }
-      </mat-form-field>
+    <div class="login-main">
+      <div class="login-card" role="main">
+      <header class="login-brand">
+        <span class="login-brand__mark" aria-hidden="true"><span class="login-brand__cube"></span></span>
+        <h1 class="login-title">
+          @if (step() === 1) {
+            Welcome back
+          } @else {
+            Almost there
+          }
+        </h1>
+        <p class="login-subtitle">
+          @if (step() === 1) {
+            Sign in with your work email to access your workspace.
+          } @else {
+            Choose your role and enter your password to continue.
+          }
+        </p>
+      </header>
 
-      @if (step() === 1) {
-        <button
-          mat-flat-button
-          class="login-submit login-submit--primary"
-          type="submit"
-          color="primary"
-          [disabled]="pageLoader.visible()"
-        >
-          Continue
-        </button>
-      }
+      <form class="login-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        <mat-form-field appearance="outline" class="login-field" subscriptSizing="dynamic">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            autocomplete="username"
+            [readonly]="step() === 2"
+          />
+          <mat-icon matPrefix>mail_outline</mat-icon>
+          @if (form.controls.email.hasError('required') && form.controls.email.touched) {
+            <mat-error>Email is required</mat-error>
+          }
+          @if (form.controls.email.hasError('email') && form.controls.email.touched) {
+            <mat-error>Enter a valid email</mat-error>
+          }
+        </mat-form-field>
 
-      @if (step() === 2) {
-        <div class="login-step2">
-          <button
-            type="button"
-            class="login-change-email"
-            mat-button
-            (click)="onBackToEmail()"
-            [disabled]="pageLoader.visible()"
-          >
-            <mat-icon>arrow_back</mat-icon>
-            Change email
-          </button>
-
-          <fieldset class="role-fieldset">
-            <legend class="role-legend">Select your role</legend>
-            <div
-              class="role-grid"
-              role="radiogroup"
-              aria-label="Select your role"
-            >
-              @for (opt of roleOptions; track opt.value) {
-                <button
-                  type="button"
-                  class="role-tile"
-                  [class.role-tile--selected]="form.controls.role.value === opt.value"
-                  [attr.aria-checked]="form.controls.role.value === opt.value"
-                  role="radio"
-                  (click)="selectRole(opt.value)"
-                >
-                  <mat-icon class="role-tile__icon" aria-hidden="true">{{ opt.icon }}</mat-icon>
-                  <span class="role-tile__label">{{ opt.label }}</span>
-                </button>
-              }
-            </div>
-            @if (form.controls.role.hasError('required') && form.controls.role.touched) {
-              <p class="role-error" role="alert">Please select a role</p>
-            }
-          </fieldset>
-
-          <mat-form-field appearance="outline" class="login-field">
-            <mat-label>Password</mat-label>
-            <input
-              matInput
-              type="password"
-              formControlName="password"
-              autocomplete="current-password"
-            />
-            <mat-icon matPrefix>lock_outline</mat-icon>
-            @if (form.controls.password.hasError('required') && form.controls.password.touched) {
-              <mat-error>Password is required</mat-error>
-            }
-          </mat-form-field>
+        @if (step() === 1) {
+          <div class="login-row login-row--split">
+            <mat-checkbox formControlName="rememberMe" color="primary">Remember me</mat-checkbox>
+            <button type="button" class="login-link" (click)="onForgotPassword()">Forgot password?</button>
+          </div>
 
           <button
             mat-flat-button
-            class="login-submit"
+            class="login-submit login-submit--primary"
             type="submit"
             color="primary"
             [disabled]="pageLoader.visible()"
           >
-            Sign in
+            Continue
           </button>
-        </div>
-      }
-    </form>
+        }
+
+        @if (step() === 2) {
+          <div class="login-step2">
+            <button
+              type="button"
+              class="login-change-email"
+              mat-button
+              (click)="onBackToEmail()"
+              [disabled]="pageLoader.visible()"
+            >
+              <mat-icon>arrow_back</mat-icon>
+              Change email
+            </button>
+
+            <fieldset class="role-fieldset">
+              <legend class="role-legend">Select your role</legend>
+              <div class="role-grid" role="radiogroup" aria-label="Select your role">
+                @for (opt of roleOptions; track opt.value) {
+                  <button
+                    type="button"
+                    class="role-tile"
+                    [class.role-tile--admin]="opt.value === 'admin'"
+                    [class.role-tile--reviewer]="opt.value === 'reviewer'"
+                    [class.role-tile--operator]="opt.value === 'operator'"
+                    [class.role-tile--superadmin]="opt.value === 'superadmin'"
+                    [class.role-tile--selected]="form.controls.role.value === opt.value"
+                    [attr.aria-checked]="form.controls.role.value === opt.value"
+                    [attr.title]="opt.label"
+                    role="radio"
+                    (click)="selectRole(opt.value)"
+                  >
+                    <span class="role-tile__icon-wrap" aria-hidden="true">
+                      <mat-icon class="role-tile__icon">{{ opt.icon }}</mat-icon>
+                    </span>
+                    <span class="role-tile__body">
+                      <span class="role-tile__name">{{ opt.label }}</span>
+                    </span>
+                    @if (form.controls.role.value === opt.value) {
+                      <span class="role-tile__selection" aria-hidden="true"></span>
+                    }
+                  </button>
+                }
+              </div>
+              @if (form.controls.role.hasError('required') && form.controls.role.touched) {
+                <p class="role-error" role="alert">Please select a role</p>
+              }
+            </fieldset>
+
+            <mat-form-field appearance="outline" class="login-field" subscriptSizing="dynamic">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                type="password"
+                formControlName="password"
+                autocomplete="current-password"
+              />
+              <mat-icon matPrefix>lock_outline</mat-icon>
+              @if (form.controls.password.hasError('required') && form.controls.password.touched) {
+                <mat-error>Password is required</mat-error>
+              }
+            </mat-form-field>
+
+            <div class="login-row login-row--end">
+              <button type="button" class="login-link" (click)="onForgotPassword()">Forgot password?</button>
+            </div>
+
+            <button
+              mat-flat-button
+              class="login-submit"
+              type="submit"
+              color="primary"
+              [disabled]="pageLoader.visible()"
+            >
+              Sign in
+            </button>
+          </div>
+        }
+
+        <p class="login-signup">
+          Don’t have an account?
+          <button type="button" class="login-link login-link--strong" (click)="onSignUp()">Sign up</button>
+        </p>
+      </form>
+      </div>
+    </div>
   </div>
 </div>
